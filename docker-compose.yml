@@ -2,7 +2,8 @@
 services:
     # Service nginx serveur HTTP (alpine)
     nginx:
-        image: nginx:1.26-alpine
+        # Un Dockerfile pour Nginx est défini à part dans le dossier nginx
+        build: ./App/ngnix
         # Ngnix s'arrêtera lors d'un arrêt manuel avec 'docker stop ngnix'.
         restart: unless-stopped
         depends_on:
