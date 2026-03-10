@@ -2,7 +2,7 @@
 FROM php:8.3-fpm-alpine
 
 # Librairies d'éxtension pour PHP
-RUN apk add --no-cache icu-dev libzip-dev
+RUN apk add --no-cache icu-dev libzip-dev $PHPIZE_DEPS
 
 # Éxtension pour PHP
 RUN docker-php-ext-install \

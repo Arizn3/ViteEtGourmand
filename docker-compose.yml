@@ -2,8 +2,8 @@
 services:
     # Service nginx serveur HTTP (alpine)
     nginx:
-        # Un Dockerfile pour Nginx est défini à part dans le dossier nginx
-        build: ./App/ngnix
+        # Un Dockerfile pour Nginx est défini à part dans le dossier nginx du répertoire courant
+        build: ./ngnix/..
         # Ngnix s'arrêtera lors d'un arrêt manuel avec 'docker stop ngnix'.
         restart: unless-stopped
         depends_on:
@@ -11,7 +11,7 @@ services:
         ports:
             - "8080:80"
         volumes:
-            - ./App:/var/www/html
+            - ./:/var/www/html
             # Fichier de configuration pour le serveur Nginx.
             - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     # service PHP-FPM
@@ -26,7 +26,7 @@ services:
             - mysql
             - mongodb
         volumes: 
-            - ./App:/var/www/html
+            - ./:/var/www/html
     # Service Mysql
     mysql:
         image: mysql:8
@@ -54,3 +54,7 @@ services:
 volumes:
     mysql_data:
     mongo_data:
+
+
+
+    
