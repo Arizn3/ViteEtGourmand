@@ -43,3 +43,8 @@ vendor/
 *.log
 .env
 .env.docker
+
+# Symfony #
+############
+symfony/.env*.local
+symfony/.env.dev
