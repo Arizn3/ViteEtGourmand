@@ -1,19 +1,23 @@
 doctrine_mongodb:
     auto_generate_proxy_classes: true
     auto_generate_hydrator_classes: true
+    # Ce que Symfony va lire dans le fichier .env
     connections:
         default:
             server: '%env(MONGODB_URI)%'
             options: {}
     default_database: '%env(MONGODB_DB)%'
+    # Doctrine ODM pour MongoDB
     document_managers:
         default:
             auto_mapping: true
+            # Emplacement des documents MongoDB
             mappings:
                 App:
                     dir: '%kernel.project_dir%/src/Document'
                     prefix: 'App\Document'
-
+# Active un cache pour améliorer les performances
+# Configuration standart de Symfony
 when@prod:
     doctrine_mongodb:
         auto_generate_proxy_classes: false
