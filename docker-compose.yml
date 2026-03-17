@@ -29,6 +29,8 @@ services:
     # Service Mysql
     mysql:
         image: mysql:8
+        ports:
+            - "3307:3306"
         # Mysql reste en always car c'est la base de données principale, en cas d'arrêt manuel avec 'docker stop mysql' il redémarrera.
         restart: always
         # on dit explicitement à Docker quel fichier .env utilisé pour les base de données cela
