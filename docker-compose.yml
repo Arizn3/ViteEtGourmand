@@ -28,7 +28,7 @@ services:
             - ./:/var/www/html
     # Service Mysql
     mysql:
-        image: mysql:8
+        image: mysql:8.0
         ports:
             - "3307:3306"
         # Mysql reste en always car c'est la base de données principale, en cas d'arrêt manuel avec 'docker stop mysql' il redémarrera.
@@ -43,7 +43,7 @@ services:
             - mysql_data:/var/lib/mysql
     # Service MongoDB
     mongodb:
-        image: mongo:7
+        image: mongo:7.0
         # MongoDB s'arrêtera lors d'un arrêt manuel avec 'docker stop mongodb'.
         restart: unless-stopped
         env_file:
