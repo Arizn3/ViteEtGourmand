@@ -22,7 +22,7 @@
 ######################
 *.log
 *.sql
-!database/vitegourmand.dsl
+!database/vitegourmandDB.dsl
 *.sqlite
 
 # OS generated files #
