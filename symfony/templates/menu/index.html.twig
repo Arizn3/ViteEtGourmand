@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Menus{% endblock %}
+
+{% block body %}
+
+<header>
+    <p>[HEADER]</p>
+    <h1>Vite&Gourmand</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.</p>
+    <nav>[NAV]</nav>
+    <p>[/HEADER]</p>
+</header>
+
+<main>
+    <p>[MAIN]</p>
+    <h2>Ce que nous vous proposons</h2>
+    {# Boucle FOR IN qui itère dans l'objet qui est en fait l'Entité Menu #}
+    {% for menu in menus %}
+    <div>
+        <p>{{ menu.titre }}</p>
+        <p>{{ menu.descritpion }}</p>
+        <p>{{ menu.prixPersonne }}</p>
+        <p>{{ menu.prixMini }}</p>
+    </div>
+
+    <p>[/MAIN]</p>
+</main>
+
+<footer>
+    <p>[FOOTER]</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.</p>
+    <p>[/FOOTER]</p>
+</footer>
+
+{% endblock %}
