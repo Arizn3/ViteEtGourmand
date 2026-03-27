@@ -20,11 +20,13 @@
     {% for menu in menus %}
     <div>
         <p>{{ menu.titre }}</p>
-        <p>{{ menu.descritpion }}</p>
+        <p>{{ menu.description }}</p>
         <p>{{ menu.prixPersonne }}</p>
-        <p>{{ menu.prixMini }}</p>
+        <p>{{ menu.personneMini }}</p>
     </div>
-
+    {% else %}
+    <p>Aucun menu disponible</p>
+    {% endfor %}
     <p>[/MAIN]</p>
 </main>
 
