@@ -23,7 +23,7 @@
         <p>{{ menu.description }}</p>
         <p>{{ menu.prixPersonne }}</p>
         <p>{{ menu.personneMini }}</p>
-        <a href="/menu/{{menu.id}}">Détail du menu</a>
+        <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Détail du menu</a>
     </div>
     {% else %}
     <p>Aucun menu disponible</p>

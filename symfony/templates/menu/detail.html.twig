@@ -13,6 +13,8 @@
 <p>{{ menu.prixPersonne }}</p>
 <p>{{ menu.personneMini }}</p>
 <p>{{ menu.qttRestante }}</p>
+<a href="{{ path('app_commande', {id :menu.id}) }}">Commander</a>
+<br>
 <a href="/menu">Retour aux menus</a>
 
 {% endblock %}

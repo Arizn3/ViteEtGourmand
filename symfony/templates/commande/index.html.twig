@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Commande {% endblock %}
+
+{% block body %}
+
+<h1>Commande</h1>
+
+<p>Prix de base : {{ menu.prixPersonne }}</p>
+<p>Nombre de personnes minimum : {{ menu.personneMini }}</p>
+
+<form method="post">
+
+    <label for="nb_personnes">Nombre de personnes :</label>
+    <input type="number" name="nb_personnes" min="{{ menu.personneMini }}" required>
+    <br><br>
+    <button type="submit">Valider la commande</button>
+    
+</form>
+<a href="{{ path('app_menu_detail', {id: menu.id}) }}">Retour aux détails</a>
+
+{% endblock %}
