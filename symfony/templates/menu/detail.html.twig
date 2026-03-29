@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Détail d'un menu {% endblock %}
+
+{% block body %}
+
+<h1>{{ menu.titre }}</h1>
+{# Boucle IF qui vérifie si une image est bien en base de données #}
+{% if menu.plat.photo %}
+<img src="/upload/plats/{{menu.plat.photo}}" alt="{{ menu.plat.nomPlat }}" width="200">
+{% endif %}
+<p>{{ menu.description }}</p>
+<p>{{ menu.prixPersonne }}</p>
+<p>{{ menu.personneMini }}</p>
+<p>{{ menu.qttRestante }}</p>
+<a href="/menu">Retour aux menus</a>
+
+{% endblock %}
