@@ -2,6 +2,7 @@
 
 {% block title %} Commande {% endblock %}
 
+
 {% block body %}
 
 <h1>Commande</h1>
@@ -10,20 +11,24 @@
 <p>Nombre de personnes minimum : {{ menu.personneMini }}</p>
 
 <form method="post" novalidate>
-
+    
     <label for="nb_personnes">Nombre de personnes :</label>
-    <input type="number" name="nb_personnes" min=0 required>
+    {# data- permet de passer des données au fichier JavaScript #}
+    <input type="number" id="nb_personnes" name="nb_personnes" data-prix="{{ menu.prixPersonne }}"
+    data-min="{{ menu.personneMini }}" min=0 required>
     <br><br>
-    {% if erreur %}
-    <p> {{erreur}} </p>
-    {% endif %}
-    {% if prixTotal %}
-    <p>Prix Total : {{ prixTotal }} €</p>
-    {% endif %}
+    {# Balises d'intéraction pour JavaScript #}
+    <p id="erreur"></p>
+    <p id="prix"></p>
+    
     <button type="submit">Valider la commande</button>
-
+    
 </form>
 
 <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Retour aux détails</a>
 
-{% endblock %}
+{% block javascript %}
+<script src="/javascript/commande.js"></script>
+{% endblock javascript %}
+
+{% endblock body %}
