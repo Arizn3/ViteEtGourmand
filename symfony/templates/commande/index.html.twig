@@ -27,6 +27,10 @@
 
 <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Retour aux détails</a>
 
+{% for message in app.flashes('success') %}
+    <p> {{ message }} </p>
+{% endfor %}
+
 {% block javascript %}
 <script src="/javascript/commande.js"></script>
 {% endblock javascript %}
