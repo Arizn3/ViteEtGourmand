@@ -49,6 +49,9 @@ class Commande
     #[ORM\JoinColumn(nullable: false)]
     private ?Menu $menu = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $adresseLivraison = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -183,6 +186,17 @@ class Commande
     {
         $this->menu = $menu;
 
+        return $this;
+    }
+
+    public function getAdresseLivraison(): ?string
+    {
+        return $this->adresseLivraison;
+    }
+
+    public function setAdresseLivraison(string $adresseLivraison): self
+    {
+        $this->adresseLivraison = $adresseLivraison;
         return $this;
     }
 }
