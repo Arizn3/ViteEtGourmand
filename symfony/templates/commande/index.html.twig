@@ -21,6 +21,7 @@
     {# Balises d'intéraction pour JavaScript #}
     <p id="erreur"></p>
     <p id="prix"></p>
+    <p id="prixTotalLivraison"></p>
     <br>
     <label for="nom">Nom :</label>
     <input type="text" name="nom" value="{{ utilisateur.nom }}" readonly>
@@ -38,6 +39,8 @@
     <input type="date" name="date_prestation" id="date_prestation" required>
     <label for="heure_livraison">Heure de livraison souhaitée :</label>
     <input type="time" name="heure_livraison" id="heure_livraison" required>
+    <label for="ville_livraison">Ville :</label>
+    <input type="text" name="ville_livraison" id="ville_livraison" required>
     <label for="adresse_livraison">Adresse de livraison souhaitée :</label>
     <input type="text" name="adresse_livraison" id="adresse_livraison" required>
     <br><br>

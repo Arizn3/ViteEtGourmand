@@ -87,6 +87,7 @@ CREATE TABLE `commande` (
   `utilisateur_id` int NOT NULL,
   `menu_id` int NOT NULL,
   `adresse_livraison` varchar(255) NOT NULL,
+  `ville_livraison` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_6EEAA67DFB88E14F` (`utilisateur_id`),
   KEY `IDX_6EEAA67DCCD7E912` (`menu_id`),

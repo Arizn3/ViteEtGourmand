@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const date_prestation = document.getElementById('date_prestation');
     const heure_livraison = document.getElementById('heure_livraison');
     const adresse_livraison = document.getElementById('adresse_livraison');
+    const ville_livraison = document.getElementById('ville_livraison');
     const erreur = document.getElementById('erreur');
     const prix = document.getElementById('prix');
+    const prixTotalLivraison = document.getElementById('prixTotalLivraison');
     const form = document.getElementById('form_commande');
 
     if (!nb_personnes) return;
@@ -19,54 +21,74 @@ document.addEventListener('DOMContentLoaded', () => {
     function verifierFormulaire() {
         const nb = parseInt(nb_personnes.value);
 
-        if (nb < min) {
-            erreur.textContent = "👉 Un minimum de " + min + " personnes est demandé pour la commande du menu";
-            prix.textContent = "";
+        if (isNaN(nb) || nb < min) {
+            erreur.textContent = '👉 Un minimum de ' + min + ' personnes est demandé pour la commande du menu';
+            prix.textContent = '';
             return;
         }
         if (!date_prestation.value) {
-            erreur.textContent = "👉 Une date de livraison est nécessaire";
+            erreur.textContent = '👉 Une date de livraison est nécessaire';
             return;
         }
         if (!heure_livraison.value) {
-            erreur.textContent = "👉 Une heure de livraison est nécessaire";
+            erreur.textContent = '👉 Une heure de livraison est nécessaire';
             return;
         }
+        if (!ville_livraison.value) {
+            erreur.textContent = '👉 Veuillez indiquer une ville';
+            return
+        }
         if (!adresse_livraison.value) {
-            erreur.textContent = "👉 Une adresse de livraison est nécessaire";
+            erreur.textContent = '👉 Une adresse de livraison est nécessaire';
             return;
         }
 
-        erreur.textContent = "";
+        erreur.textContent = '';
 
         // Calcule du prix dynamique
         let total = nb * prixPersonne;
-
         // Réduction du prix si la condition est respectée pour l'affichage dynamique du prix
         if (nb >= min + 5) {
             total *= 0.9;
         }
 
+        let prixLivraison = 0;
+        // Majoration du prix en cas de livraison hors de la ville de Bordeaux
+        if (ville_livraison.value.toLowerCase() !== 'bordeaux') {
+            // Distance temporaire simuler
+            let distance = 10;
+            prixLivraison = 5 + (distance * 0.59);
+        }
+
+        // Affichage du prix dynamique avec majoration si il y a
+        if (prixLivraison > 0) {
+            prixTotalLivraison.textContent = 'Frais de livraison : ' + prixLivraison.toFixed(2) + ' €';
+        } else {
+            prixTotalLivraison.textContent = 'Livraison gratuite sur Bordeaux';
+        }
+
         // Affichage du prix dynamique
-        prix.textContent = "Prix total : " + total.toFixed(2) + " €";
+        let totalFinal = total + prixLivraison;
+        prix.textContent = 'Prix total : ' + totalFinal.toFixed(2) + ' €';
     }
 
     // Évènements JS pour les érreurs de champs manquant pour la commande
     nb_personnes.addEventListener('input', verifierFormulaire);
     date_prestation.addEventListener('input', verifierFormulaire);
     heure_livraison.addEventListener('input', verifierFormulaire);
+    ville_livraison.addEventListener('input', verifierFormulaire);
     adresse_livraison.addEventListener('input', verifierFormulaire);
 
     // Évènement d'interception du submit (la validation) en cas de champ manquant
     form.addEventListener('submit', (e) => {
         const nb = parseInt(nb_personnes.value);
-
         if (
-            // Conditions
+            // Conditions primaire pour l'envoie du formulaire
             isNaN(nb) ||
             nb < min ||
             !date_prestation.value ||
             !heure_livraison.value ||
+            !ville_livraison.value ||
             !adresse_livraison.value
         ) {
             // Bloque l'envoie du formulaire

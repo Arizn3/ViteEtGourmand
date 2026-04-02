@@ -45,16 +45,18 @@ final class CommandeController extends AbstractController
             $nbPersonnes = (int) $request->request->get('nb_personnes');
             $datePrestation = $request->request->get('date_prestation');
             $heureLivraison = $request->request->get('heure_livraison');
+            $villeLivraison = $request->request->get('ville_livraison');
             $adresseLivraison = $request->request->get('adresse_livraison');
 
             // Vérification pour champs vides en cas de ByPass
-            if (!$datePrestation || !$heureLivraison || !$adresseLivraison) {
+            if (!$datePrestation || !$heureLivraison || !$villeLivraison || !$adresseLivraison) {
                 $erreur = 'Erreur1';
                 // Vérification du minimum de personnes pour le menu en cas de ByPass
             } elseif ($nbPersonnes < $menu->getPersonneMini()) {
                 $erreur = 'Erreur2';
             }
 
+            // Calcule du prix d'un menu si aucune erreur détectée
             if (!$erreur) {
                 // Calcule du prix total par personnes sans réduction
                 $prixTotal = $menu->getPrixPersonne() * $nbPersonnes;
@@ -62,7 +64,17 @@ final class CommandeController extends AbstractController
                 // plus que le le nombre de personnes minimum indiqué dans le menu
                 if ($nbPersonnes >= ($menu->getPersonneMini() + 5)) {
                     $prixTotal *= 0.9;
-                } elseif ($erreur) {
+                }
+                // Calcule du prix total en cas de livraison hors la ville de Bordeaux
+                $prixLivraison = 0;
+                if (strtolower($villeLivraison) !== 'bordeaux') {
+                    // Simulation temporaire d'une distance hors la ville de Bordeaux
+                    $distance = 10;
+                    $prixLivraison = 5 + ($distance * 0.59);
+                    // Prix final avec livraison
+                    $prixTotal += $prixLivraison;
+                }
+                if ($erreur) {
                     return $this->render('commande/index.html.twig', [
                         'menu' => $menu,
                         'utilisateur' => $utilisateur,
@@ -76,16 +88,16 @@ final class CommandeController extends AbstractController
 
                 // Utilisation des Setters (Modifie) de l'Entité Commande
                 $commande->setMenu($menu);
-                $commande->setUtilisateur($utilisateur);
                 $commande->setNbPersonne($nbPersonnes);
                 $commande->setPrixMenu($prixTotal);
                 $commande->setDateCmd(new \DateTime());
                 $commande->setDatePrestation(new \DateTime($datePrestation));
                 $commande->setHeureLivraison(new \DateTime($heureLivraison));
+                $commande->setVilleLivraison($villeLivraison);
                 $commande->setAdresseLivraison($adresseLivraison);
 
-
                 // Données factices pour test (temporaire)
+                $commande->setUtilisateur($utilisateur);
                 $commande->setPrixLivraison(0);
                 $commande->setStatut('TEST');
                 $commande->setPretMateriel(false);

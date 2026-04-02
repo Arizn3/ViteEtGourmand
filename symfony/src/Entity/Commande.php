@@ -52,6 +52,9 @@ class Commande
     #[ORM\Column(length: 255)]
     private ?string $adresseLivraison = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $villeLivraison = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -197,6 +200,17 @@ class Commande
     public function setAdresseLivraison(string $adresseLivraison): self
     {
         $this->adresseLivraison = $adresseLivraison;
+        return $this;
+    }
+
+    public function getVilleLivraison(): ?string
+    {
+        return $this->villeLivraison;
+    }
+
+    public function setVilleLivraison(string $villeLivraison): self
+    {
+        $this->villeLivraison = $villeLivraison;
         return $this;
     }
 }
