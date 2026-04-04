@@ -30,11 +30,11 @@ final class CommandeController extends AbstractController
             throw $this->createNotFoundException('Menu introuvable, veuillez ressayer');
         }
 
-        // Récupération de l'utiliateur temporaire pour test
-        $utilisateur = $utilisateurRp->findOneBy(['email' => 'TEST_EMAIL']);
-        // Exception en cas de perte de connexion
-        if (!$utilisateur) {
-            throw new \Exception('Utilisateur introuvable');
+        // Vérification de la connexion de l'utilisateur 
+        $utilisateur = $this->getUser();
+        // Redirection sur la page de connexion si le visiteur n'est pas connecté
+        if(!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
         }
 
         $prixTotal = null;

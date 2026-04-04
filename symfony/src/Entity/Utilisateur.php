@@ -1,14 +1,21 @@
 <?php
 
 namespace App\Entity;
+# Cette classe servira d'User Symfony pour l'authentification, elle
+# a été adapter en y rajoutant les namespaces et leurs méthodes.
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+// namespace pour Symfony authentification
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -203,4 +210,26 @@ class Utilisateur
 
         return $this;
     }
+
+    // Récupération d'un identifiant pour Symfony 
+    public function getUserIdentifier(): string
+    {
+        // La propriété 'email' de la table est utiliser comme identifiant Symfony
+        return $this->email;
+    }
+
+    // Récupération des Rôles
+    public function getRoles(): array
+    {
+        // On fait appel au Getter de la propriété Role initialement crée dans cette table
+        if ($this->getRole()) {
+            return [$this->getRole()->getDescription()];
+        }
+        // Fallback (si aucun rôle n'est trouvé)
+        return ['ROLE_USER'];
+    }
+
+    // Supprime les données sensibles gardées en mémoire lors d'une connexion
+    // Cette méthode est obligatoire pour le bon fonctionnement des namespaces
+    public function eraseCredentials(): void {}
 }
