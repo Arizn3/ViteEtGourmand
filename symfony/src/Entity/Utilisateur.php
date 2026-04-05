@@ -9,9 +9,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-// namespace pour Symfony authentification
+// Namespace pour Symfony authentification
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+// Namespace pour les contraintes
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -22,24 +24,71 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    // EMAIL
+    #[Assert\NotBlank(message: "Un email est nécessaire")]
+    #[Assert\Email(message: "Email invalide")]
     #[ORM\Column(length: 50)]
     private ?string $email = null;
 
+    // MOT DE PASSE
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
+    // PRENOM
+    #[Assert\NotBlank(message: "Un prénom est nécessaire")]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: "Le prénom doit contenir au moins {{ limit }} caractères",
+        maxMessage: "Le prénom ne peut pas dépasser {{ limit }} caractères"
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÿ\s-]+$/",
+        message: "Le champ prenom contient des caractères invalides"
+    )]
     #[ORM\Column(length: 50)]
     private ?string $prenom = null;
 
+    // NOM
+    #[Assert\NotBlank(message: "Un nom est nécessaire")]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: "Le nom doit contenir au moins {{ limit }} caractères",
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères"
+    )]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-ZÀ-ÿ\s-]+$/",
+        message: "Le champ nom contient des caractères invalides"
+    )]
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
+    // TELEPHONE
+    #[Assert\NotBlank(message: "Le numéro de téléphone est obligatoire")]
+    #[Assert\Length(
+        min: 10,
+        max: 15,
+        minMessage: "Le numéro de téléphone doit contenir au moins {{ limit }} chiffres",
+        maxMessage: "Le numéro de téléphone ne peut pas dépasser {{ limit }} chiffres"
+    )]
+    #[Assert\Regex(
+        pattern: "/^[0-9+\s]+$/",
+        message: "Le téléphone ne doit contenir que des chiffres"
+    )]
     #[ORM\Column(length: 50)]
     private ?string $telephone = null;
 
+    // ADRESSE
+    #[Assert\NotBlank(message: "L'adresse est obligatoire")]
+    #[Assert\Regex(
+        pattern: "/^[a-zA-Z0-9À-ÿ\s,.'-]+$/",
+        message: "Adresse invalide"
+    )]
     #[ORM\Column(length: 50)]
     private ?string $adresse = null;
 
+    // RÔLE
     #[ORM\ManyToOne(inversedBy: 'utilisateurs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $role = null;
