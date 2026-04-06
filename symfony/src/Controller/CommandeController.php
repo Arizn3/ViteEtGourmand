@@ -20,8 +20,17 @@ final class CommandeController extends AbstractController
         int $id,
         MenuRepository $menuRepository,
         EntityManagerInterface $em,
-        UtilisateurRepository $utilisateurRp
     ): Response {
+
+        // Contrôle d'accès
+        if (
+            !$this->isGranted('ROLE_USER') &&
+            !$this->isGranted('ROLE_EMPLOYE') &&
+            !$this->isGranted('ROLE_ADMIN')
+        ) {
+            // Accès refusé si aucun des rôles n'est utilisé par un utilisateur
+            throw $this->createAccessDeniedException();
+        }
 
         // Récupération du menu ciblé
         $menu = $menuRepository->find($id);
@@ -32,10 +41,6 @@ final class CommandeController extends AbstractController
 
         // Vérification de la connexion de l'utilisateur 
         $utilisateur = $this->getUser();
-        // Redirection sur la page de connexion si le visiteur n'est pas connecté
-        if(!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
 
         $prixTotal = null;
         $erreur = null;
