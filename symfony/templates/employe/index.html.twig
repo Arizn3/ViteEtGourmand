@@ -4,6 +4,124 @@
 
 {% block body %}
 
-<p>Je suis l'employé</p>
+<header>
+    <p>[HEADER]</p>
+    <h1>Vite&Gourmand</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.</p>
+    {# Lien temporaire #}
+    <a href="{{ path('app_home') }}">Page d'accueil</a>
+    <nav>[NAV]</nav>
+    <p>[/HEADER]</p>
+</header>
 
-{% endblock %}
+{# Nom du compte connecter #}
+<p> Compte : {{ app.user.userIdentifier }}</p>
+
+{# Persistance des filtres #}
+{% set filters = {
+idFilter: app.request.get('idFilter'),
+email: app.request.get('email'),
+statut: app.request.get('status'),
+idTerminer: app.request.get('idTerminer'),
+emailTerminer: app.request.get('emailTerminer'),
+statutTerminer: app.request.get('statutTerminer')
+} %}
+
+<h3>Liste des commandes actifs</3>
+    {# Nombre de commandes actives #}
+    <p>Total commandes : {{ commandesActives|length }}</p>
+    {# Filtre possible #}
+    <form method="get">
+        <input type="text" name="idFilter" placeholder="ID commande" value="{{ app.request.get('idFilter') }}">
+        <input type="text" name="email" placeholder="Email client" value="{{ app.request.get('email') }}">
+        <select name="statut">
+            <option selected disabled>Statut</option>
+            <option value="Votre commande va être prise en compte">Votre commande va être prise en compte</option>
+            <option value="Votre commande a été prise en compte">Votre commande a été prise en compte</option>
+            <option value="Votre commande est en préparation">Votre commande est en préparation</option>
+            <option value="En cours de livraison">En cours de livraison</option>
+            <option value="Commande livrée">Commande livrée</option>
+            <option value="En attente du retour de matériel">En attente du retour de matériel</option>
+        </select>
+        <button type="submit">Filtre</button>
+        <a href="{{ path('app_employe') }}" , class="btn">Réinitialiser</a>
+    </form>
+
+    <br><br>
+    {# Tableau HTML des commandes actifs #}
+    <table>
+        <tr>
+            <th>ID commande</th>
+            <th>Date</th>
+            <th>Client</th>
+            <th>Menu</th>
+            <th>Prix</th>
+            <th>Livraison</th>
+            <th>Ville</th>
+            <th>Date de livraison</th>
+            <th>Heure de livraison</th>
+            <th>Statut commande</th>
+        </tr>
+        {% for commande in commandes %}
+        {% if commande.statut != 'Terminer' and commande.statut != 'Annuler' %}
+        <tr>
+            <td>{{ commande.id }}</td>
+            <td>{{ commande.dateCmd|date("d/m/Y") }}</td>
+            <td>{{ commande.utilisateur.email }} <a
+                    href="{{ path('app_utilisateur', filters|merge({id: commande.utilisateur.id})) }}">🫆</a></td>
+            <td>{{ commande.menu.titre }}</td>
+            <td>{{ commande.prixMenu }} €</td>
+            <td>{{ commande.prixLivraison }} €</td>
+            <td>{{ commande.villeLivraison }} <a href="{{ path('app_adresse_livraison', filters|merge({id: commande.id})) }}">🚚</a>
+            </td>
+            <td>{{ commande.datePrestation|date("d/m/Y") }}</td>
+            <td>{{ commande.heureLivraison|date("H:i") }}</td>
+            <td>{{ commande.statut }} <a href="{{ path('app_commande_statut', filters|merge({id: commande.id})) }}">🔄</a></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    <br><br><br>
+    {# Tableau des commandes terminées #}
+    <h3>Commandes terminées</3>
+        {# Filtre possible #}
+        <form method="GET">
+            <input type="text" name="idTerminer" placeholder="ID commande" value="{{ app.request.get('idTerminer') }}">
+            <input type="text" name="emailTerminer" placeholder="Email client"
+                value="{{ app.request.get('emailTerminer') }}">
+            <select name="statutTerminer">
+                <option selected disabled>Statut</option>
+                <option value="Terminer">Terminer</option>
+                <option value="Annuler">Annuler</option>
+            </select>
+            <button type="submit">Filtre</button>
+            <a href="{{ path('app_employe') }}" , class="btn">Réinitialiser</a>
+        </form>
+        <br><br>
+        <table>
+            <tr>
+                <th>ID commande</th>
+                <th>client</th>
+                <th>Ville</th>
+                <th>Statut</th>
+            </tr>
+            {% for commande in commandesTerminees %}
+            {% if commande.statut != 'Votre commande va être prise en compte'
+            and commande.statut != 'Votre commande a été prise en compte'
+            and commande.statut != 'Votre commande est en préparation'
+            and commande.statut != 'En cours de livraison'
+            and commande.statut != 'Commande livrée'
+            and commande.statut != 'En attente du retour de matériel'
+            %}
+            <tr>
+                <td>{{ commande.id }}</td>
+                <td>{{ commande.utilisateur.email }}</td>
+                <td>{{ commande.villeLivraison }}</td>
+                <td>{{ commande.statut }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+
+        {% endblock %}

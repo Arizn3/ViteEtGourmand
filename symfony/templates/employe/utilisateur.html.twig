@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Information Utilisateur {% endblock %}
+
+{% block body %}
+
+<h3>Information Client</h3>
+
+<p><strong>Email :</strong> {{ utilisateur.email }}</p>
+<p><strong>Nom :</strong> {{ utilisateur.nom }}</p>
+<p><strong>Prenom :</strong> {{ utilisateur.prenom }}</p>
+<p><strong>Téléphone :</strong> {{ utilisateur.telephone }}</p>
+<p><strong>Adresse :</strong> {{ utilisateur.adresse }}</p>
+
+<a href="{{ path('app_employe', app.request.query.all) }}">Retour</a>
+
+{% endblock %}

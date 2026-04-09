@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Information Utilisateur {% endblock %}
+
+{% block body %}
+
+<h3>Statut pour la commande {{ commande.id }}</h3>
+
+{# Menu de selection du statut pour la commande ciblée #}
+<form method="POST" id="form-statut">
+    <select name="statut" id="statut-select">
+        <option selected disabled>{{ commande.statut }}</option>
+        <option value="Votre commande a été prise en compte">Votre commande a été prise en compte</option>
+        <option value="Votre commande est en préparation">Votre commande est en préparation</option>
+        <option value="En cours de livraison">En cours de livraison</option>
+        <option value="Commande livrée">Commande livrée</option>
+        <option value="En attente du retour de matériel">En attente du retour de matériel</option>
+        <option value="Terminer">Terminer</option>
+        <option value="Annuler">Annuler</option>
+    </select>
+    <button type="submit">Valider</button>
+</form>
+<br><br>
+<a href="{{ path('app_employe', app.request.query.all) }}">Retour</a>
+
+{% block javascript %}
+<script src="/javascript/statut.js"></script>
+{% endblock javascript %}
+
+{% endblock %}

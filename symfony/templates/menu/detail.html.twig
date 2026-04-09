@@ -4,17 +4,38 @@
 
 {% block body %}
 
-<h1>{{ menu.titre }}</h1>
-{# Boucle IF qui vérifie si une image est bien en base de données #}
-{% if menu.plat.photo %}
-<img src="/upload/plats/{{menu.plat.photo}}" alt="{{ menu.plat.nomPlat }}" width="200">
-{% endif %}
-<p>{{ menu.description }}</p>
-<p>{{ menu.prixPersonne }}</p>
-<p>{{ menu.personneMini }}</p>
-<p>{{ menu.qttRestante }}</p>
-<a href="{{ path('app_commande', {id :menu.id}) }}">Commander</a>
-<br>
-<a href="/menu">Retour aux menus</a>
+<header>
+    <p>[HEADER]</p>
+    <h1>Vite&Gourmand</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.</p>
+    {# Lien temporaire #}
+    <a href="{{ path('app_home') }}">Page d'accueil</a>
+    <nav>[NAV]</nav>
+    <p>[/HEADER]</p>
+</header>
+
+<main>
+    <h1>{{ menu.titre }}</h1>
+    {# Boucle IF qui vérifie si une image est bien en base de données #}
+    {% if menu.plat.photo %}
+    <img src="/upload/plats/{{menu.plat.photo}}" alt="{{ menu.plat.nomPlat }}" width="200">
+    {% endif %}
+    <p>{{ menu.description }}</p>
+    <p>{{ menu.prixPersonne }}</p>
+    <p>{{ menu.personneMini }}</p>
+    <p>{{ menu.qttRestante }}</p>
+    <a href="{{ path('app_commande', {id :menu.id}) }}">Commander</a>
+    <br>
+    <a href="/menu">Retour aux menus</a>
+</main>
+
+
+<footer>
+    <p>[FOOTER]</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.</p>
+    <p>[/FOOTER]</p>
+</footer>
 
 {% endblock %}

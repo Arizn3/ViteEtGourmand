@@ -29,6 +29,7 @@ final class CommandeController extends AbstractController
             !$this->isGranted('ROLE_ADMIN')
         ) {
             // Accès refusé si aucun des rôles n'est utilisé par un utilisateur
+            // Symfony renvoie vers la page définie dans Security.yml
             throw $this->createAccessDeniedException();
         }
 
@@ -92,20 +93,20 @@ final class CommandeController extends AbstractController
                 $commande = new Commande();
 
                 // Utilisation des Setters (Modifie) de l'Entité Commande
+                $commande->setUtilisateur($utilisateur);
                 $commande->setMenu($menu);
                 $commande->setNbPersonne($nbPersonnes);
                 $commande->setPrixMenu($prixTotal);
+                $commande->setPrixLivraison($prixLivraison);
                 $commande->setDateCmd(new \DateTime());
                 $commande->setDatePrestation(new \DateTime($datePrestation));
                 $commande->setHeureLivraison(new \DateTime($heureLivraison));
                 $commande->setVilleLivraison($villeLivraison);
                 $commande->setAdresseLivraison($adresseLivraison);
-
+                $commande->setStatut('Votre commande va être prise en compte');
+                
                 // Données factices pour test (temporaire)
-                $commande->setUtilisateur($utilisateur);
-                $commande->setPrixLivraison(0);
-                $commande->setStatut('TEST');
-                $commande->setPretMateriel(false);
+                $commande->setPretMateriel(true);
                 $commande->setRestitutionMateriel(false);
 
                 // Persistance de la commande en BDD
