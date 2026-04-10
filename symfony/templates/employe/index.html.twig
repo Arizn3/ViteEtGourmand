@@ -107,20 +107,12 @@ statutTerminer: app.request.get('statutTerminer')
                 <th>Statut</th>
             </tr>
             {% for commande in commandesTerminees %}
-            {% if commande.statut != 'Votre commande va être prise en compte'
-            and commande.statut != 'Votre commande a été prise en compte'
-            and commande.statut != 'Votre commande est en préparation'
-            and commande.statut != 'En cours de livraison'
-            and commande.statut != 'Commande livrée'
-            and commande.statut != 'En attente du retour de matériel'
-            %}
             <tr>
                 <td>{{ commande.id }}</td>
                 <td>{{ commande.utilisateur.email }}</td>
                 <td>{{ commande.villeLivraison }}</td>
                 <td>{{ commande.statut }}</td>
             </tr>
-            {% endif %}
             {% endfor %}
         </table>
 

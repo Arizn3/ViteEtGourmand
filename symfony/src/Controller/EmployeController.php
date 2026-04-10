@@ -21,20 +21,12 @@ final class EmployeController extends AbstractController
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        // Récupération des commandes terminée ou annulée
-        $commandesTerminees = $CommandeRepo->createQueryBuilder('c')
-            ->where('c.statut IN (:statuts)')
-            ->setParameter('statuts', ['Terminer', 'Annuler'])
-            ->getQuery()
-            ->getResult();
-
-        // Variable récupérer en cas de filtre (commande active)
+        // Variable en cas de filtre (commande active)
         $idFilter = $request->query->get('idFilter');
-        $email = $request->query->get('email');
-        $statut = $request->query->get('statut');
+        $emailFilter = $request->query->get('email');
+        $statutFilter = $request->query->get('statut');
 
-        // Filtre pour les commandes actives
-        // Méthodes pour personnaliser une requête
+        // Filtre et affichage des commandes actives
         $query = $CommandeRepo->createQueryBuilder('c')
             ->join('c.utilisateur', 'u');
 
@@ -42,14 +34,21 @@ final class EmployeController extends AbstractController
             $query->andWhere('c.id = :id')
                 ->setParameter('id', $idFilter);
         }
-        if ($email) {
+        if ($emailFilter) {
             $query->andWhere('u.email LIKE :email')
-                ->setParameter('email', '%' . $email . '%');
+                ->setParameter('email', '%' . $emailFilter . '%');
         }
-        if ($statut) {
+        if ($statutFilter) {
             $query->andWhere('c.statut = :statut')
-                ->setParameter('statut', $statut);
+                ->setParameter('statut', $statutFilter);
         }
+
+        // Récupération des commandes terminée ou annulée grâce au paramètre ->setParameter()
+        $commandesTerminees = $CommandeRepo->createQueryBuilder('c')
+            ->where('c.statut IN (:statuts)')
+            ->setParameter('statuts', ['Terminer', 'Annuler'])
+            ->getQuery()
+            ->getResult();
 
         // Variable récupérer en cas de filtre (commande terminer ou annuler)
         $idTerminer = $request->query->get('idTerminer');
@@ -57,7 +56,6 @@ final class EmployeController extends AbstractController
         $statutTerminer = $request->query->get('statutTerminer');
 
         // Filtre pour les commandes Terminer ou Annuler
-        // Méthodes pour personnaliser une requête
         $queryTerminer = $CommandeRepo->createQueryBuilder('c')
             ->join('c.utilisateur', 'u')
             ->where('c.statut IN (:statuts)')
@@ -79,7 +77,7 @@ final class EmployeController extends AbstractController
         $commandes = $query->getQuery()->getResult();
         $commandesTerminees = $queryTerminer->getQuery()->getResult();
 
-        // Dashboard des commandes actives
+        // Nombre des commandes actives pour Twig
         $commandeActives = array_filter($commandes, function ($c) {
             return !in_array($c->getStatut(), ['Terminer', 'Annuler']);
         });
