@@ -46,9 +46,7 @@ final class EmployeController extends AbstractController
         // Récupération des commandes terminée ou annulée grâce au paramètre ->setParameter()
         $commandesTerminees = $CommandeRepo->createQueryBuilder('c')
             ->where('c.statut IN (:statuts)')
-            ->setParameter('statuts', ['Terminer', 'Annuler'])
-            ->getQuery()
-            ->getResult();
+            ->setParameter('statuts', ['Terminer', 'Annuler']);
 
         // Variable récupérer en cas de filtre (commande terminer ou annuler)
         $idTerminer = $request->query->get('idTerminer');

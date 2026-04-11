@@ -4,17 +4,6 @@
 
 {% block body %}
 
-<header>
-    <p>[HEADER]</p>
-    <h1>Vite&Gourmand</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua.</p>
-    {# Lien temporaire #}
-    <a href="{{ path('app_home') }}">Page d'accueil</a>
-    <nav>[NAV]</nav>
-    <p>[/HEADER]</p>
-</header>
-
 {# Nom du compte connecter #}
 <p> Compte : {{ app.user.userIdentifier }}</p>
 

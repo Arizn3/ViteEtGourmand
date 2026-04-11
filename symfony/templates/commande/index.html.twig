@@ -2,15 +2,7 @@
 
 {% block title %} Commande {% endblock %}
 
-
 {% block body %}
-
-{% if is_granted('ROLE_EMPLOYE') %}
-    <p>Connecter en tant qu'employé</p>
-{% endif %}
-{% if is_granted('ROLE_ADMIN') %}
-    <p>Connecter en tant qu'administrateur</p>
-{% endif %}
 
 <h1>Commande</h1>
 

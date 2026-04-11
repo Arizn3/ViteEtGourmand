@@ -1,15 +1,54 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        {% block stylesheets %}
-        {% endblock %}
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}
-        {% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    {% block stylesheets %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+</head>
+
+<body>
+
+    {# Header #}
+    <header>
+        <h1>Vite&Gourmand</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.</p>
+        {# Déconnexion #}
+        {% if app.user %}
+        <a href="{{ logout_path() }}">Déconnexion</a>
+        {% endif %}
+        </div>
+        {# Navbar #}
+        <nav>
+            <a href="{{ path('app_home') }}">Accueil</a>
+            <a href="{{ path('app_menu') }}">Nos Menus</a>
+            <a href="#">Notre histoire</a>
+            {# <a href="{{ path('app_histoire') }}">Notre Histoire</a> #}
+            {% if not app.user %}
+            <a href="{{ path('app_login') }}">Connexion</a>
+            <a href="{{ path('app_register') }}">Inscription</a>
+            {% endif %}
+            {% if app.user and is_granted('ROLE_USER') %}
+            <a href="#">Mon Compte</a>
+            {% endif %}
+            {% if app.user and is_granted('ROLE_EMPLOYE') %}
+            <a href="{{ path('app_employe') }}">Espace employé</a>
+            {% endif %}
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+            <a href="#">Espace Administrateur</a>
+            {% endif %}
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    
+    {% block body %} {# Contenu des autres pages de l'application #} {% endblock %}
+
+    {# Footer #}
+    <footer>
+        <p>FOOTER</p>
+    </footer>
+
+</body>
+
 </html>

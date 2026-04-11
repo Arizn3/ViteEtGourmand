@@ -4,28 +4,7 @@
 
 {% block body %}
 
-<header>
-    <p>[HEADER]</p>
-    <h1>Vite&Gourmand</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua.</p>
-    {# Lien temporaire #}
-    <a href="{{ path('app_login') }}">Connexion</a>
-    <a href="{{ path('app_register') }}">Inscription</a>
-    <a href="{{ path('app_menu') }}">Page des menus</a>
-    {# Déconnexion #}
-    {% if app.user %}
-    <div class="mb-3">
-        <p>Vous êtes connecté sur le compte {{ app.user.userIdentifier }} </p>
-        <a href="{{ logout_path() }}">Déconnexion</a>
-    </div>
-    {% endif %}
-    <nav>[NAV]</nav>
-    <p>[/HEADER]</p>
-</header>
-
 <main>
-    <p>[MAIN]</p>
     <h3>Texte de présentation</h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore<br>
         magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -53,7 +32,6 @@
             laborum
         </p>
     </section>
-    <p>[/MAIN]</p>
 </main>
 
 <footer>
