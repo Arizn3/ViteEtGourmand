@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS `avis`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `avis` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `note` varchar(50) NOT NULL,
+  `note` int NOT NULL,
   `libelle` varchar(50) NOT NULL,
   `statut` varchar(50) NOT NULL,
   `utilisateur_id` int NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE `commande` (
   KEY `IDX_6EEAA67DCCD7E912` (`menu_id`),
   CONSTRAINT `FK_commande_menu` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`),
   CONSTRAINT `FK_commande_utilisateur` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,6 +102,7 @@ CREATE TABLE `commande` (
 
 LOCK TABLES `commande` WRITE;
 /*!40000 ALTER TABLE `commande` DISABLE KEYS */;
+INSERT INTO `commande` VALUES (37,'2026-04-08','2026-04-18','18:00:00',67.5,5,0,'Votre commande a été prise en compte',1,0,10,5,'20 rue du cobalt','Bordeaux'),(38,'2026-04-08','2026-04-27','13:30:00',132.4,10,10.9,'Votre commande a été prise en compte',1,0,10,5,'12 Rue des tulipes','Pessac'),(39,'2026-04-08','2026-04-24','18:10:00',105.4,7,10.9,'En cours de livraison',1,0,12,5,'13 Rue des paquerettes','Bruges'),(40,'2026-04-09','2026-04-22','12:00:00',243,20,0,'Votre commande est en préparation',1,0,10,5,'17 Rue principale','Bordeaux'),(41,'2026-04-09','2026-04-30','18:30:00',105.4,7,10.9,'Annuler',1,0,10,5,'7 Rue des champs','Talence'),(42,'2026-04-09','2026-04-16','11:15:00',40.9,4,10.9,'En attente du retour de matériel',1,0,12,6,'2 Rue des informations','Pressac'),(43,'2026-04-09','2026-04-20','14:45:00',217.45,17,10.9,'Terminer',1,0,12,5,'19 Rue client','Cénac');
 /*!40000 ALTER TABLE `commande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +157,7 @@ CREATE TABLE `menu` (
   CONSTRAINT `FK_menu_plat` FOREIGN KEY (`plat_id`) REFERENCES `plat` (`id`),
   CONSTRAINT `FK_menu_regime` FOREIGN KEY (`regime_id`) REFERENCES `regime` (`id`),
   CONSTRAINT `FK_menu_theme` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,6 +166,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+INSERT INTO `menu` VALUES (5,'MENU A',3,13.5,'Description Factice',8,'2026-04-27',NULL,2,2,2),(6,'MENU B',2,7.5,'Description Factice',18,'2026-04-27',NULL,2,2,3);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +182,7 @@ CREATE TABLE `plat` (
   `nom_plat` varchar(50) NOT NULL,
   `photo` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,6 +191,7 @@ CREATE TABLE `plat` (
 
 LOCK TABLES `plat` WRITE;
 /*!40000 ALTER TABLE `plat` DISABLE KEYS */;
+INSERT INTO `plat` VALUES (2,'PLAT A','plat-test-1.png'),(3,'PLAT B','plat-test-2.jpg');
 /*!40000 ALTER TABLE `plat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,7 +232,7 @@ CREATE TABLE `regime` (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,6 +241,7 @@ CREATE TABLE `regime` (
 
 LOCK TABLES `regime` WRITE;
 /*!40000 ALTER TABLE `regime` DISABLE KEYS */;
+INSERT INTO `regime` VALUES (2,'REGIME A');
 /*!40000 ALTER TABLE `regime` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +256,7 @@ CREATE TABLE `role` (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,6 +265,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'ROLE_USER'),(2,'ROLE_EMPLOYE'),(3,'ROLE_ADMIN');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +280,7 @@ CREATE TABLE `theme` (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,6 +289,7 @@ CREATE TABLE `theme` (
 
 LOCK TABLES `theme` WRITE;
 /*!40000 ALTER TABLE `theme` DISABLE KEYS */;
+INSERT INTO `theme` VALUES (2,'THEME A'),(3,'THEME A'),(4,'THEME A'),(5,'THEME A'),(6,'THEME A');
 /*!40000 ALTER TABLE `theme` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,7 +312,7 @@ CREATE TABLE `utilisateur` (
   PRIMARY KEY (`id`),
   KEY `IDX_1D1C63B3D60322AC` (`role_id`),
   CONSTRAINT `FK_utilisateur_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,6 +321,7 @@ CREATE TABLE `utilisateur` (
 
 LOCK TABLES `utilisateur` WRITE;
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
+INSERT INTO `utilisateur` VALUES (10,'utilisateur@email.com','$2y$13$X5mIb6oNoZtOOW9f8hUgMuEsaxeBHOSNpKin6/13FjM15/HpGGe32','utilisateurtest','utilisateurtest','0606060606','utilisateurtest',1),(11,'employe@email.com','$2y$13$b5ye0XaeHdXWxkGAsvu.j.zXGgvRwJNS2zgy19BDXSWj0d1bEgGIm','employetest','employetest','0606060606','employetest',2),(12,'utilisateur2@email.com','$2y$13$CMBUo3eP9XtlpSOj69xfPuiPpR7auaWA8/0TJPq9B4Q6KEJddtuni','utilisateurtestdeux','utilisateurtestdeux','0606060606','utilisateurtestdeux',1),(13,'admin@email.com','$2y$13$u5Qp5iVbl1csgTus4IjPfOg9vYTRqlncRB8cPKQy7Ze9ybikGZXZ2','admin','admin','0707070707','admin',3);
 /*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -327,4 +334,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-25  1:41:19
+-- Dump completed on 2026-04-11 23:41:15

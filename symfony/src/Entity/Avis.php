@@ -13,8 +13,8 @@ class Avis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $note = null;
+    #[ORM\Column]
+    private ?int $note = null;
 
     #[ORM\Column(length: 50)]
     private ?string $libelle = null;
@@ -31,12 +31,12 @@ class Avis
         return $this->id;
     }
 
-    public function getNote(): ?string
+    public function getNote(): ?int
     {
         return $this->note;
     }
 
-    public function setNote(string $note): static
+    public function setNote(int $note): self
     {
         $this->note = $note;
 
