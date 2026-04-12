@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Avis;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\CommandeRepository;
+use App\Repository\AvisRepository;
 use App\Entity\Commande;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
@@ -113,7 +115,7 @@ final class EmployeController extends AbstractController
         ]);
     }
 
-    // Changement du statut d'une commande
+    // Page de changement du statut d'une commande
     #[Route('/employe/statut/{id}', name: 'app_commande_statut')]
     public function changementStatut(Commande $commande, Request $request, EntityManagerInterface $em): Response
     {
@@ -149,5 +151,71 @@ final class EmployeController extends AbstractController
         return $this->render('employe/statut.html.twig', [
             'commande' => $commande
         ]);
+    }
+
+    // liste des avis utilisateurs
+    #[Route('/employe/avis', name: 'app_employe_avis')]
+    public function avisUtilisateur(AvisRepository $avisRepo): Response
+    {
+        // Contôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        $avis = $avisRepo->findBy(['statut' => 'EN_ATTENTE']);
+
+        return $this->render('employe/avis.html.twig', [
+            'avis' => $avis,
+        ]);
+    }
+
+    ## Les deux fonctions suivantes sépare la validation et l'annulation des avis, pour les utiliser,
+    ## il faut d'abord enlever le paramètre dynamique dans le fichier Twig au niveau des liens 'action: '***''
+    ## et changer l'URL du lien en 'app_avis_action' pour ensuite commenter la fonction actionAvis.
+
+    # // Function de validation d'un avis
+    # #[Route('/employe/avis/valider/{id}', name: 'app_avis_valider')]
+    # public function validerAvis(Avis $avis, EntityManagerInterface $em): Response
+    # {
+    #     // Contrôle d'accès
+    #     $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+    #     // Appel du Setter de Avis
+    #     $avis->setStatut('REFUSER');
+    #     $em->flush();
+
+    #     return $this->redirectToRoute('app_employe_avis');
+    # }
+
+    # // Function d'annuation d'un avis
+    # #[Route('/employe/avis/refuser/{id}', name: 'app_avis_refuser')]
+    # public function refuserAvis(Avis $avis, EntityManagerInterface $em): Response
+    # {
+    #     // Contrôle d'accès
+    #     $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+    #     // Appel du Setter de Avis
+    #     $avis->setStatut('VALIDE');
+    #     $em->flush();
+
+    #     return $this->redirectToRoute('app_employe_avis');
+    # }
+
+    #[Route('/employe/avis/{id}/{action}', name: 'app_avis_action')]
+    public function actionAvis(Avis $avis, string $action, EntityManagerInterface $em): Response
+    {
+        // Contrôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        if ($action === 'VALIDE') {
+            $avis->setStatut('VALIDE');
+        } elseif ($action === 'REFUSER') {
+            $avis->setStatut('REFUSER');
+        } else {
+            throw $this->createNotFoundException();
+        }
+
+        // Persistance des donnnées en base
+        $em->flush();
+
+        return $this->redirectToRoute('app_employe_avis');
     }
 }

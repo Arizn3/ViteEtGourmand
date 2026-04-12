@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Gestion des avis {% endblock %}
+
+{% block body %}
+
+{# Nom du compte employé connecté #}
+<p> Compte : {{ app.user.userIdentifier }}</p>
+
+<h3>Gestion des avis</h3>
+
+<table>
+    <tr>
+        <th>Utilisateur</th>
+        <th>Note</th>
+        <th>Message</th>
+        <th>Action</th>
+    </tr>
+    {% for a in avis %}
+    <tr>
+        <td>{{ a.utilisateur.email }}</td>
+        <td>{{ a.note }}</td>
+        <td>{{ a.libelle }}</td>
+        <td>
+            <a href="{{ path('app_avis_action', {id: a.id, action: 'VALIDE'}) }}">✅</a>
+            <a href="{{ path('app_avis_action', {id: a.id, action: 'REFUSER'}) }}">❌</a>
+        </td>
+    </tr>
+    {% else %}
+    <p>Aucun avis</p>
+    {% endfor %}
+</table>
+
+{% endblock %}
+

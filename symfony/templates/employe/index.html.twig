@@ -4,7 +4,7 @@
 
 {% block body %}
 
-{# Nom du compte connecter #}
+{# Nom du compte employé connecté #}
 <p> Compte : {{ app.user.userIdentifier }}</p>
 
 {# Persistance des filtres #}
@@ -52,9 +52,9 @@ statutTerminer: app.request.get('statutTerminer')
             <th>Heure de livraison</th>
             <th>Statut commande</th>
         </tr>
-        {% for commande in commandes %}
-        {% if commande.statut != 'Terminer' and commande.statut != 'Annuler' %}
         <tr>
+            {% for commande in commandes %}
+            {% if commande.statut != 'Terminer' and commande.statut != 'Annuler' %}
             <td>{{ commande.id }}</td>
             <td>{{ commande.dateCmd|date("d/m/Y") }}</td>
             <td>{{ commande.utilisateur.email }} <a
@@ -62,13 +62,17 @@ statutTerminer: app.request.get('statutTerminer')
             <td>{{ commande.menu.titre }}</td>
             <td>{{ commande.prixMenu }} €</td>
             <td>{{ commande.prixLivraison }} €</td>
-            <td>{{ commande.villeLivraison }} <a href="{{ path('app_adresse_livraison', filters|merge({id: commande.id})) }}">🚚</a>
+            <td>{{ commande.villeLivraison }} <a
+                    href="{{ path('app_adresse_livraison', filters|merge({id: commande.id})) }}">🚚</a>
             </td>
             <td>{{ commande.datePrestation|date("d/m/Y") }}</td>
             <td>{{ commande.heureLivraison|date("H:i") }}</td>
-            <td>{{ commande.statut }} <a href="{{ path('app_commande_statut', filters|merge({id: commande.id})) }}">🔄</a></td>
+            <td>{{ commande.statut }} <a
+                    href="{{ path('app_commande_statut', filters|merge({id: commande.id})) }}">🔄</a></td>
         </tr>
         {% endif %}
+        {% else %}
+        <p>Aucune commande disponible</p>
         {% endfor %}
     </table>
     <br><br><br>
