@@ -219,4 +219,19 @@ final class EmployeController extends AbstractController
 
         return $this->redirectToRoute('app_employe_avis');
     }
+
+    // Historique des avis
+    #[Route('/employe/avis/historique', name: 'app_historique_avis')]
+    public function avisHistorique(AvisRepository $avisRepo): Response
+    {
+        // Contrôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        // On récupère tous les avis
+        $avis = $avisRepo->findBy(['statut' => ['VALIDE', 'REFUSER']]);
+
+        return $this->render('employe/historique.html.twig', [
+            'avis' => $avis,
+        ]);
+    }
 }
