@@ -199,6 +199,7 @@ final class EmployeController extends AbstractController
     #     return $this->redirectToRoute('app_employe_avis');
     # }
 
+    // function gestion des avis
     #[Route('/employe/avis/{id}/{action}', name: 'app_avis_action')]
     public function actionAvis(Avis $avis, string $action, EntityManagerInterface $em): Response
     {
