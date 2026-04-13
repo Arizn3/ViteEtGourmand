@@ -1,8 +1,25 @@
 // DOMContentLoaded permet de charger le JS uniquement et strictement quand le HTML est prêt
 document.addEventListener('DOMContentLoaded', function () {
-    // Vérification de l'ID (Sécurité)
+    // Vérification de l'existence du formulaire (sécurité)
     const form = document.getElementById('form-statut');
     if (form) {
+
+        // Vérification de la valeur choisie
+        const statut = document.getElementById('statut-select');
+        // Element HTML textarea
+        const textarea = document.getElementById('message_email');
+
+        textarea.style.display = 'none';
+
+        // Écoute du choix du statut de la commande
+        statut.addEventListener('change', function () {
+            if (this.value === 'Annuler') {
+                textarea.style.display = 'block';
+            } else {
+                textarea.style.display = 'none';
+            };
+        });
+
         // Écoute de la soumission d'une valeur
         form.addEventListener('submit', function (e) {
             // Vérification de la valeur choisie
@@ -20,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Annulation
             if (message && !confirm(message)) {
                 e.preventDefault();
-            }
+            };
         });
     };
 });

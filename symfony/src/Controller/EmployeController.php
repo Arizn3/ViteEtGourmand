@@ -12,6 +12,9 @@ use App\Repository\AvisRepository;
 use App\Entity\Commande;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 // Controller pour l'espace employé
 final class EmployeController extends AbstractController
@@ -117,8 +120,12 @@ final class EmployeController extends AbstractController
 
     // Page de changement du statut d'une commande
     #[Route('/employe/statut/{id}', name: 'app_commande_statut')]
-    public function changementStatut(Commande $commande, Request $request, EntityManagerInterface $em): Response
-    {
+    public function changementStatut(
+        Commande $commande,
+        Request $request,
+        EntityManagerInterface $em,
+        MailerInterface $mailer,
+    ): Response {
         // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
@@ -139,6 +146,33 @@ final class EmployeController extends AbstractController
             ];
             if (!in_array($statut, $statutPossible)) {
                 throw new \Exception('Statut Invalide');
+            }
+
+            // Système de mail en cas d'annulation d'une commande
+            if ($statut === 'Annuler') {
+
+                // Récupération du message de l'input (Twig)
+                $messageEmail = $request->request->get('message_email');
+
+                if (empty($messageEmail)) {
+                    $messageEmail = 'Aucune précision fournie';
+                }
+
+                $email = (new Email())
+                    ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                    ->to($commande->getUtilisateur()->getEmail())
+                    ->subject('Annulation de votre commmande')
+                    ->text('Bonjour,
+            
+Votre commande a été annulée pour les raisons suivantes :
+
+' . $messageEmail . '
+
+Nous restons à votre disposition, cordialement.
+L\'équipe Vite & Gourmand
+                ');
+
+                $mailer->send($email);
             }
 
             // Modification et persistance de la donnée

@@ -21,9 +21,11 @@
     {% for a in avis %}
     <tr>
         <td>{{ a.utilisateur.email }}</td>
-        {% for i in 1..5 %}
-        {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} <td>{{ a.libelle }}</td>
-            <td>{{ a.statut }}</td>
+        <td>
+            {% for i in 1..5 %}
+            {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} </td>
+        <td>{{ a.libelle }}</td>
+        <td>{{ a.statut }}</td>
     </tr>
     {% else %}
     <p>Aucun avis</p>
