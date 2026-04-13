@@ -8,7 +8,7 @@
 <p> Compte : {{ app.user.userIdentifier }}</p>
 
 <h3>Historique des avis</h3>
-<a href="{{ path('app_employe_avis') }}">Retour</a>
+<a href="{{ path('app_employe_avis') }}">Gestion des avis</a>
 <br><br>
 
 <table>
@@ -21,9 +21,9 @@
     {% for a in avis %}
     <tr>
         <td>{{ a.utilisateur.email }}</td>
-        <td>{{ a.note }}</td>
-        <td>{{ a.libelle }}</td>
-        <td>{{ a.statut }}</td>
+        {% for i in 1..5 %}
+        {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} <td>{{ a.libelle }}</td>
+            <td>{{ a.statut }}</td>
     </tr>
     {% else %}
     <p>Aucun avis</p>

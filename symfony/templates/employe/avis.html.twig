@@ -20,7 +20,9 @@
     {% for a in avis %}
     <tr>
         <td>{{ a.utilisateur.email }}</td>
-        <td>{{ a.note }}</td>
+        <td>
+            {% for i in 1..5 %}
+            {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} </td>
         <td>{{ a.libelle }}</td>
         <td>
             <a href="{{ path('app_avis_action', {id: a.id, action: 'VALIDE'}) }}">✅</a>
