@@ -12,7 +12,6 @@ use App\Repository\AvisRepository;
 use App\Entity\Commande;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 

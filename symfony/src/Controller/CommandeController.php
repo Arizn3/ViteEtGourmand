@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\MenuRepository;
 use App\Entity\Commande;
-use App\Repository\UtilisateurRepository;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 // Contrôleur pour les commandes
 final class CommandeController extends AbstractController
@@ -20,6 +21,7 @@ final class CommandeController extends AbstractController
         int $id,
         MenuRepository $menuRepository,
         EntityManagerInterface $em,
+        MailerInterface $mailer,
     ): Response {
 
         // Contrôle d'accès
@@ -112,6 +114,23 @@ final class CommandeController extends AbstractController
                 // Persistance de la commande en BDD
                 $em->persist($commande);
                 $em->flush();
+
+                // Envoie d'un email de confirmation à l'utilisateur
+                $email = (new Email())
+                    ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                    ->to($commande->getUtilisateur()->getEmail())
+                    ->subject('Réception de votre commande')
+                    ->text('Bonjour,
+
+Votre commande va être prise en compte par notre service.
+Accéder à votre espace personnel pour voir l\'avancement de votre commande.
+
+Merci d\'avoir choisi Vite & Gourmand !
+
+Nous restons à votre disposition, cordialement.
+L\'équipe Vite & Gourmand
+                    ');
+                $mailer->send($email);
 
                 // Redirection une fois la commande enregistrée
                 return $this->redirectToRoute('app_menu');
