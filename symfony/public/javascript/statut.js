@@ -24,15 +24,20 @@ document.addEventListener('DOMContentLoaded', function () {
         form.addEventListener('submit', function (e) {
             // Vérification de la valeur choisie
             const statut = document.getElementById('statut-select').value;
+            // Motif d'annulation
+            const motif = document.getElementById('message_email').value;
 
             let message = null;
 
             // Popup d'alerte
             if (statut === 'Terminer') {
                 message = "Confirmer la fin de la commande ?";
-            } else if (statut === 'Annuler') {
+            } else if (statut === 'Annuler' && !motif) {
+                message = "Indiquez un motif d'annulation";
+                e.preventDefault();
+            } else if (statut === 'Annuler' && motif) {
                 message = "Confirmer l'annulation ?";
-            };
+            }
 
             // Annulation
             if (message && !confirm(message)) {

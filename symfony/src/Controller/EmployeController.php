@@ -12,6 +12,7 @@ use App\Repository\AvisRepository;
 use App\Entity\Commande;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -154,24 +155,24 @@ final class EmployeController extends AbstractController
                 $messageEmail = $request->request->get('message_email');
 
                 if (empty($messageEmail)) {
-                    $messageEmail = 'Aucune précision fournie';
+                    throw new BadRequestHttpException('Motif d\'annulation obligatoire');
+                } else {
+                    $email = (new Email())
+                        ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                        ->to($commande->getUtilisateur()->getEmail())
+                        ->subject('Annulation de votre commmande')
+                        ->text('Bonjour,
+                    
+                    Votre commande a été annulée pour les raisons suivantes :
+                    
+                    ' . $messageEmail . '
+                    
+                    Nous restons à votre disposition, cordialement.
+                    L\'équipe Vite & Gourmand
+                    ');
+
+                    $mailer->send($email);
                 }
-
-                $email = (new Email())
-                    ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
-                    ->to($commande->getUtilisateur()->getEmail())
-                    ->subject('Annulation de votre commmande')
-                    ->text('Bonjour,
-            
-Votre commande a été annulée pour les raisons suivantes :
-
-' . $messageEmail . '
-
-Nous restons à votre disposition, cordialement.
-L\'équipe Vite & Gourmand
-                ');
-
-                $mailer->send($email);
             }
 
             // Modification et persistance de la donnée
@@ -232,7 +233,7 @@ L\'équipe Vite & Gourmand
     #     return $this->redirectToRoute('app_employe_avis');
     # }
 
-    // function gestion des avis
+    // Function gestion des avis
     #[Route('/employe/avis/{id}/{action}', name: 'app_avis_action')]
     public function actionAvis(Avis $avis, string $action, EntityManagerInterface $em): Response
     {
