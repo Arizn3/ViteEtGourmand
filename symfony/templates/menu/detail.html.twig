@@ -1,22 +1,35 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="/style/menu.css">{% endblock %}
+
 {% block title %} Détail d'un menu {% endblock %}
 
 {% block body %}
 
 <main>
-    <h1>{{ menu.titre }}</h1>
     {# Boucle IF qui vérifie si une image est bien en base de données #}
-    {% if menu.plat.photo %}
-    <img src="/upload/plats/{{menu.plat.photo}}" alt="{{ menu.plat.nomPlat }}" width="200">
-    {% endif %}
-    <p>{{ menu.description }}</p>
-    <p>{{ menu.prixPersonne }}</p>
-    <p>{{ menu.personneMini }}</p>
-    <p>{{ menu.qttRestante }}</p>
-    <a href="{{ path('app_commande', {id :menu.id}) }}">Commander</a>
-    <br>
-    <a href="/menu">Retour aux menus</a>
+    {% set plat = menu.plats|first %}
+    <img src="/upload/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="30%">
+    <div>
+        <h3>{{ menu.titre }}</h3>
+        <p>Thème : {{ menu.theme.description }}</p>
+        <p>Régime : {{ menu.regime.description }}</p>
+        {% for plat in menu.plats %}
+        <p>{{ plat.nomPlat }}</p>
+        {% endfor %}
+        <p>{{ menu.description }} Lorem ipsum dolor sit amet,<br>
+            consectetur adipiscing elit, sed do eiusmod tempor <br>
+            incididunt ut labore et dolore.</p>
+        <p>● {{ menu.prixPersonne }}€ par personne</p>
+        <p>● À partir de {{ menu.personneMini }} boîte à repas</p>
+        <p>Condition : Lorem ipsum dolor sit amet, consectetur <br>
+            adipiscing elit, sed do eiusmod tempor incididunt ut<br>
+            labore et dolore.</p>
+        <p>{{ menu.qttRestante }} quantités disponibles</p>
+        <a href="/menu">Liste des menus</a>
+        <a href="{{ path('app_commande', {id :menu.id}) }}">Commander</a>
+    </div>
 </main>
 
 {% endblock %}

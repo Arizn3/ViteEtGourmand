@@ -24,7 +24,7 @@ class Plat
     /**
      * @var Collection<int, Menu>
      */
-    #[ORM\OneToMany(targetEntity: Menu::class, mappedBy: 'plat')]
+    #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'plat')]
     private Collection $menus;
 
     /**
@@ -80,7 +80,7 @@ class Plat
     {
         if (!$this->menus->contains($menu)) {
             $this->menus->add($menu);
-            $menu->setPlat($this);
+            $menu->addPlat($this);
         }
 
         return $this;
@@ -90,9 +90,7 @@ class Plat
     {
         if ($this->menus->removeElement($menu)) {
             // set the owning side to null (unless already changed)
-            if ($menu->getPlat() === $this) {
-                $menu->setPlat(null);
-            }
+            $menu->removePlat($this);
         }
 
         return $this;

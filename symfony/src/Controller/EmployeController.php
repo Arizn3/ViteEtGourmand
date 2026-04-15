@@ -187,7 +187,7 @@ final class EmployeController extends AbstractController
         ]);
     }
 
-    // liste des avis utilisateurs
+    // Liste des avis utilisateurs
     #[Route('/employe/avis', name: 'app_employe_avis')]
     public function avisUtilisateur(AvisRepository $avisRepo): Response
     {

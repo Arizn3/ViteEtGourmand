@@ -197,7 +197,7 @@ class Commande
         return $this->adresseLivraison;
     }
 
-    public function setAdresseLivraison(string $adresseLivraison): self
+    public function setAdresseLivraison(string $adresseLivraison): static
     {
         $this->adresseLivraison = $adresseLivraison;
         return $this;
@@ -208,7 +208,7 @@ class Commande
         return $this->villeLivraison;
     }
 
-    public function setVilleLivraison(string $villeLivraison): self
+    public function setVilleLivraison(string $villeLivraison): static
     {
         $this->villeLivraison = $villeLivraison;
         return $this;

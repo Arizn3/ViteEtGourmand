@@ -1,0 +1,11 @@
+main {
+    display: flex;
+}
+
+div {
+    padding: 1%;
+    margin: 1%;
+    width: 10%;
+    border: 1px solid black;
+    text-align: center;
+}

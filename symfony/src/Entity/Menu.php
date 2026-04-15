@@ -45,9 +45,9 @@ class Menu
     #[ORM\JoinColumn(nullable: false)]
     private ?Regime $regime = null;
 
-    #[ORM\ManyToOne(inversedBy: 'menus')]
+    #[ORM\ManyToMany(targetEntity: Plat::class, inversedBy: 'menus')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Plat $plat = null;
+    private Collection $plats;
 
     /**
      * @var Collection<int, Commande>
@@ -58,6 +58,7 @@ class Menu
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->plats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,14 +174,26 @@ class Menu
         return $this;
     }
 
-    public function getPlat(): ?Plat
+    /**
+     * @return Collection<int, Plat>
+     */
+    public function getPlats(): Collection
     {
-        return $this->plat;
+        return $this->plats;
     }
 
-    public function setPlat(?Plat $plat): static
+    public function addPlat(Plat $plat): static
     {
-        $this->plat = $plat;
+        if (!$this->plats->contains($plat)) {
+            $this->plats[] = $plat;
+        }
+
+        return $this;
+    }
+
+    public function removePlat(Plat $plat): static
+    {
+        $this->plats->removeElement($plat);
 
         return $this;
     }
