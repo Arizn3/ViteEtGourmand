@@ -21,11 +21,11 @@
         <p>{{ menu.description }} Lorem ipsum dolor sit amet,<br>
             consectetur adipiscing elit, sed do eiusmod tempor <br>
             incididunt ut labore et dolore.</p>
-        <p>● {{ menu.prixPersonne }}€ par personne</p>
-        <p>● À partir de {{ menu.personneMini }} boîte à repas</p>
         <p>Condition : Lorem ipsum dolor sit amet, consectetur <br>
             adipiscing elit, sed do eiusmod tempor incididunt ut<br>
             labore et dolore.</p>
+        <p>● {{ menu.prixPersonne }}€ par personne</p>
+        <p>● À partir de {{ menu.personneMini }} boîte à repas</p>
         <p>{{ menu.qttRestante }} quantités disponibles</p>
         <a href="/menu">Liste des menus</a>
         <a href="{{ path('app_commande', {id :menu.id}) }}">Commander</a>

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Nouveau menu {% endblock %}
+
+{% block body %}
+
+{# Nom du compte employé connecté #}
+<p> Compte : {{ app.user.userIdentifier }}</p>
+
+<h3>Modifier un menu</h3>
+<a href="{{ path('app_employe_gestion_menu') }}">Gestion des menus</a>
+
+
+
+
+
+{% endblock %}
