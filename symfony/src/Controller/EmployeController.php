@@ -14,7 +14,6 @@ use App\Form\MenuType;
 use App\Entity\Commande;
 use App\Entity\Menu;
 use App\Entity\Utilisateur;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Mailer\MailerInterface;
@@ -273,11 +272,6 @@ final class EmployeController extends AbstractController
         ]);
     }
 
-
-
-
-
-
     // Liste des menus actifs
     #[Route('/employe/gestion-menu', name: 'app_employe_gestion_menu')]
     public function gestionMenu(MenuRepository $menuRepo): Response
@@ -294,11 +288,6 @@ final class EmployeController extends AbstractController
             'menus' => $menus,
         ]);
     }
-
-
-
-
-
 
     // Création d'un nouveau menu
     #[Route('employe/nouveau-menu', name: 'app_nouveau_menu')]
@@ -330,10 +319,6 @@ final class EmployeController extends AbstractController
         ]);
     }
 
-
-
-
-
     // Prévisualisation d'un menu
     #[Route('/employe/gestion-menu/detail/{id}', name: 'app_menu_detail')]
     public function detailMenu(MenuRepository $menus): Response
@@ -347,10 +332,6 @@ final class EmployeController extends AbstractController
             'menu' => $menus,
         ]);
     }
-
-
-
-
 
     // Modification d'un menu
     #[Route('/employe/gestion-menu/modification/{id}', name: 'app_menu_modifier')]
@@ -374,10 +355,6 @@ final class EmployeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-
-
-
 
     // Désactiver un menu
     #[Route('/employe/gestion-menu/desactiver/{id}', name: 'app_menu_desactiver')]

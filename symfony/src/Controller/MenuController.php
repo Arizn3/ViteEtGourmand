@@ -13,8 +13,8 @@ final class MenuController extends AbstractController
     #[Route('/menu', name: 'app_menu')]
     public function index(MenuRepository $menuRepository): Response
     {
-        // findAll() est une méthode de MenuRepository qui permet de récupérer toutes les données de l'Entité Menu
-        $menus = $menuRepository->findAll();
+        // findby() récupère uniquement les menus qui n'ont pas de date dans DELETED_AT
+        $menus = $menuRepository->findBy(['deletedAt' => null]);
 
         return $this->render('menu/index.html.twig', [
             'menus' => $menus,
