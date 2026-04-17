@@ -10,7 +10,62 @@
 <h3>Modifier un menu</h3>
 <a href="{{ path('app_employe_gestion_menu') }}">Gestion des menus</a>
 
+{{ form_start(form) }}
+{# Date #}
+<p>Date : {{ menu.createdAt|date('d/m/Y') }}</p>
 
+{# Titre du menu #}
+{{ form_label(form.titre) }}
+<br>
+{{ form_widget(form.titre) }}
+<br><br>
+
+{# Choix du thème #}
+{{ form_label(form.theme) }}
+<br>
+{{ form_widget(form.theme) }}
+<br><br>
+
+{# Menu dipsponible à partir de X personnes #}
+{{ form_label(form.personneMini) }}
+<br> 
+{{ form_widget(form.personneMini) }}
+<br><br>
+
+{# Prix par personne #}
+{{ form_label(form.prixPersonne) }}
+<br>
+{{ form_widget(form.prixPersonne) }}
+<br><br>
+
+{# Description #}
+{{ form_label(form.description) }}
+<br>
+{{ form_widget(form.description) }}
+<br><br>
+
+{# Quantité restante #}
+{{ form_label(form.qttRestante) }}
+<br>
+{{ form_widget(form.qttRestante) }}
+<br><br>
+
+{# Choix du régime #}
+{{ form_label(form.regime) }}
+<br>
+{{ form_widget(form.regime) }}
+<br><br>
+
+{# Choix des plats #}
+{{ form_label(form.plats) }}
+<p>(la photo du premier plat sélectionné sera afficher dans la liste des menus)</p>
+<br>
+{{ form_widget(form.plats) }}
+<br><br>
+
+<button type="submit">Enregistrer</button>
+
+{{ form_end(form) }}
 
 
 

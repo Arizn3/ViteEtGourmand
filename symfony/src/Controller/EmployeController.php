@@ -353,6 +353,7 @@ final class EmployeController extends AbstractController
 
         return $this->render('employe/modification-menu.html.twig', [
             'form' => $form->createView(),
+            'menu' => $menu
         ]);
     }
 
