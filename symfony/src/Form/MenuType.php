@@ -61,6 +61,7 @@ class MenuType extends AbstractType
                 'class' => Plat::class,
                 'label' => 'Choix des plats :',
                 'choice_label' => 'nomPlat',
+                'expanded' => true,
                 'multiple' => true,
                 'required' => true
             ])

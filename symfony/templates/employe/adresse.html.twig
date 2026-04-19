@@ -4,12 +4,12 @@
 
 {% block body %}
 
-<h3>Adresse de livraison</h3>
+    <h3>Adresse de livraison</h3>
 
-<p><strong>ID Commande :</strong> {{ commande.id }}</p>
-<p><strong>Ville :</strong> {{ commande.villeLivraison }}</p>
-<p><strong>Adresse :</strong> {{ commande.adresseLivraison }}</p>
+    <p><strong>ID Commande :</strong> {{ commande.id }}</p>
+    <p><strong>Ville :</strong> {{ commande.villeLivraison }}</p>
+    <p><strong>Adresse :</strong> {{ commande.adresseLivraison }}</p>
 
-<a href="{{ path('app_employe', app.request.query.all) }}">Retour</a>
+    <a href="{{ path('app_employe', app.request.query.all) }}">Retour</a>
 
 {% endblock %}

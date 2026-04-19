@@ -13,9 +13,13 @@ use App\Repository\MenuRepository;
 use App\Form\MenuType;
 use App\Entity\Commande;
 use App\Entity\Menu;
+use App\Entity\Plat;
 use App\Entity\Utilisateur;
+use App\Form\PlatType;
+use App\Repository\PlatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -41,15 +45,15 @@ final class EmployeController extends AbstractController
         if ($idFilter) {
             $query->andWhere('c.id = :id')
                 ->setParameter('id', $idFilter);
-        }
+        };
         if ($emailFilter) {
             $query->andWhere('u.email LIKE :email')
                 ->setParameter('email', '%' . $emailFilter . '%');
-        }
+        };
         if ($statutFilter) {
             $query->andWhere('c.statut = :statut')
                 ->setParameter('statut', $statutFilter);
-        }
+        };
 
         // Récupération des commandes terminée ou annulée grâce au paramètre ->setParameter()
         $commandesTerminees = $CommandeRepo->createQueryBuilder('c')
@@ -70,15 +74,15 @@ final class EmployeController extends AbstractController
         if ($idTerminer) {
             $queryTerminer->andWhere('c.id = :id')
                 ->setParameter('id', $idTerminer);
-        }
+        };
         if ($emailTerminer) {
             $queryTerminer->andWhere('u.email LIKE :email')
                 ->setParameter('email', '%' . $emailTerminer . '%');
-        }
+        };
         if ($statutTerminer) {
             $queryTerminer->andWhere('c.statut LIKE :statut')
                 ->setParameter('statut', '%' . $statutTerminer . '%');
-        }
+        };
 
         $commandes = $query->getQuery()->getResult();
         $commandesTerminees = $queryTerminer->getQuery()->getResult();
@@ -149,7 +153,7 @@ final class EmployeController extends AbstractController
             ];
             if (!in_array($statut, $statutPossible)) {
                 throw new \Exception('Statut Invalide');
-            }
+            };
 
             // Système de mail en cas d'annulation d'une commande
             if ($statut === 'Annuler') {
@@ -175,15 +179,15 @@ final class EmployeController extends AbstractController
                     ');
 
                     $mailer->send($email);
-                }
-            }
+                };
+            };
 
             // Modification et persistance de la donnée
             $commande->setStatut($statut);
             $em->flush();
 
             return $this->redirectToRoute('app_employe', $request->query->all());
-        }
+        };
 
         return $this->render('employe/statut.html.twig', [
             'commande' => $commande
@@ -249,7 +253,7 @@ final class EmployeController extends AbstractController
             $avis->setStatut('REFUSER');
         } else {
             throw $this->createNotFoundException();
-        }
+        };
 
         // Persistance des donnnées en base
         $em->flush();
@@ -310,7 +314,7 @@ final class EmployeController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('app_employe_gestion_menu');
-        }
+        };
 
         // createView() convertit le formulaire en version affichable pour Twig
         return $this->render('employe/nouveau-menu.html.twig', [
@@ -320,16 +324,14 @@ final class EmployeController extends AbstractController
     }
 
     // Prévisualisation d'un menu
-    #[Route('/employe/gestion-menu/detail/{id}', name: 'app_menu_detail')]
-    public function detailMenu(MenuRepository $menus): Response
+    #[Route('/employe/gestion-menu/previsualisation/{id}', name: 'app_previsualisation_menu')]
+    public function detailMenu(Menu $menu): Response
     {
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        $menus->findAll();
-
-        return $this->render('employe/menu-detail.html.twig', [
-            'menu' => $menus,
+        return $this->render('employe/previsualisation.html.twig', [
+            'menu' => $menu,
         ]);
     }
 
@@ -349,7 +351,7 @@ final class EmployeController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('app_employe_gestion_menu');
-        }
+        };
 
         return $this->render('employe/modification-menu.html.twig', [
             'form' => $form->createView(),
@@ -367,12 +369,98 @@ final class EmployeController extends AbstractController
         // Empêche une double désactivation
         if ($menu->getDeletedAt() !== null) {
             return $this->redirectToRoute('app_employe_gestion_menu');
-        }
+        };
 
         // Désactivation du menu
         $menu->setDeletedAt(new \DateTime());
         $em->flush();
 
         return $this->redirectToRoute('app_employe_gestion_menu');
+    }
+
+    // Ajouter un plat
+    #[Route('/employe/gestion-menu/plat', name: 'app_menu_nouveau_plat')]
+    public function nouveauPlat(
+        Request $request,
+        EntityManagerInterface $em,
+        SluggerInterface $slugger,
+        PlatRepository $platRepo,
+    ): Response {
+        // Contrôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        $plats = $platRepo->findAll();
+
+        // Nouvelle instance de l'Entité Plat
+        $plat = new Plat();
+
+        // Création d'un nouveau formulaire et d'une requête
+        $form = $this->createForm(PlatType::class, $plat);
+        $form->handleRequest($request);
+
+        // Photo
+        $photo = $form->get('photo')->getData();
+
+        // Mapping de la photo sous condition
+        if ($photo) {
+
+            $nomOriginal = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+            // Sécuriser le nom de la photo.
+            $safeNom = $slugger->slug($nomOriginal);
+
+            $nouveauNom = $safeNom . '-' . uniqid() . '.' . $photo->guessExtension();
+
+            $photo->move(
+                $this->getParameter('image_directory'),
+                $nouveauNom
+            );
+
+            $plat->setPhoto($nouveauNom);
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // Persistance des données en base
+            $em->persist($plat);
+            $em->flush();
+
+            return $this->redirectToRoute('app_menu_nouveau_plat');
+        };
+
+        return $this->render('employe/nouveau-plat.html.twig', [
+            'form' => $form->createView(),
+            'plat' => $plats,
+        ]);
+    }
+
+    // Suppression d'un plat
+    #[Route('/employe/gestion-menu/plat/supprime/{id}', 'app_supprime_plat')]
+    public function supprimerPlat(Plat $plat, EntityManagerInterface $em): Response
+    {
+        // Contrôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        // Vérification relation
+        if (!$plat->getMenus()->isEmpty()) {
+            $this->addFlash('error',  $plat->getNomPlat() . ' est impossible à supprimer, ce plat est utilisé dans un menu.');
+            return $this->redirectToRoute('app_menu_nouveau_plat');
+        };
+
+        $photo = $plat->getPhoto();
+
+        if ($photo) {
+            $pathPhoto = $this->getParameter('image_directory') . '/' . $photo;
+            if (file_exists($pathPhoto)) {
+                // Supprime la photo du fichier uploads/plat
+                unlink($pathPhoto);
+            };
+        };
+
+        $em->remove($plat);
+        $em->flush();
+
+        $this->addFlash('success', $plat->getNomPlat() . ' a été supprimé');
+
+        return $this->redirectToRoute('app_menu_nouveau_plat');
     }
 }

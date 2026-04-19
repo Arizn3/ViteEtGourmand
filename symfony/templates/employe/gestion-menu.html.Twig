@@ -4,37 +4,40 @@
 
 {% block body %}
 
-{# Nom du compte employé connecté #}
-<p> Compte : {{ app.user.userIdentifier }}</p>
+    {# Nom du compte employé connecté #}
+    <p> Compte : {{ app.user.userIdentifier }}</p>
 
-<h3>Gestion des menus</h3>
-<a href="{{ path('app_nouveau_menu') }}">Nouveau menu</a>
-<br><br>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Date de création</th>
-        <th>Menu</th>
-        <th>Thème</th>
-        <th>Régime</th>
-        <th>Quantité</th>
-        <th>Modification</th>
-    </tr>
-    {% for menu in menus %}
+    <h3>Gestion des menus</h3>
+    <a href="{{ path('app_nouveau_menu') }}">Nouveau menu</a>
+    <a href="{{ path('app_menu_nouveau_plat') }}">Ajouter un plat</a>
+    <a href="#">Ajouter un Thème</a>
+    <a href="#">Ajouter un Régime</a>
+    <br><br>
+    <table>
         <tr>
-            <td>{{ menu.id }}</td>
-            <td>{{ menu.createdAt|date("d/m/Y") }}</td>
-            <td>{{ menu.titre }}</td>
-            <td>{{ menu.theme.description }}</td>
-            <td>{{ menu.regime.description }}</td>
-            <td>{{ menu.qttRestante }}</td>
-            <td>
-                <a href="{{ path('app_menu_detail', {id: menu.id}) }}">🔍</a>
-                <a href="{{ path('app_menu_modifier', {id: menu.id}) }}">✍🏻</a>
-                <a href="{{ path('app_menu_desactiver', {id: menu.id}) }}">❌</a>
-            </td>
+            <th>ID</th>
+            <th>Date de création</th>
+            <th>Menu</th>
+            <th>Thème</th>
+            <th>Régime</th>
+            <th>Quantité</th>
+            <th>Modification</th>
         </tr>
-    {% endfor %}
-</table>
+        {% for menu in menus %}
+            <tr>
+                <td>{{ menu.id }}</td>
+                <td>{{ menu.createdAt|date("d/m/Y") }}</td>
+                <td>{{ menu.titre }}</td>
+                <td>{{ menu.theme.description }}</td>
+                <td>{{ menu.regime.description }}</td>
+                <td>{{ menu.qttRestante }}</td>
+                <td>
+                    <a href="{{ path('app_previsualisation_menu', {id: menu.id}) }}">🔍</a>
+                    <a href="{{ path('app_menu_modifier', {id: menu.id}) }}">✍🏻</a>
+                    <a href="{{ path('app_menu_desactiver', {id: menu.id}) }}">❌</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}

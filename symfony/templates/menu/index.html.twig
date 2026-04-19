@@ -7,22 +7,22 @@
 
 {% block body %}
 
-<h2>Ce que nous vous proposons</h2>
-<main>
-    {# Boucle FOR IN qui itère dans l'objet qui est en fait l'Entité Menu #}
-    {% for menu in menus %}
-    <div>
-        <p>{{ menu.titre }}</p>
-        {% set plat = menu.plats|first %}
-        <img src="/upload/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="100%">
-        <p>{{ menu.description }}</p>
-        <p>► {{ menu.prixPersonne }}€ par personne</p>
-        <p>► À partir de {{ menu.personneMini }} boîte à repas</p>
-        <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Détail</a>
-    </div>
-    {% else %}
-    <p>Aucun menu disponible</p>
-    {% endfor %}
-</main>
+    <h2>Ce que nous vous proposons</h2>
+    <main>
+        {# Boucle FOR IN qui itère dans l'objet qui est en fait l'Entité Menu #}
+        {% for menu in menus %}
+            <div>
+                <p>{{ menu.titre }}</p>
+                {% set plat = menu.plats|first %}
+                <img src="/uploads/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="100%">
+                <p>{{ menu.description }}</p>
+                <p>► {{ menu.prixPersonne }}€ par personne</p>
+                <p>► À partir de {{ menu.personneMini }} boîte à repas</p>
+                <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Détail</a>
+            </div>
+        {% else %}
+            <p>Aucun menu disponible</p>
+        {% endfor %}
+    </main>
 
 {% endblock %}

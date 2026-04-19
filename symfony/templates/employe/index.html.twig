@@ -4,20 +4,20 @@
 
 {% block body %}
 
-{# Nom du compte employé connecté #}
-<p> Compte : {{ app.user.userIdentifier }}</p>
+    {# Nom du compte employé connecté #}
+    <p> Compte : {{ app.user.userIdentifier }}</p>
 
-{# Persistance des filtres #}
-{% set filters = {
-idFilter: app.request.get('idFilter'),
-email: app.request.get('email'),
-statut: app.request.get('status'),
-idTerminer: app.request.get('idTerminer'),
-emailTerminer: app.request.get('emailTerminer'),
-statutTerminer: app.request.get('statutTerminer')
-} %}
+    {# Persistance des filtres #}
+    {% set filters = {
+    idFilter: app.request.get('idFilter'),
+    email: app.request.get('email'),
+    statut: app.request.get('status'),
+    idTerminer: app.request.get('idTerminer'),
+    emailTerminer: app.request.get('emailTerminer'),
+    statutTerminer: app.request.get('statutTerminer')
+    } %}
 
-<h3>Liste des commandes actifs</3>
+    <h3>Liste des commandes actifs</3>
     {# Nombre de commandes actives #}
     <p>Total commandes : {{ commandesActives|length }}</p>
     {# Filtre possible #}
@@ -72,12 +72,12 @@ statutTerminer: app.request.get('statutTerminer')
         </tr>
         {% endif %}
         {% else %}
-        <p>Aucune commande disponible</p>
+            <p>Aucune commande disponible</p>
         {% endfor %}
-    </table>
-    <br><br><br>
-    {# Tableau des commandes terminées #}
-    <h3>Commandes terminées</3>
+        </table>
+        <br><br><br>
+        {# Tableau des commandes terminées #}
+        <h3>Commandes terminées</3>
         {# Filtre possible #}
         <form method="GET">
             <input type="text" name="idTerminer" placeholder="ID commande" value="{{ app.request.get('idTerminer') }}">
@@ -92,21 +92,21 @@ statutTerminer: app.request.get('statutTerminer')
             <a href="{{ path('app_employe') }}" , class="btn">Réinitialiser</a>
         </form>
         <br><br>
-        <table>
-            <tr>
-                <th>ID commande</th>
-                <th>client</th>
-                <th>Ville</th>
-                <th>Statut</th>
-            </tr>
-            {% for commande in commandesTerminees %}
+    <table>
+        <tr>
+            <th>ID commande</th>
+            <th>client</th>
+            <th>Ville</th>
+            <th>Statut</th>
+        </tr>
+        {% for commande in commandesTerminees %}
             <tr>
                 <td>{{ commande.id }}</td>
                 <td>{{ commande.utilisateur.email }}</td>
                 <td>{{ commande.villeLivraison }}</td>
                 <td>{{ commande.statut }}</td>
             </tr>
-            {% endfor %}
-        </table>
+        {% endfor %}
+    </table>
 
-        {% endblock %}
+{% endblock %}

@@ -24,7 +24,7 @@ class Plat
     /**
      * @var Collection<int, Menu>
      */
-    #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'plat')]
+    #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'plats')]
     private Collection $menus;
 
     /**

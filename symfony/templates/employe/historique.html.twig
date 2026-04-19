@@ -4,32 +4,32 @@
 
 {% block body %}
 
-{# Nom du compte employé connecté #}
-<p> Compte : {{ app.user.userIdentifier }}</p>
+    {# Nom du compte employé connecté #}
+    <p> Compte : {{ app.user.userIdentifier }}</p>
 
-<h3>Historique des avis</h3>
-<a href="{{ path('app_employe_avis') }}">Gestion des avis</a>
-<br><br>
+    <h3>Historique des avis</h3>
+    <a href="{{ path('app_employe_avis') }}">Gestion des avis</a>
+    <br><br>
 
-<table>
-    <tr>
-        <th>Utilisateur</th>
-        <th>Note</th>
-        <th>Message</th>
-        <th>Statut</th>
-    </tr>
-    {% for a in avis %}
-    <tr>
-        <td>{{ a.utilisateur.email }}</td>
-        <td>
-            {% for i in 1..5 %}
-            {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} </td>
-        <td>{{ a.libelle }}</td>
-        <td>{{ a.statut }}</td>
-    </tr>
-    {% else %}
-    <p>Aucun avis</p>
-    {% endfor %}
-</table>
+    <table>
+        <tr>
+            <th>Utilisateur</th>
+            <th>Note</th>
+            <th>Message</th>
+            <th>Statut</th>
+        </tr>
+        {% for a in avis %}
+        <tr>
+            <td>{{ a.utilisateur.email }}</td>
+            <td>
+                {% for i in 1..5 %}
+                {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} </td>
+            <td>{{ a.libelle }}</td>
+            <td>{{ a.statut }}</td>
+        </tr>
+        {% else %}
+        <p>Aucun avis</p>
+        {% endfor %}
+    </table>
 
 {% endblock %}

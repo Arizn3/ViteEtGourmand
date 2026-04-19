@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Nouveau menu {% endblock %}
+
+{% block body %}
+
+    {# Nom du compte employé connecté #}
+    <p> Compte : {{ app.user.userIdentifier }}</p>
+
+    <h3>Création d'un nouveau menu</h3>
+    <a href="{{ path('app_employe_gestion_menu') }}">Gestion des menus</a>
+    <br><br>
+
+    {{ form_start(form) }}
+
+    {# Nom du plat #}
+    {{ form_label(form.nomPlat) }}
+    <br>
+    {{ form_widget(form.nomPlat) }}
+    <br><br>
+
+    {# Photo #}
+    {{ form_label(form.photo) }}
+    {{ form_errors(form.photo) }}
+    <br>
+    {{ form_widget(form.photo) }}
+    <br><br>
+
+    {# Allergène(s) #}
+    {% for allergene in form.allergenes %}
+        {{ form_widget(allergene) }}
+        {{ form_label(allergene) }}
+        <br>
+    {% endfor %}
+
+    <br>
+    <button type="submit">Enregistrer</button>
+    <br><br>
+
+    {{ form_end(form) }}
+
+    {# Plat disponible #}
+
+    <div id="photo-div" style="display: none;">
+        <img src="" alt="Photo du plat" width="10px%">
+    </div>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <table>
+        <tr>
+            <th>Plats disponibles</th>
+        </tr>
+        {% for plats in plat %}
+        <tr>
+            <td>
+                {{ plats.nomPlat }}
+                <a href="#" class="btn-photo" data-photo="{{ plats.photo }}">📷</a>
+                <a href="{{ path('app_supprime_plat', {id: plats.id}) }}" class="btn-supression">❌
+                </a>
+            </td>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+{% block javascript %}
+    <script src="/javascript/employe-plat.js"></script>
+{% endblock javascript %}
+
+{% endblock %}

@@ -29,7 +29,7 @@ final class MenuController extends AbstractController
         $menu = $menuRepository->find($id);
 
         // Exception en cas de problème
-        if(!$menu) {
+        if (!$menu) {
             throw $this->createNotFoundException('Menu non trouvé ! Veuillez ressayer ou sélectionner un autre menu');
         }
 
