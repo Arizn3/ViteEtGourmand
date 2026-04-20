@@ -38,6 +38,17 @@
         <p>[FOOTER]</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
             magna aliqua.</p>
+        <h4>Horaires</h4>
+        <table>
+            {% for h in horaires %}
+                <tr>
+                    <td>{{ h.jour }}</td>
+                    <td>{{ h.heureOuverture|date('H:i') }}</td>
+                    <td>-</td>
+                    <td>{{ h.heureFermeture|date('H:i') }}</td>
+                </tr>
+            {% endfor %}
+        </table>
         <p>[/FOOTER]</p>
     </footer>
 

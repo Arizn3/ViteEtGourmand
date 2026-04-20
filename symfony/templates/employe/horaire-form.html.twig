@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Gestion des horaires {% endblock %}
+
+{% block body %}
+
+    {# Nom du compte employé connecté #}
+    <p> Compte : {{ app.user.userIdentifier }}</p>
+
+    <h3>Modifier les horaires pour {{ horaire.jour }}</h3>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.heureOuverture) }}
+    {{ form_row(form.HeureFermeture) }}
+
+    <button>Enregistrer</button>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_employe_horaire') }}">Retour</a>
+
+{% endblock %}

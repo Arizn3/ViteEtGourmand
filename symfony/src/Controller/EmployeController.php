@@ -12,18 +12,22 @@ use App\Repository\AvisRepository;
 use App\Repository\MenuRepository;
 use App\Form\MenuType;
 use App\Entity\Commande;
+use App\Entity\Horaire;
 use App\Entity\Menu;
 use App\Entity\Plat;
 use App\Entity\Regime;
 use App\Entity\Theme;
 use App\Entity\Utilisateur;
+use App\Form\HoraireType;
 use App\Form\PlatType;
 use App\Form\RegimeType;
 use App\Form\ThemeType;
+use App\Repository\HoraireRepository;
 use App\Repository\PlatRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Laminas\Code\Generator\EnumGenerator\Name;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -561,5 +565,42 @@ final class EmployeController extends AbstractController
         $this->addFlash('success', $regime->getDescription() . ' a été supprimé');
 
         return $this->redirectToRoute('app_nouveau_regime');
+    }
+
+    // Horaires
+    #[Route('/employe/horaire', name: 'app_employe_horaire')]
+    public function horaire(HoraireRepository $horaire): Response
+    {
+        // Contrôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        return $this->render('employe/horaire.html.twig', [
+            'horaires' => $horaire->findAll(),
+        ]);
+    }
+
+    // Modification des horaires
+    #[Route('/employe/horaire/modifier/{id}', name: 'app_employe_nouveau_horaire')]
+    public function modifierHoraire(
+        Horaire $horaire,
+        Request $request,
+        EntityManagerInterface $em
+    ): response {
+        // Contrôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        $form = $this->createForm(HoraireType::class, $horaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('app_employe_horaire');
+        };
+
+        return $this->render('employe/horaire-form.html.twig', [
+            'form' => $form->createView(),
+            'horaire' => $horaire,
+        ]);
     }
 }
