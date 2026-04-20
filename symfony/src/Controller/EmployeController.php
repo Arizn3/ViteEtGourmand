@@ -14,11 +14,14 @@ use App\Form\MenuType;
 use App\Entity\Commande;
 use App\Entity\Menu;
 use App\Entity\Plat;
+use App\Entity\Regime;
 use App\Entity\Theme;
 use App\Entity\Utilisateur;
 use App\Form\PlatType;
+use App\Form\RegimeType;
 use App\Form\ThemeType;
 use App\Repository\PlatRepository;
+use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -513,5 +516,50 @@ final class EmployeController extends AbstractController
         $this->addFlash('success', $theme->getDescription() . ' a été supprimé');
 
         return $this->redirectToRoute('app_nouveau_theme');
+    }
+
+    // Ajouter un régime
+    #[Route('/employe/gestion-menu/regime', name: 'app_nouveau_regime')]
+    public function nouveauRegime(RegimeRepository $regimeRepo, EntityManagerInterface $em, Request $request): response
+    {
+        // Contrôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        $regime = new Regime();
+
+        $form = $this->createForm(RegimeType::class, $regime);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($regime);
+            $em->flush();
+
+            return $this->redirectToRoute('app_nouveau_regime');
+        };
+
+        return $this->render('employe/nouveau-regime.html.twig', [
+            'regime' => $regimeRepo->findAll(),
+            'form' => $form->createView(),
+        ]);
+    }
+
+    // Suppression d'un régime
+    #[Route('/employe/gestion-menu/regime/supprime/{id}', name: 'app_supprime_regime')]
+    public function supprimerRegime(Regime $regime, EntityManagerInterface $em): response
+    {
+        // Contrôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        if (!$regime->getMenus()->isEmpty()) {
+            $this->addFlash('error',  $regime->getDescription() . ' est impossible à supprimer, ce régime est utilisé dans un menu.');
+            return $this->redirectToRoute('app_nouveau_regime');
+        }
+
+        $em->remove($regime);
+        $em->flush();
+
+        $this->addFlash('success', $regime->getDescription() . ' a été supprimé');
+
+        return $this->redirectToRoute('app_nouveau_regime');
     }
 }

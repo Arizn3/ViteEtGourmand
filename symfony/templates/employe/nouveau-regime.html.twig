@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Nouveau thème {% endblock %}
+{% block title %} Nouveau régime {% endblock %}
 
 {% block body %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
 
-    <h3>Création d'un nouveau thème</h3>
+    <h3>Création d'un nouveau régime</h3>
     <a href="{{ path('app_employe_gestion_menu') }}">Gestion des menus</a>
     <br><br>
 
@@ -38,11 +38,11 @@
         <tr>
             <th>Thèmes disponibles</th>
         </tr>
-        {% for themes in theme %}
+        {% for regimes in regime %}
         <tr>
             <td>
-                {{ themes.description }}
-                <a href="{{ path('app_supprime_theme', {id: themes.id}) }}" class="btn-supression">❌
+                {{ regimes.description }}
+                <a href="{{ path('app_supprime_regime', {id: regimes.id}) }}" class="btn-supression">❌
                 </a>
             </td>
         </tr>
@@ -51,7 +51,7 @@
     </table>
 
 {% block javascript %}
-    <script src="/javascript/employe-theme.js"></script>
+    <script src="/javascript/employe-regime.js"></script>
 {% endblock javascript %}
 
 {% endblock %}
