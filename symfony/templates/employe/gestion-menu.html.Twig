@@ -34,10 +34,14 @@
                 <td>
                     <a href="{{ path('app_previsualisation_menu', {id: menu.id}) }}">🔍</a>
                     <a href="{{ path('app_menu_modifier', {id: menu.id}) }}">✍🏻</a>
-                    <a href="{{ path('app_menu_desactiver', {id: menu.id}) }}">❌</a>
+                    <a href="{{ path('app_menu_desactiver', {id: menu.id}) }}" class="btn-supression">❌</a>
                 </td>
             </tr>
         {% endfor %}
     </table>
+
+    {% block javascript %}
+        <script src="/javascript/employe-menu.js"></script>
+    {% endblock javascript %}
 
 {% endblock %}
