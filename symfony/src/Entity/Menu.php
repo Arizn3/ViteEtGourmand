@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MenuRepository;
 use DateTime;
 use DateTimeImmutable;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -18,18 +19,27 @@ class Menu
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 2, max: 30)]
     #[ORM\Column(length: 50)]
     private ?string $titre = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Length(min: 1, max: 300)]
     #[ORM\Column]
     private ?int $personneMini = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\Positive()]
     #[ORM\Column]
     private ?float $prixPersonne = null;
 
+    #[Assert\NotBlank()]
     #[ORM\Column(length: 50)]
     private ?string $description = null;
 
+    #[Assert\NotBlank()]
+    #[Assert\PositiveOrZero()]
     #[ORM\Column]
     private ?int $qttRestante = null;
 

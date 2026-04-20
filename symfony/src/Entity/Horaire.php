@@ -4,8 +4,13 @@ namespace App\Entity;
 
 use App\Repository\HoraireRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
+#[Assert\Expression(
+    "this.getHeureFermeture() > this.getHeureOuverture()",
+    message: "L'heure de fermeture doit être après l'ouverture."
+)]
 #[ORM\Entity(repositoryClass: HoraireRepository::class)]
 class Horaire
 {
