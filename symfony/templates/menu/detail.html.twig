@@ -1,18 +1,20 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="/style/menu.css">{% endblock %}
+{{ parent() }}
+<link rel="stylesheet" href="/css/menu.css">
+{% endblock %}
 
 {% block title %} Détail d'un menu {% endblock %}
 
 {% block body %}
 
-    <main>
+    <main class="mainMenu">
         {# Boucle IF qui vérifie si une image est bien en base de données #}
         {% set plat = menu.plats|first %}
         {% set allAllergenes = [] %}
         <img src="/uploads/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="30%">
-        <div>
+        <div class="divMenu">
             <h3>{{ menu.titre }}</h3>
             <p>Thème : {{ menu.theme.description }}</p>
             <p>Régime : {{ menu.regime.description }}</p>

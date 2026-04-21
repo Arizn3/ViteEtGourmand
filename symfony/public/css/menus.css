@@ -1,8 +1,8 @@
-main {
+.mainMenus {
     display: flex;
 }
 
-div {
+.mainMenus .divMenus {
     padding: 1%;
     margin: 1%;
     width: 10%;

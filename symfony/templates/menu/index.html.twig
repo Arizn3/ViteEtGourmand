@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="/style/menus.css">{% endblock %}
+{{ parent() }}
+<link rel="stylesheet" href="/css/menus.css">
+{% endblock %}
 
 {% block title %}Menus{% endblock %}
 
 {% block body %}
 
     <h2>Ce que nous vous proposons</h2>
-    <main>
+    <main class="mainMenus">
         {# Boucle FOR IN qui itère dans l'objet qui est en fait l'Entité Menu #}
         {% for menu in menus %}
-            <div>
+            <div class="divMenus">
                 <p>{{ menu.titre }}</p>
                 {% set plat = menu.plats|first %}
                 <img src="/uploads/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="100%">

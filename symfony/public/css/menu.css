@@ -1,4 +1,4 @@
-main {
+.mainMenu {
     display: flex;
     justify-content: center;
     margin: 5%;
@@ -9,6 +9,6 @@ img {
     border-radius: 10%;
 }
 
-div {
+.mainMenu .divMenu {
     margin-left: 5%;
 }
