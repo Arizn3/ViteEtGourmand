@@ -26,12 +26,14 @@ use App\Repository\HoraireRepository;
 use App\Repository\PlatRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
+use App\Document\Stat;
 use Doctrine\ORM\EntityManagerInterface;
-use Laminas\Code\Generator\EnumGenerator\Name;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 // Controller pour l'espace employé
 final class EmployeController extends AbstractController
@@ -142,6 +144,7 @@ final class EmployeController extends AbstractController
         Request $request,
         EntityManagerInterface $em,
         MailerInterface $mailer,
+        DocumentManager $dm,
     ): Response {
         // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
@@ -190,6 +193,58 @@ final class EmployeController extends AbstractController
 
                     $mailer->send($email);
                 };
+            };
+
+            // Enregistrement des données d'une commande dans MongoDB
+            // avec un système de mail pour l'utilisateur
+            if ($statut === 'Terminer') {
+
+                // Information sur la commande terminée
+                $menuNom = $commande->getMenu()->getTitre();
+                $prix = $commande->getPrixMenu();
+                $periode = (new \DateTime())->format('Y-m');
+
+                // Chercher si le docmuent menu existe déjà
+                // ainsi que sa période
+                $stat = $dm->getRepository(Stat::class)->findOneBy([
+                    'menu' => $menuNom,
+                    'periode' => $periode
+                ]);
+
+                // Sinon création d'un nouveau document
+                if (!$stat) {
+                    $stat = new Stat();
+                    $stat->setMenu($menuNom);
+                    $stat->setPeriode($periode);
+                    $stat->setTotalCommandes(0);
+                    $stat->setChiffreAffaire(0);
+                };
+
+                // Incrémentation
+                $stat->setTotalCommandes($stat->getTotalCommandes() + 1);
+                $stat->setChiffreAffaire($stat->getChiffreAffaire() + $prix);
+
+                $dm->persist($stat);
+                $dm->flush();
+
+                // Envoie de l'email de fin de commande a l'utilisateur
+                $url = $this->generateUrl('app_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
+                $email = (new Email())
+                    ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                    ->to($commande->getUtilisateur()->getEmail())
+                    ->subject('Commmande terminée')
+                    ->html("
+                    <p>Bonjour,</p>
+                    
+                    <p>Votre commande est à présent terminée, nous espérons que vous vous êtes régalé.</p>
+
+                    <p>Vous pouvez dès à présent vous rendre dans votre <a href='$url'>espace personnel</a> pour nous laisser un avis.</p>
+                    
+                    <p>Nous restons à votre disposition, cordialement.</p>
+                    <p>L\'équipe Vite & Gourmand</p>
+                    ");
+
+                $mailer->send($email);
             };
 
             // Modification et persistance de la donnée

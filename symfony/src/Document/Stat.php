@@ -22,6 +22,21 @@ class Stat
     #[MongoDB\Field(type: "date")]
     private \DateTime $date;
 
+    #[MongoDB\Field(type: "string")]
+    private ?string $periode = null;
+
+    public function getPeriode(): ?string
+    {
+        return $this->periode;
+    }
+
+    public function setPeriode(string $periode): self
+    {
+        $this->periode = $periode;
+
+        return $this;
+    }
+
     public function getId(): ?string
     {
         return $this->id;
