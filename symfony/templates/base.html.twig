@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    {% block stylesheets %}<link rel="stylesheet" href="/css/home.css">{% endblock %}
+    {% block stylesheets %}
+    <link rel="stylesheet" href="/css/home.css">{% endblock %}
 </head>
 
 <body>
@@ -16,14 +17,14 @@
 
         {# Déconnexion #}
         {% if app.user %}
-            <a href="{{ logout_path() }}">Déconnexion</a>
+        <a href="{{ logout_path() }}">Déconnexion</a>
         {% endif %}
 
         </div>
         {# BARRE DE NAVIGATION #}
         <nav>
             {# BOUTON ACCUEIL #}
-            <div class="navAccueil">    
+            <div class="navAccueil">
                 <a href="{{ path('app_home') }}">Accueil</a>
             </div>
 
@@ -40,34 +41,36 @@
             {# CONNEXION / INSCRIPTION #}
             {% if not app.user %}
             <div class="navLogin">
-                <a href="{{ path('app_login') }}">Connexion</a>
+                <a href="{{ path('app_login') }}">Connexion /</a>
                 <a href="{{ path('app_register') }}">Inscription</a>
             </div>
-                {% endif %}
+            {% endif %}
 
             {# ESPACE UTILISATEUR #}
             {% if app.user and is_granted('ROLE_USER') %}
             <div class="navUtilisateur">
                 <a href="#">Mon Compte</a>
             </div>
-                {% endif %}
+            {% endif %}
 
             {# ESPACE EMPLOYE #}
             {% if app.user and is_granted('ROLE_EMPLOYE') %}
-                <div class="navEmploye">
-                    <button class="btnNavEmploye">Espace Employé</button>
-                    <div class="lienEmploye">
-                        <a href="{{ path('app_employe') }}">Commandes</a>
-                        <a href="{{ path('app_employe_gestion_menu') }}">Menus</a>
-                        <a href="{{ path('app_employe_avis') }}">Avis</a>
-                        <a href="{{ path('app_employe_horaire') }}">Horaire</a>
-                    </div>
+            <div class="navEmploye">
+                <button class="btnNavEmploye">Espace Employé</button>
+                <div class="lienEmploye">
+                    <a href="{{ path('app_employe') }}">Commandes</a>
+                    <a href="{{ path('app_employe_gestion_menu') }}">Menus</a>
+                    <a href="{{ path('app_employe_avis') }}">Avis</a>
+                    <a href="{{ path('app_employe_horaire') }}">Horaire</a>
                 </div>
+            </div>
             {% endif %}
 
             {# ESPACE ADMINISTRATEUR #}
             {% if app.user and is_granted('ROLE_ADMIN') %}
-                <a href="#">Espace Administrateur</a>
+            <div class="navAdministrateur">
+                <a href="{{ path('app_administrateur') }}">Espace Administrateur</a>
+            </div>
             {% endif %}
 
             {# CONTACT #}
@@ -82,7 +85,8 @@
     {# Footer #}
     <footer></footer>
 
-    {% block javascripts %}<script src="/javascript/home.js"></script>{% endblock %}
+    {% block javascripts %}
+    <script src="/javascript/home.js"></script>{% endblock %}
 </body>
 
 </html>

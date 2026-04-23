@@ -26,8 +26,18 @@ CREATE TABLE `allergene` (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `allergene`
+--
+
+LOCK TABLES `allergene` WRITE;
+/*!40000 ALTER TABLE `allergene` DISABLE KEYS */;
+INSERT INTO `allergene` VALUES (1,'œuf'),(2,'lait'),(3,'moutarde'),(4,'arachide'),(5,'mollusques et crustacés'),(6,'poissons'),(7,'graine de sésames'),(8,'soja'),(9,'sulfites'),(10,'noix'),(11,'blé et triticale');
+/*!40000 ALTER TABLE `allergene` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `avis`
@@ -45,8 +55,17 @@ CREATE TABLE `avis` (
   PRIMARY KEY (`id`),
   KEY `IDX_8F91ABF0FB88E14F` (`utilisateur_id`),
   CONSTRAINT `FK_avis_utilisateur` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `avis`
+--
+
+LOCK TABLES `avis` WRITE;
+/*!40000 ALTER TABLE `avis` DISABLE KEYS */;
+/*!40000 ALTER TABLE `avis` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `commande`
@@ -75,8 +94,17 @@ CREATE TABLE `commande` (
   KEY `IDX_6EEAA67DCCD7E912` (`menu_id`),
   CONSTRAINT `FK_commande_menu` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`),
   CONSTRAINT `FK_commande_utilisateur` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `commande`
+--
+
+LOCK TABLES `commande` WRITE;
+/*!40000 ALTER TABLE `commande` DISABLE KEYS */;
+/*!40000 ALTER TABLE `commande` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `horaire`
@@ -91,8 +119,18 @@ CREATE TABLE `horaire` (
   `heure_ouverture` time NOT NULL,
   `heure_fermeture` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `horaire`
+--
+
+LOCK TABLES `horaire` WRITE;
+/*!40000 ALTER TABLE `horaire` DISABLE KEYS */;
+INSERT INTO `horaire` VALUES (1,'Lundi','11:00:00','19:00:00'),(2,'Mardi','11:00:00','19:00:00'),(3,'Mercredi','11:00:00','19:00:00'),(4,'Jeudi','11:00:00','19:00:00'),(5,'Vendredi','11:00:00','19:00:00'),(6,'Samedi','11:00:00','19:00:00'),(7,'Dimanche','11:00:00','19:00:00');
+/*!40000 ALTER TABLE `horaire` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `menu`
@@ -117,8 +155,17 @@ CREATE TABLE `menu` (
   KEY `IDX_7D053A9359027487` (`theme_id`),
   CONSTRAINT `FK_menu_regime` FOREIGN KEY (`regime_id`) REFERENCES `regime` (`id`),
   CONSTRAINT `FK_menu_theme` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu`
+--
+
+LOCK TABLES `menu` WRITE;
+/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `menu_plat`
@@ -138,6 +185,15 @@ CREATE TABLE `menu_plat` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `menu_plat`
+--
+
+LOCK TABLES `menu_plat` WRITE;
+/*!40000 ALTER TABLE `menu_plat` DISABLE KEYS */;
+/*!40000 ALTER TABLE `menu_plat` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `plat`
 --
 
@@ -151,6 +207,15 @@ CREATE TABLE `plat` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `plat`
+--
+
+LOCK TABLES `plat` WRITE;
+/*!40000 ALTER TABLE `plat` DISABLE KEYS */;
+/*!40000 ALTER TABLE `plat` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `plat_allergene`
@@ -170,6 +235,15 @@ CREATE TABLE `plat_allergene` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `plat_allergene`
+--
+
+LOCK TABLES `plat_allergene` WRITE;
+/*!40000 ALTER TABLE `plat_allergene` DISABLE KEYS */;
+/*!40000 ALTER TABLE `plat_allergene` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `regime`
 --
 
@@ -180,8 +254,17 @@ CREATE TABLE `regime` (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `regime`
+--
+
+LOCK TABLES `regime` WRITE;
+/*!40000 ALTER TABLE `regime` DISABLE KEYS */;
+/*!40000 ALTER TABLE `regime` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `role`
@@ -198,6 +281,16 @@ CREATE TABLE `role` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `role`
+--
+
+LOCK TABLES `role` WRITE;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'ROLE_ADMIN'),(2,'ROLE_EMPLOYE'),(3,'ROLE_USER');
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `theme`
 --
 
@@ -208,8 +301,17 @@ CREATE TABLE `theme` (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `theme`
+--
+
+LOCK TABLES `theme` WRITE;
+/*!40000 ALTER TABLE `theme` DISABLE KEYS */;
+/*!40000 ALTER TABLE `theme` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `utilisateur`
@@ -230,8 +332,18 @@ CREATE TABLE `utilisateur` (
   PRIMARY KEY (`id`),
   KEY `IDX_1D1C63B3D60322AC` (`role_id`),
   CONSTRAINT `FK_utilisateur_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `utilisateur`
+--
+
+LOCK TABLES `utilisateur` WRITE;
+/*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
+INSERT INTO `utilisateur` VALUES (1,'admin@email.com','$2y$13$6htmHjF8jtuteC3iAgB3dOwOBQWd29IWD8Kl4677WaasVVzThEBOW','adminUser','adminUser','0606060606','adminUser',1);
+/*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -242,4 +354,4 @@ CREATE TABLE `utilisateur` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-04-15 15:23:06
+-- Dump completed on 2026-04-22 23:51:09

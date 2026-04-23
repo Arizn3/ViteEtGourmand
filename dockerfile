@@ -11,7 +11,8 @@ RUN docker-php-ext-install \
     zip
 
 # Éxtension MongoDB
-RUN pecl install mongodb \
+RUN apk add --no-cache openssl-dev \
+    && pecl install mongodb \
     && docker-php-ext-enable mongodb
 
 # Installation de Composer [source, image Composer] [destination, image PHP]
