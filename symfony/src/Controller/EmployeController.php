@@ -183,12 +183,12 @@ final class EmployeController extends AbstractController
                         ->subject('Annulation de votre commmande')
                         ->text('Bonjour,
                     
-                    Votre commande a été annulée pour les raisons suivantes :
+Votre commande a été annulée pour les raisons suivantes :
                     
-                    ' . $messageEmail . '
+' . $messageEmail . '
                     
-                    Nous restons à votre disposition, cordialement.
-                    L\'équipe Vite & Gourmand
+Nous restons à votre disposition, cordialement.
+L\'équipe Vite & Gourmand
                     ');
 
                     $mailer->send($email);

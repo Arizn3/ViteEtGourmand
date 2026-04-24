@@ -1,0 +1,10 @@
+.chartContainer {
+    display: flex;
+    align-items: center;
+}
+
+.chartContainer .chartDiv {
+    width: 400px;
+    height: 400px;
+    margin: 3% 3% 0 20%;
+}
