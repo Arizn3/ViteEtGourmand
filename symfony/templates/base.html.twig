@@ -70,7 +70,7 @@
             {# ESPACE ADMINISTRATEUR #}
             {% if app.user and is_granted('ROLE_ADMIN') %}
             <div class="navAdministrateur">
-                <a href="{{ path('app_administrateur') }}">Espace Administrateur</a>
+                <a href="{{ path('app_administrateur_stat') }}">Espace Administrateur</a>
             </div>
             {% endif %}
 

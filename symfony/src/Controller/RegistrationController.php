@@ -43,8 +43,6 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Connecte l'utilisateur automatiquement une fois l'inscription faite,
-            // à commenter si une validation par Email est utiliser
             return $security->login($user, LoginFormAuthenticator::class, 'main');
         }
 

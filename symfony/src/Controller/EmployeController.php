@@ -603,7 +603,7 @@ L\'équipe Vite & Gourmand
     }
 
     // Suppression d'un régime
-    #[Route('/employe/gestion-menu/regime/supprime/{id}', name: 'app_supprime_regime')]
+    #[Route('/employe/gestion-menu/regime/supprimer/{id}', name: 'app_supprime_regime')]
     public function supprimerRegime(Regime $regime, EntityManagerInterface $em): response
     {
         // Contrôle d'accès
