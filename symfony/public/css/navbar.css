@@ -7,17 +7,17 @@ nav {
     padding: 1%;
 }
 
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
 /* accueil */
 .navAccueil {
     position: relative;
     display: inline-block;
     margin: 0 3%;
-}
-
-.navAccueil a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
 }
 
 /* Menus */
@@ -27,12 +27,6 @@ nav {
     margin: 0 3%;
 }
 
-.navMenus a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-}
-
 /* Histoire */
 .navHistoire {
     position: relative;
@@ -40,29 +34,11 @@ nav {
     margin: 0 3%;
 }
 
-.navHistoire a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-}
-
 /* Connexion / Inscription */
 .navLogin {
     position: relative;
     display: inline-block;
     margin: 0 3%;
-}
-
-.navLogin a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-}
-
-.navUtilisateur a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
 }
 
 /* Menu utilisateur */
@@ -97,8 +73,6 @@ nav {
 
 .lienEmploye a {
     display: block;
-    text-decoration: none;
-    color: white;
     padding: 10px 0;
 }
 
@@ -107,16 +81,36 @@ nav {
 }
 
 /* Menu Administrateur */
-.navAdministrateur {
+.navAdmin {
     position: relative;
     display: inline-block;
     margin: 0 3%;
 }
 
-.navAdministrateur a {
-    text-decoration: none;
+.btnNavAdmin {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
     color: white;
-    font-size: 18px;
+}
+
+.lienAdmin {
+    display: none;
+    position: absolute;
+    background-color: cornflowerblue;
+    min-width: 130px;
+    box-shadow: 0px 4px 8px gray;
+    z-index: 1;
+}
+
+.lienAdmin a {
+    display: block;
+    padding: 10px 0;
+}
+
+.lienAdmin a:hover {
+    color: black;
 }
 
 /* Constact */
@@ -126,10 +120,4 @@ nav {
     text-decoration: none;
     color: white;
     margin: 0 3%;
-}
-
-.navContact a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
 }

@@ -1,5 +1,6 @@
 // DOMContentLoaded permet de charger le JS uniquement et strictement quand le HTML est prêt
 document.addEventListener('DOMContentLoaded', function () {
+
     // Vérification de l'existence du formulaire (sécurité)
     const form = document.getElementById('form-statut');
     if (form) {
@@ -45,4 +46,5 @@ document.addEventListener('DOMContentLoaded', function () {
             };
         });
     };
+    
 });

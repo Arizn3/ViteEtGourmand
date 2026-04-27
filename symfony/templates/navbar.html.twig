@@ -43,8 +43,12 @@
 
 {# ESPACE ADMINISTRATEUR #}
 {% if app.user and is_granted('ROLE_ADMIN') %}
-    <div class="navAdministrateur">
-        <a href="{{ path('app_administrateur_stat') }}">Espace Administrateur</a>
+    <div class="navAdmin">
+        <button class="btnNavAdmin">Espace Employé</button>
+        <div class="lienAdmin">
+            <a href="{{ path('app_administrateur_stat') }}">Statistiques</a>
+            <a href="{{ path('app_admin_nouveau_employe') }}">Compte</a>
+        </div>
     </div>
 {% endif %}
 

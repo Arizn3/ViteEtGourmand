@@ -1,3 +1,5 @@
+// La fonction anonyme s'exécute automatiquement, elle s'arrête si une balise <canvas> est définie en HTML,
+// et régénère un graphique, ce processus évitent des bug engendré par une double lecture du fichier JS.
 (function () {
     // Récupération du canvas HTML
     var canvas = document.getElementById('chart');

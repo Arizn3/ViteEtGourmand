@@ -1,19 +1,30 @@
 // DOMContentLoaded permet de charger le JS uniquement et strictement quand le HTML est prêt
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Ouverture du menu déroulant
-    document.querySelector('.btnNavEmploye').addEventListener('click', function () {
-        const menu = document.querySelector('.lienEmploye');
-        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-    });
+    // Ouverture des dropdown
+    document.addEventListener('click', function(e) {
+        const btnNavAdmin = document.querySelector('.btnNavAdmin');
+        const btnNavEmploye = document.querySelector('.btnNavEmploye');
+        if (btnNavAdmin.contains(e.target)) {
+            const menuAdmin = document.querySelector('.lienAdmin');
+            menuAdmin.style.display = (menuAdmin.style.display === 'block') ? 'none' : 'block';
+        }
+        if (btnNavEmploye.contains(e.target)) {
+            const menuEmploye = document.querySelector('.lienEmploye');
+            menuEmploye.style.display = (menuEmploye.style.display === 'block') ? 'none' : 'block';
+        }
+    })
 
-    // Ferme le menu déroulant en cas de clique sur l'interface
+    // fermeture des dropdown
     document.addEventListener('click', function (e) {
-        const fermer = document.querySelector('.navEmploye');
-
-        if (!fermer.contains(e.target)) {
+        const menuAdmin = document.querySelector('.navAdmin');
+        const menuEmploye = document.querySelector('.navEmploye');
+        if (!menuAdmin.contains(e.target)) {
+            document.querySelector('.lienAdmin').style.display = 'none';
+        }
+        if (!menuEmploye.contains(e.target)) {
             document.querySelector('.lienEmploye').style.display = 'none';
-        };
-    });
+        }
+    })
 
 });

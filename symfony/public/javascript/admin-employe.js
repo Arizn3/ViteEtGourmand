@@ -4,9 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.btn-supression').forEach(
         function (bouton) {
 
-            if (bouton.dataset.listener) return;
-            bouton.dataset.listener = "true";
-
             bouton.addEventListener('click', function (e) {
                 const confirmation = confirm('Supprimer le compte ?');
 
