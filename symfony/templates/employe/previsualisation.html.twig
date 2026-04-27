@@ -1,9 +1,10 @@
 {% block stylesheets %}
-<link rel="stylesheet" href="/css/menu.css">{% endblock %}
+    <link rel="stylesheet" href="/css/menu.css">
+{% endblock stylesheets %}
 
-{% block body %}
+{% block content %}
 
-    <main class="mainMenu">
+    <div class="mainMenu">
         {# Boucle IF qui vérifie si une image est bien en base de données #}
         {% set plat = menu.plats|first %}
         <img src="/uploads/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="30%">
@@ -25,6 +26,6 @@
             <a href="#">Commander</a>
         </div>
         <a href="{{ path('app_employe_gestion_menu') }}">Retour</a>
-    </main>
+    </div>
 
-{% endblock %}
+{% endblock content %}

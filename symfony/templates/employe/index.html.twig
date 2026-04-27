@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Espace Employé {% endblock %}
+{% block title %} Gestion des commandes {% endblock %}
 
-{% block body %}
+{% block content %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
 
     {# Persistance des filtres #}
     {% set filters = {
-    idFilter: app.request.get('idFilter'),
-    email: app.request.get('email'),
-    statut: app.request.get('status'),
-    idTerminer: app.request.get('idTerminer'),
-    emailTerminer: app.request.get('emailTerminer'),
-    statutTerminer: app.request.get('statutTerminer')
+        idFilter: app.request.get('idFilter'),
+        email: app.request.get('email'),
+        statut: app.request.get('status'),
+        idTerminer: app.request.get('idTerminer'),
+        emailTerminer: app.request.get('emailTerminer'),
+        statutTerminer: app.request.get('statutTerminer')
     } %}
 
     <h3>Liste des commandes actifs</3>
@@ -34,7 +34,7 @@
             <option value="En attente du retour de matériel">En attente du retour de matériel</option>
         </select>
         <button type="submit">Filtre</button>
-        <a href="{{ path('app_employe') }}" , class="btn">Réinitialiser</a>
+        <a href="{{ path('app_employe_commande') }}" , class="btn">Réinitialiser</a>
     </form>
 
     <br><br>
@@ -89,7 +89,7 @@
                 <option value="Annuler">Annuler</option>
             </select>
             <button type="submit">Filtre</button>
-            <a href="{{ path('app_employe') }}" , class="btn">Réinitialiser</a>
+            <a href="{{ path('app_employe_commande') }}" , class="btn">Réinitialiser</a>
         </form>
         <br><br>
     <table>
@@ -109,4 +109,4 @@
         {% endfor %}
     </table>
 
-{% endblock %}
+{% endblock content %}

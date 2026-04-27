@@ -2,93 +2,42 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    {% block stylesheets %}
-        <link rel="stylesheet" href="/css/home.css">
+    {% block head %}
+
+        <meta charset="UTF-8">
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="/css/navbar.css">
+        {% endblock stylesheets %}
+
+        <title>V&G - {% block title %}{% endblock title %}</title>
+
     {% endblock %}
 </head>
 
 <body>
-
-    {# Header #}
     <header>
-        <h1>Vite&Gourmand</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua.</p>
-
-        {# Déconnexion #}
-        {% if app.user %}
-        <a href="{{ logout_path() }}">Déconnexion</a>
-        {% endif %}
-
-        </div>
-        {# BARRE DE NAVIGATION #}
-        <nav>
-            {# BOUTON ACCUEIL #}
-            <div class="navAccueil">
-                <a href="{{ path('app_home') }}">Accueil</a>
-            </div>
-
-            {# ESPACE MENUS #}
-            <div class="navMenus">
-                <a href="{{ path('app_menu') }}">Nos Menus</a>
-            </div>
-
-            {# NOTRE HISTOIRE #}
-            <div class="navHistoire">
-                <a href="#">Notre histoire</a>
-            </div>
-
-            {# CONNEXION / INSCRIPTION #}
-            {% if not app.user %}
-            <div class="navLogin">
-                <a href="{{ path('app_login') }}">Connexion /</a>
-                <a href="{{ path('app_register') }}">Inscription</a>
-            </div>
-            {% endif %}
-
-            {# ESPACE UTILISATEUR #}
-            {% if app.user and is_granted('ROLE_USER') %}
-            <div class="navUtilisateur">
-                <a href="#">Mon Compte</a>
-            </div>
-            {% endif %}
-
-            {# ESPACE EMPLOYE #}
-            {% if app.user and is_granted('ROLE_EMPLOYE') %}
-            <div class="navEmploye">
-                <button class="btnNavEmploye">Espace Employé</button>
-                <div class="lienEmploye">
-                    <a href="{{ path('app_employe') }}">Commandes</a>
-                    <a href="{{ path('app_employe_gestion_menu') }}">Menus</a>
-                    <a href="{{ path('app_employe_avis') }}">Avis</a>
-                    <a href="{{ path('app_employe_horaire') }}">Horaire</a>
-                </div>
-            </div>
-            {% endif %}
-
-            {# ESPACE ADMINISTRATEUR #}
-            {% if app.user and is_granted('ROLE_ADMIN') %}
-            <div class="navAdministrateur">
-                <a href="{{ path('app_administrateur_stat') }}">Espace Administrateur</a>
-            </div>
-            {% endif %}
-
-            {# CONTACT #}
-            <div class="navContact">
-                <a href="#">Contact</a>
-            </div>
-        </nav>
+        {% include "header.html.twig" %}
     </header>
 
-    {% block body %} {# Contenu des autres pages de l'application #} {% endblock %}
+    <nav>
+        {% include "navbar.html.twig" %}
+    </nav>
 
-    {# Footer #}
-    <footer></footer>
+    <main>
+        {% block content %}
+            {# Contenu des autres pages de l'application #} 
+        {% endblock content %}
+    </main>
+
+    <footer>
+        {% include "footer.html.twig" %}
+    </footer>
 
     {% block javascripts %}
-        <script src="/javascript/home.js"></script>
-    {% endblock %}
+        <script src="/javascript/navbar.js" defer></script>
+    {% endblock javascripts %}
+
 </body>
 
 </html>

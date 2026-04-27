@@ -1,30 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Je crée mon compte{% endblock title %}
 
-{% block body %}
+{% block content %}
 
-<h1>Formulaire d'inscription</h1>
+    <h1>Formulaire d'inscription</h1>
 
-{{ form_errors(registrationForm) }}
+    {{ form_errors(registrationForm) }}
 
-{{ form_start(registrationForm, { attr: { novalidate: 'novalidate' } }) }}
+    {{ form_start(registrationForm, { attr: { novalidate: 'novalidate' } }) }}
 
-{# Input du formulaire #}
-{{ form_row(registrationForm.email) }}
-{{ form_row(registrationForm.prenom) }}
-{{ form_row(registrationForm.nom) }}
-{{ form_row(registrationForm.telephone) }}
-{{ form_row(registrationForm.adresse) }}
-{{ form_row(registrationForm.plainPassword, {
-label: 'Crée un mot de passe'
-}) }}
-{{ form_row(registrationForm.agreeTerms) }}
+    {# Input du formulaire #}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.prenom) }}
+    {{ form_row(registrationForm.nom) }}
+    {{ form_row(registrationForm.telephone) }}
+    {{ form_row(registrationForm.adresse) }}
+    {{ form_row(registrationForm.plainPassword, {
+    label: 'Crée un mot de passe'
+    }) }}
+    {{ form_row(registrationForm.agreeTerms) }}
 
-<button type="submit" class="btn">Je crée mon compte !</button>
+    <button type="submit" class="btn">Je crée mon compte !</button>
 
-{{ form_end(registrationForm) }}
+    {{ form_end(registrationForm) }}
 
-<a href="{{ path('app_home') }}">Retour</a>
+    <a href="{{ path('app_home') }}">Retour</a>
 
-{% endblock %}
+{% endblock content %}

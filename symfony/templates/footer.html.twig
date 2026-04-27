@@ -1,0 +1,11 @@
+<h4>Horaires</h4>
+<table>
+    {% for h in horaires() %}
+    <tr>
+        <td>{{ h.jour }}</td>
+        <td>{{ h.heureOuverture|date('H:i') }}</td>
+        <td>-</td>
+        <td>{{ h.heureFermeture|date('H:i') }}</td>
+    </tr>
+    {% endfor %}
+</table>

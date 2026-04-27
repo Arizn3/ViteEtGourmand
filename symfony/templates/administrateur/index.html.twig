@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Espace Administrateur {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/admin.css">
+{% endblock stylesheets %}
 
-    {% block stylesheets %}
-        {{ parent() }}
-        <link rel="stylesheet" href="/css/admin.css">
-    {% endblock %}
+{% block title %} Espace Administrateur - Statistiques {% endblock title %}
 
-{% block body %}
+{% block content %}
 
-    <main class="mainAdmin">
+    <div class="mainAdmin">
         <h3>Statistiques ({{ periode }})</h3>
         <form method="get">
             <label for="periode">Période :</label>
@@ -22,29 +22,29 @@
             <section class="chartContainer">
                 <div class="chartDiv">
                     <canvas id="chart"
-                    data-labels='{{ labels|json_encode|raw }}'
-                    data-values='{{ values|json_encode|raw }}'>
-                </canvas>
-            </div>
-            <div class="stats">
-                <p>Total commandes pour la période du {{ periode }} : {{ values|reduce((carry, v) => carry + v ) }}</p>
-                <ul>
+                        data-labels='{{ labels|json_encode|raw }}'
+                        data-values='{{ values|json_encode|raw }}'>
+                    </canvas>
+                </div>
+                <div class="stats">
+                    <p>Total commandes pour la période du {{ periode }} : {{ values|reduce((carry, v) => carry + v ) }}</p>
+                    <ul>
                     {% for i in 0..labels|length -1 %}
                     <li>{{ labels[i] }} : {{ values[i] }} commandes ({{ revenues[i] }}€)</li>
                     {% endfor %}
-                </ul>
-                <p>Total chiffre d'affaire du mois : {{ totalCA|number_format(2, ',', ' ') }} €</p>
-            </div>
-        </section>
-    {% endif %}
-    </main>
+                    </ul>
+                    <p>Total chiffre d'affaire du mois : {{ totalCA|number_format(2, ',', ' ') }} €</p>
+                </div>
+            </section>
+        {% endif %}
+    </div>
 
-    {% block javascripts %}
-        {{ parent() }}
-        {# Chart.js #}
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        {# Script JS #}
-        <script src="/javascript/chart.js"></script>
-    {% endblock %}
+{% endblock content %}
 
-{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {# Chart.js #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {# Script JS #}
+    <script src="/javascript/graph.js"></script>
+{% endblock javascripts %}

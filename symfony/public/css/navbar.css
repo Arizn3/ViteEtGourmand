@@ -59,6 +59,12 @@ nav {
     font-size: 18px;
 }
 
+.navUtilisateur a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
 /* Menu utilisateur */
 .navUtilisateur {
     position: relative;

@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Commande {% endblock %}
+{% block title %} Je crée ma commande {% endblock title %}
 
-{% block body %}
+{% block content %}
 
     <h1>Commande</h1>
 
@@ -49,8 +49,10 @@
 
     <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Retour aux détails</a>
 
-{% block javascript %}
+    
+{% endblock content %}
+    
+{% block javascripts %}
+    {{ parent() }}
     <script src="/javascript/commande.js" defer></script>
-{% endblock javascript %}
-
-{% endblock body %}
+{% endblock javascripts %}

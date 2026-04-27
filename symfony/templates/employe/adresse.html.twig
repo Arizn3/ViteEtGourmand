@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Adresse de livraison {% endblock %}
+{% block title %} Adresse de livraison {% endblock title %}
 
-{% block body %}
+{% block content %}
 
     <h3>Adresse de livraison</h3>
 
@@ -10,6 +10,6 @@
     <p><strong>Ville :</strong> {{ commande.villeLivraison }}</p>
     <p><strong>Adresse :</strong> {{ commande.adresseLivraison }}</p>
 
-    <a href="{{ path('app_employe', app.request.query.all) }}">Retour</a>
+    <a href="{{ path('app_employe_commande', app.request.query.all) }}">Retour</a>
 
-{% endblock %}
+{% endblock content %}

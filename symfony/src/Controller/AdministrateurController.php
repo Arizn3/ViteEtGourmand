@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Document\Stat;
 use App\Entity\Utilisateur;
 use App\Repository\RoleRepository;
-use App\Repository\UtilisateurRepository;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -57,13 +56,12 @@ final class AdministrateurController extends AbstractController
     }
 
     // Création d'un compte employé et affichage de la liste
-    #[Route('/administrateur/employe/nouveau', name: 'app_admin_create_employe')]
+    #[Route('/administrateur/employe/nouveau', name: 'app_admin_nouveau_employe')]
     public function compteEmploye(
         EntityManagerInterface $em,
         Request $request,
         MailerInterface $mailer,
         RoleRepository $roleRepository,
-        UtilisateurRepository $utilisateurRepo,
     ): Response {
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -87,7 +85,7 @@ final class AdministrateurController extends AbstractController
             $existeEmail = $em->getRepository(Utilisateur::class)->findOneBy(['email' => $email]);
             if ($existeEmail) {
                 $this->addFlash('error', 'Email déjà utilisé');
-                return $this->redirectToRoute('app_admin_create_employe');
+                return $this->redirectToRoute('app_admin_nouveau_employe');
             };
 
             // Création d'un mot de passe aléatoire
@@ -128,10 +126,10 @@ L'équipe Vite & Gourmand
 
             $this->addFlash('success', 'Compte employé crée, veuillez noter le mot de passe avant de quitter la page : ' . $plainPassword);
 
-            return $this->redirectToRoute('app_admin_create_employe');
+            return $this->redirectToRoute('app_admin_nouveau_employe');
         };
 
-        return $this->render('administrateur/create_employe.html.twig', [
+        return $this->render('administrateur/nouveau-employe.html.twig', [
             'compte' => $compte,
         ]);
     }
@@ -147,6 +145,6 @@ L'équipe Vite & Gourmand
         $em->flush();
 
         $this->addFlash('supp', 'Compte supprimer');
-        return $this->redirectToRoute('app_admin_create_employe');
+        return $this->redirectToRoute('app_admin_nouveau_employe');
     }
 }

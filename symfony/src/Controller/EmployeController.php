@@ -39,7 +39,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final class EmployeController extends AbstractController
 {
     // Affichage des commandes
-    #[Route('/employe', name: 'app_employe')]
+    #[Route('/employe/commandes', name: 'app_employe_commande')]
     public function index(CommandeRepository $CommandeRepo, Request $request): Response
     {
         // Contrôle d'accès
@@ -251,7 +251,7 @@ L\'équipe Vite & Gourmand
             $commande->setStatut($statut);
             $em->flush();
 
-            return $this->redirectToRoute('app_employe', $request->query->all());
+            return $this->redirectToRoute('app_employe_commande', $request->query->all());
         };
 
         return $this->render('employe/statut.html.twig', [

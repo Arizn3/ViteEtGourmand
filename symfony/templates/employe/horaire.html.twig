@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Gestion des horaires {% endblock %}
+{% block title %} Gestion des horaires {% endblock title %}
 
-{% block body %}
+{% block content %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
@@ -30,4 +30,4 @@
         {% endfor %}
     </table>
 
-{% endblock %}
+{% endblock content %}

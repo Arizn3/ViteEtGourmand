@@ -1,0 +1,54 @@
+{# BOUTON ACCUEIL #}
+<div class="navAccueil">
+    <a href="{{ path('app_home') }}">Accueil</a>
+</div>
+
+{# ESPACE MENUS #}
+<div class="navMenus">
+    <a href="{{ path('app_menu') }}">Nos Menus</a>
+</div>
+
+{# NOTRE HISTOIRE #}
+<div class="navHistoire">
+    <a href="#">Notre histoire</a>
+</div>
+
+{# CONNEXION / INSCRIPTION #}
+{% if not app.user %}
+    <div class="navLogin">
+        <a href="{{ path('app_login') }}">Connexion /</a>
+        <a href="{{ path('app_register') }}">Inscription</a>
+    </div>
+{% endif %}
+
+{# ESPACE UTILISATEUR #}
+{% if app.user and is_granted('ROLE_USER') %}
+    <div class="navUtilisateur">
+        <a href="#">Mon Compte</a>
+    </div>
+{% endif %}
+
+{# ESPACE EMPLOYE #}
+{% if app.user and is_granted('ROLE_EMPLOYE') %}
+    <div class="navEmploye">
+        <button class="btnNavEmploye">Espace Employé</button>
+        <div class="lienEmploye">
+            <a href="{{ path('app_employe_commande') }}">Commandes</a>
+            <a href="{{ path('app_employe_gestion_menu') }}">Menus</a>
+            <a href="{{ path('app_employe_avis') }}">Avis</a>
+            <a href="{{ path('app_employe_horaire') }}">Horaire</a>
+        </div>
+    </div>
+{% endif %}
+
+{# ESPACE ADMINISTRATEUR #}
+{% if app.user and is_granted('ROLE_ADMIN') %}
+    <div class="navAdministrateur">
+        <a href="{{ path('app_administrateur_stat') }}">Espace Administrateur</a>
+    </div>
+{% endif %}
+
+{# CONTACT #}
+<div class="navContact">
+    <a href="#">Contact</a>
+</div>

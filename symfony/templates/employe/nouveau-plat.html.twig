@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Nouveau plat {% endblock %}
+{% block title %} Nouveau plat {% endblock title %}
 
-{% block body %}
+{% block content %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
@@ -70,8 +70,9 @@
         {% endfor %}
     </table>
 
-{% block javascript %}
-    <script src="/javascript/employe-plat.js"></script>
-{% endblock javascript %}
+{% endblock content %}
 
-{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/javascript/employe-plat.js"></script>
+{% endblock javascripts %}

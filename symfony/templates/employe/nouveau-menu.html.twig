@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Nouveau menu {% endblock %}
+{% block title %} Nouveau menu {% endblock title %}
 
-{% block body %}
+{% block content %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
@@ -68,4 +68,4 @@
 
     {{ form_end(form) }}
 
-{% endblock %}
+{% endblock content %}

@@ -1,15 +1,15 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="/css/menu.css">
-{% endblock %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/menu.css">
+{% endblock stylesheets %}
 
-{% block title %} Détail d'un menu {% endblock %}
+{% block title %} Détail d'un menu {% endblock title %}
 
-{% block body %}
+{% block content %}
 
-    <main class="mainMenu">
+    <div class="mainMenu">
         {# Boucle IF qui vérifie si une image est bien en base de données #}
         {% set plat = menu.plats|first %}
         {% set allAllergenes = [] %}
@@ -43,6 +43,6 @@
             <a href="/menu">Liste des menus</a>
             <a href="{{ path('app_commande', {id: menu.id}) }}">Commander</a>
         </div>
-    </main>
+    </div>
 
-{% endblock %}
+{% endblock content %}

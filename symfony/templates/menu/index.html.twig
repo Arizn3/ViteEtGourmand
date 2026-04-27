@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="/css/menus.css">
-{% endblock %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/menus.css">
+{% endblock stylesheets %}
 
-{% block title %}Menus{% endblock %}
+{% block title %}Nos menus{% endblock title %}
 
-{% block body %}
+{% block content %}
 
     <h2>Ce que nous vous proposons</h2>
-    <main class="mainMenus">
+    <div class="mainMenus">
         {# Boucle FOR IN qui itère dans l'objet qui est en fait l'Entité Menu #}
         {% for menu in menus %}
             <div class="divMenus">
@@ -25,6 +25,6 @@
         {% else %}
             <p>Aucun menu disponible</p>
         {% endfor %}
-    </main>
+        </div>
 
-{% endblock %}
+{% endblock content %}
