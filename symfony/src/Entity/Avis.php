@@ -22,7 +22,7 @@ class Avis
     #[ORM\Column(length: 50)]
     private ?string $statut = null;
 
-    #[ORM\ManyToOne(inversedBy: 'avis')]
+    #[ORM\OneToOne(inversedBy: 'avis')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateur $utilisateur = null;
 

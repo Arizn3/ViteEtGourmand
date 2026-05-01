@@ -93,11 +93,8 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $role = null;
 
-    /**
-     * @var Collection<int, Avis>
-     */
-    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'utilisateur')]
-    private Collection $avis;
+    #[ORM\OneToOne(mappedBy: 'utilisateur', targetEntity: Avis::class)]
+    private ?Avis $avis = null;
 
     /**
      * @var Collection<int, Commande>
@@ -107,7 +104,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->avis = new ArrayCollection();
         $this->commandes = new ArrayCollection();
     }
 
@@ -200,35 +196,21 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Avis>
-     */
-    public function getAvis(): Collection
+    public function getAvis(): ?Avis
     {
         return $this->avis;
     }
 
-    public function addAvi(Avis $avi): static
-    {
-        if (!$this->avis->contains($avi)) {
-            $this->avis->add($avi);
-            $avi->setUtilisateur($this);
-        }
+    public function setAvis(?Avis $avis): self
+{
+    $this->avis = $avis;
 
-        return $this;
+    if ($avis && $avis->getUtilisateur() !== $this) {
+        $avis->setUtilisateur($this);
     }
 
-    public function removeAvi(Avis $avi): static
-    {
-        if ($this->avis->removeElement($avi)) {
-            // set the owning side to null (unless already changed)
-            if ($avi->getUtilisateur() === $this) {
-                $avi->setUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
+    return $this;
+}
 
     /**
      * @return Collection<int, Commande>
