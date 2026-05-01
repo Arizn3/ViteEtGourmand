@@ -56,10 +56,10 @@ final class CommandeController extends AbstractController
             $villeLivraison = $request->request->get('ville_livraison');
             $adresseLivraison = $request->request->get('adresse_livraison');
 
-            // Vérification pour champs vides en cas de ByPass
+            // Vérification pour champs vides
             if (!$datePrestation || !$heureLivraison || !$villeLivraison || !$adresseLivraison) {
                 $erreur = 'Erreur1';
-                // Vérification du minimum de personnes pour le menu en cas de ByPass
+                // Vérification du minimum de personnes pour le menu
             } elseif ($nbPersonnes < $menu->getPersonneMini()) {
                 $erreur = 'Erreur2';
             }
@@ -106,8 +106,6 @@ final class CommandeController extends AbstractController
                 $commande->setVilleLivraison($villeLivraison);
                 $commande->setAdresseLivraison($adresseLivraison);
                 $commande->setStatut('Votre commande va être prise en compte');
-                
-                // Données factices pour test (temporaire)
                 $commande->setPretMateriel(true);
                 $commande->setRestitutionMateriel(false);
 

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Mes commandes {% endblock title %}
+
+{% block content %}
+
+    <h3>Commande en cours</h3>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for commande in commandeEnCours %}
+        <div>
+            <p> Menu : {{ commande.menu.titre }} </p>
+            <p> Date de création : {{ commande.dateCmd|date('d/m/Y') }} </p>
+            <p> {{ commande.prixMenu }} €</p>
+            <p> Statut de la commande : {{ commande.statut }} </p>
+            <a href="{{ path('app_utilisateur_commandes_en_cours', {id: commande.id}) }}">Détail de ma commande</a>
+            <br>
+            <a href="{{ path('app_utilisateur_annuler_commande', {id: commande.id}) }}">Annuler ma commande</a>
+        </div>
+    {% else %}
+        <p>Vous n'avez pas de commande en cours</p>
+    {% endfor %}
+
+    <h3>Commande terminée</h3>
+
+    {% for commande in commandes %}
+        <div>
+            <p> {{ commande.dateCmd|date('d/m/Y') }} - {{ commande.menu.titre }} <a href="{{ path('app_utilisateur_commandes_en_cours', {id: commande.id}) }}">🔍</a> </p>
+            <p> {{ commande.prixMenu }} €</p>
+        </div>
+    {% else %}
+        <p>Aucun historique de commande</p>
+    {% endfor %}
+
+{% endblock content %}

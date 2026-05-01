@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Modification commande {% endblock title %}
+
+{% block content %}
+
+    <h3>Modifier ma commande</h3>
+    
+    <p>Menu : {{ commande.menu.titre }}</p>
+    <p>Le menu de la commande ne peut plus être modifié.</p>
+
+    {{ form_start(form) }}
+
+    {# Nombre de boîte à repas #}
+    {{ form_label(form.nbPersonne) }}
+    {{ form_widget(form.nbPersonne) }}
+    <br>
+
+    {# Date de livraison #}
+    {{ form_label(form.datePrestation) }}
+    {{ form_widget(form.datePrestation) }}
+    <br>
+
+    {# Heure de livraison #}
+    {{ form_label(form.heureLivraison) }}
+    {{ form_widget(form.heureLivraison) }}
+    <br>
+
+    {# Ville #}
+    {{ form_label(form.villeLivraison) }}
+    {{ form_widget(form.villeLivraison) }}
+    <br>
+
+    {# Adresse #}
+    {{ form_label(form.adresseLivraison) }}
+    {{ form_widget(form.adresseLivraison) }}
+    <br>
+    <button type="submit">Enregistrer</button>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_utilisateur_commandes_en_cours', {id: commande.id}) }}">Retour</a>
+
+{% endblock content %}

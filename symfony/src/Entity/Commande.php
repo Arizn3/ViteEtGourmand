@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommandeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
@@ -17,15 +18,20 @@ class Commande
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $dateCmd = null;
 
+    #[Assert\NotNull]
+    #[Assert\Type(\DateTime::class)]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $datePrestation = null;
 
+    #[Assert\NotNull]
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTime $heureLivraison = null;
 
     #[ORM\Column]
     private ?float $prixMenu = null;
 
+    #[Assert\NotNull]
+    #[Assert\Positive]
     #[ORM\Column]
     private ?int $nbPersonne = null;
 
@@ -49,9 +55,11 @@ class Commande
     #[ORM\JoinColumn(nullable: false)]
     private ?Menu $menu = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $adresseLivraison = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 50)]
     private ?string $villeLivraison = null;
 

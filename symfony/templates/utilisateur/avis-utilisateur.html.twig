@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Ajouter ou modifier votre avis {% endblock title %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.note) }}
+    {{ form_row(form.libelle) }}
+    
+    <button>Valider</button>
+
+    {{ form_end(form) }}
+
+    <br><br>
+    <a href="{{ path('app_utilisateur_information_personnelle') }}">Retour</a>
+
+{% endblock content %}

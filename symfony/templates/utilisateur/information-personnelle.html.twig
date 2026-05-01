@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Informations personnelles {% endblock title %}
+
+{% block content %}
+
+    <h3>Mes informations personnelles</h3>
+
+    <p>Mon email : {{ utilisateur.email }}</p>
+    <p>Prenom : {{ utilisateur.prenom }}</p>
+    <p>Nom : {{ utilisateur.nom }}</p>
+    <p>Mobile : {{ utilisateur.telephone }}</p>
+    <p>Adresse : {{ utilisateur.adresse }}</p>
+    <a href="{{ path('app_utilisateur_modifier_information_personnelle') }}">Modifier mes informations</a>
+
+    <br><br><br>
+    
+    <h3>Modifier mon mot de passe</h3>
+
+    {{ form_start(form) }}
+
+        {{ form_row(form.currentPassword) }}
+        {{ form_row(form.newPassword.first) }}
+        {{ form_row(form.newPassword.second) }}
+
+        <button>Changer le mot de passe</button>
+
+    {{ form_end(form) }}
+
+    <br><br>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% if avis %}
+        <p> Votre avis : </p>
+        <p> Statut de l'avis : {{ avis.statut }} </p>
+        <p>
+            Note :
+            {% for i in 1..avis.note %}
+                ⭐️
+            {% endfor %}
+        </p>
+        <p>{{ avis.libelle }}</p>
+        <a href="{{ path('app_utilisateur_avis') }}">Modifier mon avis</a>
+        <a href="{{ path('app_utilisateur_supprimer_avis', {id: avis.id}) }}">Supprimer mon avis</a>
+    {% else %}
+        <h3>Votre avis nous intéresse !</h3>
+        <p>Une fois une commande terminée, vous pouvez nous laisser un avis ici : </p>
+        {% if commandeTerminer %}
+            <a href="{{ path('app_utilisateur_avis') }}">Je donne mon avis</a>
+        {% else %}
+            <p>Vous n'avez pas encore finaliser une commande 😕</p>
+        {% endif %}
+        <p>Sinon, terminer une commande et laisser nous un commentaire sur la qualité de notre service & de nos produits. Merci !</p>
+    {% endif %}
+
+{% endblock content %}

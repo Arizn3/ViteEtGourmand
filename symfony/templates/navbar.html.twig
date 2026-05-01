@@ -24,7 +24,11 @@
 {# ESPACE UTILISATEUR #}
 {% if app.user and is_granted('ROLE_USER') %}
     <div class="navUtilisateur">
-        <a href="#">Mon Compte</a>
+        <button class="btnNavUtilisateur">Mon Espace</button>
+        <div class="lienUtilisateur">
+            <a href="{{ path('app_utilisateur_information_personnelle') }}">Compte</a>
+            <a href="{{ path('app_utilisateur_commandes') }}">Commandes</a>
+        </div>
     </div>
 {% endif %}
 
@@ -44,7 +48,7 @@
 {# ESPACE ADMINISTRATEUR #}
 {% if app.user and is_granted('ROLE_ADMIN') %}
     <div class="navAdmin">
-        <button class="btnNavAdmin">Espace Employé</button>
+        <button class="btnNavAdmin">Espace Administrateur</button>
         <div class="lienAdmin">
             <a href="{{ path('app_administrateur_stat') }}">Statistiques</a>
             <a href="{{ path('app_admin_nouveau_employe') }}">Compte</a>

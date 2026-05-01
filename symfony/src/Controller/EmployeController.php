@@ -412,9 +412,7 @@ L\'équipe Vite & Gourmand
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->flush();
-
             return $this->redirectToRoute('app_employe_gestion_menu');
         };
 

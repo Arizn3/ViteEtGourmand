@@ -13,6 +13,7 @@ use App\Repository\RoleRepository;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 // Contrôleur pour l'administrateur
 final class AdministrateurController extends AbstractController
@@ -62,6 +63,7 @@ final class AdministrateurController extends AbstractController
         Request $request,
         MailerInterface $mailer,
         RoleRepository $roleRepository,
+        UserPasswordHasherInterface $passwordHasher
     ): Response {
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -89,10 +91,11 @@ final class AdministrateurController extends AbstractController
             };
 
             // Création d'un mot de passe aléatoire
-            $plainPassword = bin2hex(random_bytes(6));
+            $plainPassword = bin2hex(random_bytes(4));
+            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
 
             $user->setEmail($email);
-            $user->setPassword($plainPassword);
+            $user->setPassword($hashedPassword);
             $user->setPrenom($prenom);
             $user->setNom($nom);
             // Un compte employé ne contient pas d'adresse, ni de téléphone mais

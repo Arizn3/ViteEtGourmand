@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Je crée ma commande {% endblock title %}
+{% block title %} Modification commande {% endblock title %}
 
 {% block content %}
 
-    <h1>Commande</h1>
+    <h3>Modifier ma commande</h3>
 
     <p>Menu : {{ menu.titre }}</p>
     <p>Prix de base : {{ menu.prixPersonne }}</p>
@@ -44,11 +44,11 @@
         <label for="adresse_livraison">Adresse de livraison souhaitée :</label>
         <input type="text" name="adresse_livraison" id="adresse_livraison" required>
         <br><br>
-        <button type="submit">Valider la commande</button>
+        <button type="submit">Modifier ma commande</button>
 
     </form>
 
-    <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Retour aux détails</a>
+    <a href="{{ path('app_utilisateur_commandes_en_cours', {id: commande.id}) }}">Retour</a>
 
     
 {% endblock content %}
