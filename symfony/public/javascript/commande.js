@@ -1,11 +1,11 @@
 // DOMContentLoaded permet de charger le JS uniquement et strictement quand le HTML est prêt
 document.addEventListener('DOMContentLoaded', () => {
 
-    const nb_personnes = document.getElementById('nb_personnes');
-    const date_prestation = document.getElementById('date_prestation');
-    const heure_livraison = document.getElementById('heure_livraison');
-    const adresse_livraison = document.getElementById('adresse_livraison');
-    const ville_livraison = document.getElementById('ville_livraison');
+    const nb_personnes = document.getElementById('commande_nbPersonne');
+    const date_prestation = document.getElementById('commande_datePrestation');
+    const heure_livraison = document.getElementById('commande_heureLivraison');
+    const adresse_livraison = document.getElementById('commande_adresseLivraison');
+    const ville_livraison = document.getElementById('commande_villeLivraison');
     const erreur = document.getElementById('erreur');
     const prix = document.getElementById('prix');
     const prixTotalLivraison = document.getElementById('prixTotalLivraison');

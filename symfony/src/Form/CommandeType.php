@@ -14,23 +14,38 @@ class CommandeType extends AbstractType
         $builder
             ->add('datePrestation', null, [
                 'label' => 'Date de livraison souhaitée :',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'id' => 'commande_datePrestation'
+                ]
             ])
             ->add('heureLivraison', null, [
                 'label' => 'Heure de livraison souhaitée :',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'id' => 'commande_heureLivraison'
+                ]
             ])
             ->add('nbPersonne', null, [
                 'label' => 'Nombre de boîte à repas :',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'id' => 'commande_nbPersonne'
+                ]
             ])
             ->add('adresseLivraison', null, [
                 'label' => 'Adresse de livraison :',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'id' => 'commande_adresseLivraison'
+                ]
             ])
             ->add('villeLivraison', null, [
                 'label' => 'Ville :',
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'id' => 'commande_villeLivraison'
+                ]
             ])
         ;
     }
