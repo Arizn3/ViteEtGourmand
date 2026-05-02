@@ -11,6 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class RegistrationFormType extends AbstractType
 {
@@ -18,29 +20,46 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             // Pour l'attribut email de l'Entité Utilisateur
-            ->add('email')
+            ->add('email', null, [
+                'required' => true
+            ])
             // Pour l'attribut prenom de l'Entité Utilisateur
-            ->add('prenom')
+            ->add('prenom', null, [
+                'required' => true
+            ])
             // Pour l'attribut nom de l'Entité Utilisateur
-            ->add('nom')
+            ->add('nom', null, [
+                'required' => true
+            ])
             // Pour l'attribut telephone de l'Entité Utilisateur
-            ->add('telephone')
+            ->add('telephone', null, [
+                'required' => true
+            ])
             // Pour l'attribut adresse de l'Entité Utilisateur
-            ->add('adresse')
+            ->add('adresse', null, [
+                'required' => true
+            ])
             // Propriété Password
-            ->add('plainPassword', PasswordType::class, [
-                'mapped' => false,
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe ne correspondent pas',
+                'first_options' => [
+                    'label' => 'Mot de passe :',
+                ],
+                'second_options' => [
+                    'label' => 'Confirmer le mot de passe :',
+                ],
                 'attr' => ['autocomplete' => 'new-password'],
+                'mapped' => false,
+                'required' => true,
                 'constraints' => [
-                    new NotBlank(
-                        message: 'Veuillez choisir un mot de passe',
-                    ),
-                    new Length(
-                        min: 6,
-                        minMessage: 'Le mot de passe doit contenir minimum {{ limit }} caractères',
-                        // longueur maximale autorisée par Symfony pour des raisons de sécurité
-                        max: 4096,
-                    ),
+                    new Assert\NotBlank([
+                        'message' => 'Veuillez choisir un mot de passe',
+                    ]),
+                    new Assert\Length([
+                        'min' => 6,
+                        'minMessage' => 'Le mot de passe doit contenir minimum {{ limit }} caractères',
+                    ]),
                 ],
             ])
             // Condition d'utilisation à valider par l'utilisateur
