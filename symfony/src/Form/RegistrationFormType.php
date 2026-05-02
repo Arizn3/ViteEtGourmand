@@ -65,7 +65,7 @@ class RegistrationFormType extends AbstractType
             // Condition d'utilisation à valider par l'utilisateur
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => "J'accepte les <a href='/condition-utilisation'>conditions d'utilisations</a>",
+                'label' => "J'accepte les conditions d'utilisations",
                 'label_html' => true,
                 'constraints' => [
                     new IsTrue(
