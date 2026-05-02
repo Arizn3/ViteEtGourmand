@@ -9,15 +9,24 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class RegistrationFormType extends AbstractType
 {
+    private UrlGeneratorInterface $router;
+
+    public function __construct(UrlGeneratorInterface $router)
+    {
+        $this->router = $router;
+    }
+        
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $url = $this->router->generate('app_home_conditions_mention');
+
         $builder
             // Pour l'attribut email de l'Entité Utilisateur
             ->add('email', null, [
@@ -65,7 +74,7 @@ class RegistrationFormType extends AbstractType
             // Condition d'utilisation à valider par l'utilisateur
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => "J'accepte les conditions d'utilisations",
+                'label' => "J'accepte les <a href='$url' target='_blank'> conditions d'utilisations</a>",
                 'label_html' => true,
                 'constraints' => [
                     new IsTrue(
