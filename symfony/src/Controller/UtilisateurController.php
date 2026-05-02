@@ -10,7 +10,6 @@ use App\Form\CommandeType;
 use App\Form\UtilisateurType;
 use App\Repository\AvisRepository;
 use App\Repository\CommandeRepository;
-use App\Repository\MenuRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,8 +57,14 @@ final class UtilisateurController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
+        $historiques = $commande->getHistoriques()->toArray();
+        usort($historiques, function ($a, $b) {
+            return $a->getDate() <=> $b->getDate();
+        });
+
         return $this->render('utilisateur/detail-commande.html.twig', [
             'commande' => $commande,
+            'historiques' => $historiques
         ]);
     }
 

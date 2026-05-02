@@ -27,6 +27,7 @@ use App\Repository\PlatRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
 use App\Document\Stat;
+use App\Entity\CommandeHistorique;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -247,15 +248,22 @@ L\'équipe Vite & Gourmand
                 $mailer->send($email);
             };
 
-            // Modification et persistance de la donnée
             $commande->setStatut($statut);
+
+            $historique = new CommandeHistorique();
+            $historique->setStatut($statut);
+            $historique->setDate(new \DateTime());
+
+            $commande->addHistorique($historique);
+
+            $em->persist($historique);
             $em->flush();
 
             return $this->redirectToRoute('app_employe_commande', $request->query->all());
         };
 
         return $this->render('employe/statut.html.twig', [
-            'commande' => $commande
+            'commande' => $commande,
         ]);
     }
 

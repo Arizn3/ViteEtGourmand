@@ -6,9 +6,18 @@
 
     <h3>Détail de ma commande</h3>
     
-    <p>Statut de ma commande : {{ commande.statut }}</p>
-    <p>Changement du statut effectué le ?? </p>
-    <p>Date : {{ commande.dateCmd|date('d/m/Y') }}</p>
+    <p>Suivi de commande :</p>
+
+    <ul>
+        {% for h in historiques %}
+            <li>
+                <strong>{{ h.statut }}</strong>
+                - {{ h.date|date('d/m/Y H:i') }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p>Date de la commande : {{ commande.dateCmd|date('d/m/Y') }}</p>
     <p>Date de livraison : {{ commande.datePrestation|date('d/m/Y') }}</p>
     <p>Heure de livraison : {{ commande.heureLivraison|date('H:i') }}</p>
     <p>Adresse : {{ commande.villeLivraison }} - {{ commande.adresseLivraison }}</p>

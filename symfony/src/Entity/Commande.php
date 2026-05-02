@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -62,6 +64,17 @@ class Commande
     #[Assert\NotBlank]
     #[ORM\Column(length: 50)]
     private ?string $villeLivraison = null;
+
+    /**
+     * @var Collection<int, CommandeHistorique>
+     */
+    #[ORM\OneToMany(targetEntity: CommandeHistorique::class, mappedBy: 'commande', orphanRemoval: true)]
+    private Collection $historiques;
+
+    public function __construct()
+    {
+        $this->historiques = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -219,6 +232,36 @@ class Commande
     public function setVilleLivraison(string $villeLivraison): static
     {
         $this->villeLivraison = $villeLivraison;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CommandeHistorique>
+     */
+    public function getHistoriques(): Collection
+    {
+        return $this->historiques;
+    }
+
+    public function addHistorique(CommandeHistorique $historique): static
+    {
+        if (!$this->historiques->contains($historique)) {
+            $this->historiques->add($historique);
+            $historique->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistorique(CommandeHistorique $historique): static
+    {
+        if ($this->historiques->removeElement($historique)) {
+            // set the owning side to null (unless already changed)
+            if ($historique->getCommande() === $this) {
+                $historique->setCommande(null);
+            }
+        }
+
         return $this;
     }
 }
