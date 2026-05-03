@@ -26,13 +26,6 @@ class CommandeType extends AbstractType
                     'id' => 'commande_heureLivraison'
                 ]
             ])
-            ->add('nbPersonne', null, [
-                'label' => 'Nombre de boîte à repas :',
-                'required' => true,
-                'attr' => [
-                    'id' => 'commande_nbPersonne'
-                ]
-            ])
             ->add('adresseLivraison', null, [
                 'label' => 'Adresse de livraison :',
                 'required' => true,
@@ -46,7 +39,16 @@ class CommandeType extends AbstractType
                 'attr' => [
                     'id' => 'commande_villeLivraison'
                 ]
-            ])
+            ]);
+            if ($options['modification'] === false) {
+                $builder->add('nbPersonne', null, [
+                    'label' => 'Nombre de boîte à repas :',
+                    'required' => true,
+                    'attr' => [
+                        'id' => 'commande_nbPersonne'
+                    ]
+                ]);
+            }
         ;
     }
 
@@ -54,6 +56,7 @@ class CommandeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Commande::class,
+            'modification' => false,
         ]);
     }
 }

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 // Contrôleur pour l'espace utilisateur
 final class UtilisateurController extends AbstractController
@@ -104,40 +105,12 @@ final class UtilisateurController extends AbstractController
         }
 
         // Création d'un formulaire depuis CommandeType
-        $form = $this->createForm(CommandeType::class, $commande);
+        $form = $this->createForm(CommandeType::class, $commande, [
+            'modification' => true
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $menu = $commande->getMenu();
-
-            if ($commande->getNbPersonne() < $menu->getPersonneMini()) {
-                $this->addFlash('error', 'Le nombre de boîtes à repas doit être au minimum requis pour le menu');
-                return $this->redirectToRoute('app_utilisateur_modifier_commande', [
-                    'id' => $commande->getId()
-                ]);
-            }
-
-            $prixTotal = $menu->getPrixPersonne() * $commande->getNbPersonne();
-
-            if ($commande->getNbPersonne() >= ($menu->getPersonneMini() + 5)) {
-                $prixTotal *= 0.9;
-            }
-
-            $prixLivraison = 0;
-
-            if (strtolower($commande->getVilleLivraison()) !== 'bordeaux') {
-                // Simulation temporaire
-                $distance = 10;
-                $prixLivraison = 5 + ($distance * 0.59);
-                // Prix final avec livraison
-                $prixTotal += $prixLivraison;
-            }
-
-            // Utilisation des Setters (Modifie) de l'Entité Commande
-            $commande->setPrixMenu($prixTotal);
-            $commande->setPrixLivraison($prixLivraison);
-
             $em->flush();
             return $this->redirectToRoute('app_utilisateur_commandes', [
                 'id' => $commande->getId()
@@ -196,6 +169,23 @@ final class UtilisateurController extends AbstractController
             'avis' => $avis,
             'commandeTerminer' => $commandeTerminer
         ]);
+    }
+
+    // Suppression du compte
+    #[Route('/utilisateur/supprimer-mon-compte', name: 'app_utilisateur_supprimer_compte')]
+    public function supprimerCompte(EntityManagerInterface $em, TokenStorageInterface $tokenStorage): Response
+    {
+        // Contôle d'accès
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $utilisateur = $this->getUser();
+
+        $tokenStorage->setToken(null);
+
+        $em->remove($utilisateur);
+        $em->flush();
+
+        return $this->redirectToRoute('app_home');
     }
 
     // Ajouter ou modifier un avis

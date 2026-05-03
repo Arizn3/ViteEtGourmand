@@ -99,7 +99,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Commande>
      */
-    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'utilisateur')]
+    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'utilisateur', cascade: ['remove'])]
     private Collection $commandes;
 
     public function __construct()

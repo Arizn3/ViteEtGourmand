@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Les méthodes parse tranforme une chaîne de caractères en nombre
     const prixPersonne = parseFloat(nb_personnes.dataset.prix);
     const min = parseInt(nb_personnes.dataset.min);
+    const max = parseInt(nb_personnes.dataset.max);
 
     // Fonction qui vérifie les champs, cette fonction est ensuite appeler en callback pour un évènement
     function verifierFormulaire() {
@@ -25,6 +26,26 @@ document.addEventListener('DOMContentLoaded', () => {
             erreur.textContent = '👉 Un minimum de ' + min + ' personnes est demandé pour la commande du menu';
             prix.textContent = '';
             return;
+        }
+        if (isNaN(nb) || nb > max) {
+            erreur.textContent = '👉 Un maximum de ' + max + ' boîte à repas disponible pour ce menu';
+            prix.textContent = '';
+            return;
+        }
+        if (date_prestation && date_prestation.value) {
+            const prestationDate = new Date(date_prestation.value);
+            const today = new Date();
+            
+            const minDate = new Date();
+            minDate.setDate(today.getDate() + 7);
+            
+            console.log(prestationDate);
+            console.log(minDate);
+            
+            if (prestationDate < minDate) {
+                erreur.textContent = '👉 La date de livraison doit être au minimum dans 7 jours';
+                return;
+            }
         }
         if (!date_prestation.value) {
             erreur.textContent = '👉 Une date de livraison est nécessaire';

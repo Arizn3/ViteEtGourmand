@@ -43,13 +43,32 @@ final class CommandeController extends AbstractController
         $commande->setMenu($menu);
         $commande->setUtilisateur($utilisateur);
 
-        $form = $this->createForm(CommandeType::class, $commande);
+        $form = $this->createForm(CommandeType::class, $commande, [
+            'modification' => false
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             if ($commande->getNbPersonne() < $menu->getPersonneMini()) {
-                $this -> addFlash('error', '👉 ' . $menu->getPersonneMini() . ' boîte à repas minimum');
+                $this->addFlash('error', '⚠️ ' . $menu->getPersonneMini() . ' boîte à repas minimum');
+                return $this->redirectToRoute('app_commande', [
+                    'id' => $menu->getId()
+                ]);
+            }
+
+            if ($commande->getNbPersonne() > $menu->getQttRestante()) {
+                $this->addFlash('error', '⚠️ ' . $menu->getQttRestante() . ' boîte à repas maximum disponible');
+                return $this->redirectToRoute('app_commande', [
+                    'id' => $menu->getId()
+                ]);
+            }
+
+            $today = new \DateTime();
+            $minDate = (clone $today)->modify('+ 7 days');
+
+            if ($commande->getDatePrestation() < $minDate) {
+                $this->addFlash('error', '⚠️ La date de livraison doit être au minimum dans 7 jours');
                 return $this->redirectToRoute('app_commande', [
                     'id' => $menu->getId()
                 ]);
@@ -76,6 +95,10 @@ final class CommandeController extends AbstractController
             $commande->setStatut('Votre commande va être prise en compte');
             $commande->setPretMateriel(true);
             $commande->setRestitutionMateriel(false);
+
+            $menu->setQttRestante(
+                $menu->getQttRestante() - $commande->getNbPersonne()
+            );
 
             $em->persist($commande);
             $em->flush();

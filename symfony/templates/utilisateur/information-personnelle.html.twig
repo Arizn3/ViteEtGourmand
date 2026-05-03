@@ -12,6 +12,7 @@
     <p>Mobile : {{ utilisateur.telephone }}</p>
     <p>Adresse : {{ utilisateur.adresse }}</p>
     <a href="{{ path('app_utilisateur_modifier_information_personnelle') }}">Modifier mes informations</a>
+    <a href="{{ path('app_utilisateur_supprimer_compte') }}" id="btnSuppression">Supprimer mon compte</a>
 
     <br><br><br>
     
@@ -61,3 +62,8 @@
     {% endif %}
 
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/javascript/utilisateur-home.js"></script>
+{% endblock javascripts %}
