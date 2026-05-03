@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PlatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,6 +36,12 @@ class Plat
      */
     #[ORM\ManyToMany(targetEntity: Allergene::class, inversedBy: 'plats')]
     private Collection $allergenes;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTime $createdAt = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTime $deletedAt = null;
 
     public function __construct()
     {
@@ -119,6 +126,30 @@ class Plat
     public function removeAllergene(Allergene $allergene): static
     {
         $this->allergenes->removeElement($allergene);
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTime
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTime $deletedAt): static
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

@@ -89,6 +89,7 @@ CREATE TABLE `commande` (
   `menu_id` int NOT NULL,
   `adresse_livraison` varchar(255) NOT NULL,
   `ville_livraison` varchar(50) NOT NULL,
+  `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_6EEAA67DFB88E14F` (`utilisateur_id`),
   KEY `IDX_6EEAA67DCCD7E912` (`menu_id`),
@@ -231,6 +232,8 @@ CREATE TABLE `plat` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nom_plat` varchar(50) NOT NULL,
   `photo` varchar(255) NOT NULL,
+  `deleted_at` date DEFAULT NULL,
+  `created_at` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -280,6 +283,8 @@ DROP TABLE IF EXISTS `regime`;
 CREATE TABLE `regime` (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
+  `created_at` date NOT NULL,
+  `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -327,6 +332,8 @@ DROP TABLE IF EXISTS `theme`;
 CREATE TABLE `theme` (
   `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(50) NOT NULL,
+  `created_at` date NOT NULL,
+  `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -356,6 +363,8 @@ CREATE TABLE `utilisateur` (
   `telephone` varchar(50) NOT NULL,
   `adresse` varchar(50) NOT NULL,
   `role_id` int NOT NULL,
+  `created_at` date NOT NULL,
+  `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_1D1C63B3D60322AC` (`role_id`),
   CONSTRAINT `FK_utilisateur_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
@@ -368,7 +377,7 @@ CREATE TABLE `utilisateur` (
 
 LOCK TABLES `utilisateur` WRITE;
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
-INSERT INTO `utilisateur` VALUES (1,'admin@email.com','$2y$13$6htmHjF8jtuteC3iAgB3dOwOBQWd29IWD8Kl4677WaasVVzThEBOW','adminUser','adminUser','0606060606','adminUser',1);
+INSERT INTO `utilisateur` VALUES (1,'admin@email.com','$2y$13$6htmHjF8jtuteC3iAgB3dOwOBQWd29IWD8Kl4677WaasVVzThEBOW','adminUser','adminUser','0606060606','adminUser',1,'2026-05-01',NULL);
 /*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -381,4 +390,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-02  4:04:22
+-- Dump completed on 2026-05-03 20:18:05

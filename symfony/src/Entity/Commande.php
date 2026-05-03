@@ -71,6 +71,9 @@ class Commande
     #[ORM\OneToMany(targetEntity: CommandeHistorique::class, mappedBy: 'commande', orphanRemoval: true)]
     private Collection $historiques;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTime $deletedAt = null;
+
     public function __construct()
     {
         $this->historiques = new ArrayCollection();
@@ -261,6 +264,18 @@ class Commande
                 $historique->setCommande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTime
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTime $deletedAt): static
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
