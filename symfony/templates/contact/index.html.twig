@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Contactez-nous {% endblock title %}
+
+{% block content %}
+
+<h3>Contactez-nous</h3>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <p>Utilisez ce formulaire pour nous contacter. Votre message sera pris en compte rapidement <br>
+        et une réponse vous sera envoyée par email. Vous pouvez aussi nous contacter par telephone, <br>
+        toute la semaine de 11h à 19h au 0909090909.</p>
+
+    <form method="post">
+
+        <div>
+            <label for="email">Votre Email :</label><br>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <br>
+        <div>
+            <label for="message">Votre message :</label><br>
+            <textarea type="text" id="message" name="message" rows="5" required></textarea>
+        </div>
+        <br>
+        <button type="submit">Envoyer</button>
+
+    </form>
+
+{% endblock content %}

@@ -26,7 +26,6 @@ final class HomeController extends AbstractController
     #[Route('/home/conditions-générale-et-mention-légales', name: 'app_home_conditions_mention')]
     public function condition(): Response
     {
-
         return $this->render('/home/conditions-mention.html.twig');
     }
 }
