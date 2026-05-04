@@ -22,10 +22,17 @@ final class HomeController extends AbstractController
         ]);
     }
 
-    // Conditions générale et mention légales (FOOTER)
+    // Conditions Générale de Vente (CVG) et Mention Légales
     #[Route('/home/conditions-générale-et-mention-légales', name: 'app_home_conditions_mention')]
     public function condition(): Response
     {
         return $this->render('/home/conditions-mention.html.twig');
+    }
+
+    // Onglet Notre Histoire
+    #[Route('/home/notre-histoire', name: 'app_home_histoire')]
+    public function histoire(): Response
+    {
+        return $this->render('/home/notre-histoire.html.twig');
     }
 }
