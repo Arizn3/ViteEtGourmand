@@ -10,7 +10,6 @@
 {% block content %}
 
     <div class="mainMenu">
-        {# Boucle IF qui vérifie si une image est bien en base de données #}
         {% set plat = menu.plats|first %}
         {% set allAllergenes = [] %}
         <img src="/uploads/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="30%">

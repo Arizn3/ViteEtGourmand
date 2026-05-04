@@ -40,6 +40,8 @@ class RegistrationController extends AbstractController
             $roleUser = $roleRepository->findOneBy(['description' => 'ROLE_USER']);
             $user->setRole($roleUser);
 
+            $user->setCreatedAt(new \DateTime());
+
             $entityManager->persist($user);
             $entityManager->flush();
 

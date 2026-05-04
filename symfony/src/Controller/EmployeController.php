@@ -449,7 +449,7 @@ L\'équipe Vite & Gourmand
         return $this->redirectToRoute('app_employe_gestion_menu');
     }
 
-    // Ajouter un plat
+    // Ajouter un plat et afficahge
     #[Route('/employe/gestion-menu/plat', name: 'app_menu_nouveau_plat')]
     public function nouveauPlat(
         Request $request,
@@ -460,7 +460,9 @@ L\'équipe Vite & Gourmand
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        $plats = $platRepo->findAll();
+        $plats = $platRepo->findBy([
+            'deletedAt' => null
+        ]);
 
         // Nouvelle instance de l'Entité Plat
         $plat = new Plat();
@@ -491,6 +493,7 @@ L\'équipe Vite & Gourmand
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $plat->setCreatedAt(new \DateTime());
             // Persistance des données en base
             $em->persist($plat);
             $em->flush();
@@ -504,7 +507,7 @@ L\'équipe Vite & Gourmand
         ]);
     }
 
-    // Suppression d'un plat
+    // Désactivation d'un plat
     #[Route('/employe/gestion-menu/plat/supprime/{id}', 'app_supprime_plat')]
     public function supprimerPlat(Plat $plat, EntityManagerInterface $em): Response
     {
@@ -512,7 +515,11 @@ L\'équipe Vite & Gourmand
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         // Vérification relation
-        if (!$plat->getMenus()->isEmpty()) {
+        $menusActifs = $plat->getMenus()->filter(function ($menu) {
+            return $menu->getDeletedAt() === null;
+        });
+
+        if (!$menusActifs->isEmpty()) {
             $this->addFlash('error',  $plat->getNomPlat() . ' est impossible à supprimer, ce plat est utilisé dans un menu.');
             return $this->redirectToRoute('app_menu_nouveau_plat');
         };
@@ -527,7 +534,7 @@ L\'équipe Vite & Gourmand
             };
         };
 
-        $em->remove($plat);
+        $plat->setDeletedAt(new \DateTime());
         $em->flush();
 
         $this->addFlash('success', $plat->getNomPlat() . ' a été supprimé');
@@ -535,7 +542,7 @@ L\'équipe Vite & Gourmand
         return $this->redirectToRoute('app_menu_nouveau_plat');
     }
 
-    // Ajouter un thème
+    // Ajouter un thème et affichage
     #[Route('/employe/gestion-menu/theme', name: 'app_nouveau_theme')]
     public function nouveauTheme(
         ThemeRepository $themeRepo,
@@ -545,12 +552,17 @@ L\'équipe Vite & Gourmand
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
+        $themes = $themeRepo->findBy([
+            'deletedAt' => null
+        ]);
+
         $theme = new Theme();
 
         $form = $this->createForm(ThemeType::class, $theme);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $theme->setCreatedAt(new \DateTime());
             $em->persist($theme);
             $em->flush();
 
@@ -558,7 +570,7 @@ L\'équipe Vite & Gourmand
         };
 
         return $this->render('employe/nouveau-theme.html.twig', [
-            'theme' => $themeRepo->findAll(),
+            'theme' => $themes,
             'form' => $form->createView(),
         ]);
     }
@@ -570,12 +582,16 @@ L\'équipe Vite & Gourmand
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        if (!$theme->getMenus()->isEmpty()) {
+        $menusActifs = $theme->getMenus()->filter(function ($menu) {
+            return $menu->getDeletedAt() === null;
+        });
+
+        if (!$menusActifs->isEmpty()) {
             $this->addFlash('error',  $theme->getDescription() . ' est impossible à supprimer, ce thème est utilisé dans un menu.');
             return $this->redirectToRoute('app_nouveau_theme');
         }
 
-        $em->remove($theme);
+        $theme->setDeletedAt(new \DateTime());
         $em->flush();
 
         $this->addFlash('success', $theme->getDescription() . ' a été supprimé');
@@ -583,12 +599,16 @@ L\'équipe Vite & Gourmand
         return $this->redirectToRoute('app_nouveau_theme');
     }
 
-    // Ajouter un régime
+    // Ajouter un régime et affichage
     #[Route('/employe/gestion-menu/regime', name: 'app_nouveau_regime')]
     public function nouveauRegime(RegimeRepository $regimeRepo, EntityManagerInterface $em, Request $request): response
     {
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+
+        $regimes = $regimeRepo->findBy([
+            'deletedAt' => null
+        ]);
 
         $regime = new Regime();
 
@@ -596,6 +616,7 @@ L\'équipe Vite & Gourmand
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $regime->setCreatedAt(new \DateTime());
             $em->persist($regime);
             $em->flush();
 
@@ -603,7 +624,7 @@ L\'équipe Vite & Gourmand
         };
 
         return $this->render('employe/nouveau-regime.html.twig', [
-            'regime' => $regimeRepo->findAll(),
+            'regime' => $regimes,
             'form' => $form->createView(),
         ]);
     }
@@ -615,12 +636,16 @@ L\'équipe Vite & Gourmand
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        if (!$regime->getMenus()->isEmpty()) {
+        $menusActifs = $regime->getMenus()->filter(function ($menu) {
+            return $menu->getDeletedAt() === null;
+        });
+
+        if (!$menusActifs->isEmpty()) {
             $this->addFlash('error',  $regime->getDescription() . ' est impossible à supprimer, ce régime est utilisé dans un menu.');
             return $this->redirectToRoute('app_nouveau_regime');
         }
 
-        $em->remove($regime);
+        $regime->setDeletedAt(new \DateTime());
         $em->flush();
 
         $this->addFlash('success', $regime->getDescription() . ' a été supprimé');

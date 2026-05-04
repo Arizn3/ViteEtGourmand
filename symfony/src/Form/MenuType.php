@@ -6,6 +6,9 @@ use App\Entity\Menu;
 use App\Entity\Plat;
 use App\Entity\Regime;
 use App\Entity\Theme;
+use App\Repository\PlatRepository;
+use App\Repository\RegimeRepository;
+use App\Repository\ThemeRepository;
 use DateTime;
 use Doctrine\Common\Collections\Expr\Value;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -30,7 +33,11 @@ class MenuType extends AbstractType
                 'label' => 'Thème du menu :',
                 // Choix d'affichage de la donnée en base pour les différents choix
                 'choice_label' => 'description',
-                'required' => true
+                'required' => true,
+                'query_builder' => function (ThemeRepository $tr) {
+                    return $tr->createQueryBuilder('t')
+                        ->andWhere('t.deletedAt IS NULL');
+                }
             ])
             ->add('personneMini', null, [
                 'label' => 'Minimum de personnes pour le menu :',
@@ -55,7 +62,11 @@ class MenuType extends AbstractType
                 'class' => Regime::class,
                 'label' => 'Régime :',
                 'choice_label' => 'description',
-                'required' => true
+                'required' => true,
+                'query_builder' => function (RegimeRepository $rr) {
+                    return $rr->createQueryBuilder('r')
+                        ->andWhere('r.deletedAt IS NULL');
+                }
             ])
             ->add('plats', EntityType::class, [
                 'class' => Plat::class,
@@ -63,7 +74,11 @@ class MenuType extends AbstractType
                 'choice_label' => 'nomPlat',
                 'expanded' => true,
                 'multiple' => true,
-                'required' => true
+                'required' => true,
+                'query_builder' => function (PlatRepository $pr) {
+                    return $pr->createQueryBuilder('p')
+                        ->andWhere('p.deletedAt IS NULL');
+                }
             ])
         ;
     }

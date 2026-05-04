@@ -30,22 +30,27 @@ class RegistrationFormType extends AbstractType
         $builder
             // Pour l'attribut email de l'Entité Utilisateur
             ->add('email', null, [
+                'label' => 'Email :',
                 'required' => true
             ])
             // Pour l'attribut prenom de l'Entité Utilisateur
             ->add('prenom', null, [
+                'label' => 'Prenom :',
                 'required' => true
             ])
             // Pour l'attribut nom de l'Entité Utilisateur
             ->add('nom', null, [
+                'label' => 'Nom :',
                 'required' => true
             ])
             // Pour l'attribut telephone de l'Entité Utilisateur
             ->add('telephone', null, [
+                'label' => 'Telephone :',
                 'required' => true
             ])
             // Pour l'attribut adresse de l'Entité Utilisateur
             ->add('adresse', null, [
+                'label' => 'Mon adresse :',
                 'required' => true
             ])
             // Propriété Password

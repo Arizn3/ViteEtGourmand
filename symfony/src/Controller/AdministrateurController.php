@@ -69,7 +69,10 @@ final class AdministrateurController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         // Donnée employé
-        $compte = $em->getRepository(Utilisateur::class)->findBy(['role' => '2']);
+        $compte = $em->getRepository(Utilisateur::class)->findBy([
+            'role' => 2,
+            'deletedAt' => null
+            ]);
 
         // Creation d'un nouveau compte employé
         // Nouvelle instance de l'Entity Utilisateur
@@ -100,8 +103,9 @@ final class AdministrateurController extends AbstractController
             $user->setNom($nom);
             // Un compte employé ne contient pas d'adresse, ni de téléphone mais
             // ces données ne peuvent pas être vide en base.
-            $user->setAdresse('UserAdresse');
-            $user->setTelephone('0606060606');
+            $user->setAdresse('UserEmp');
+            $user->setTelephone('0000000000');
+            $user->setCreatedAt(new \DateTime());
 
             // ROLE_EMPLOYE définit
             $roleUser = $roleRepository->findOneBy(['description' => 'ROLE_EMPLOYE']);
@@ -137,14 +141,16 @@ L'équipe Vite & Gourmand
         ]);
     }
 
-    // Suppression d'un compte employé
+    // Suppression (soft delete) d'un compte employé
     #[Route('/administrateur/employe/supprimer/{id}', name:'app_suppression_employe')]
     public function supprimerEmploye(Utilisateur $utilisateur, EntityManagerInterface $em): Response
     {
         // Contrôle d'accès
-        $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $em->remove($utilisateur);
+        $utilisateur->setEmail('deleted_' . $utilisateur->getEmail());
+        $utilisateur->setDeletedAt(New \DateTime());
+
         $em->flush();
 
         $this->addFlash('supp', 'Compte supprimer');

@@ -171,7 +171,7 @@ final class UtilisateurController extends AbstractController
         ]);
     }
 
-    // Suppression du compte
+    // Suppression du compte (soft delete)
     #[Route('/utilisateur/supprimer-mon-compte', name: 'app_utilisateur_supprimer_compte')]
     public function supprimerCompte(EntityManagerInterface $em, TokenStorageInterface $tokenStorage): Response
     {
@@ -179,10 +179,12 @@ final class UtilisateurController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
+        /** @var \App\Entity\Utilisateur $utilisateur */
 
         $tokenStorage->setToken(null);
 
-        $em->remove($utilisateur);
+        $utilisateur->setEmail('deleted_' . $utilisateur->getEmail());
+        $utilisateur->setDeletedAt(new \DateTime());
         $em->flush();
 
         return $this->redirectToRoute('app_home');
