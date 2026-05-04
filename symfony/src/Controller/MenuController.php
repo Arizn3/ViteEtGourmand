@@ -2,26 +2,56 @@
 
 namespace App\Controller;
 
+use App\Entity\Theme;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\MenuRepository;
+use App\Repository\RegimeRepository;
+use App\Repository\ThemeRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 // Contrôleur lié à l'Entité Menu
 final class MenuController extends AbstractController
 {
+    // Affichage des menus
     #[Route('/menu', name: 'app_menu')]
-    public function index(MenuRepository $menuRepository): Response
+    public function index(MenuRepository $menuRepository, ThemeRepository $theme, RegimeRepository $regimeRepo): Response
     {
         // findby() récupère uniquement les menus qui n'ont pas de date dans DELETED_AT
         $menus = $menuRepository->findBy(['deletedAt' => null]);
 
         return $this->render('menu/index.html.twig', [
             'menus' => $menus,
+            'themes' => $theme->findAll(),
+            'regimes' => $regimeRepo->findAll(),
         ]);
     }
+    
+        // Filtre des menus
+        #[Route('/menu/filtre', name: 'app_menu_filtre')]
+        public function filtre(
+            Request $request,
+            MenuRepository $menuRepo,
+            ThemeRepository $themeRepo,
+            RegimeRepository $regimeRepo
+            ): Response
+        {
+            $prixMax = $request->query->get('prixMax');
+            $theme = $request->query->get('theme');
+            $regime = $request->query->get('regime');
+            $nbPersonne = $request->query->get('nbPersonne');
+    
+            $menus = $menuRepo->findByFilters($prixMax, $theme, $regime, $nbPersonne);
+    
+            return $this->render('menu/index.html.twig', [
+                'menus' => $menus,
+                'themes' => $themeRepo->findAll(),
+                'regimes' => $regimeRepo->findAll(),
+            ]);
+        }
 
-    // Route pour l'affichage des détails d'un menu
+    // Affichage des détails d'un menu
     #[Route('/menu/{id}', name: 'app_menu_detail')]
     public function show(int $id, MenuRepository $menuRepository): Response
     {

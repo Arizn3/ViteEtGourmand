@@ -10,7 +10,25 @@
 {% block content %}
 
     <h2>Ce que nous vous proposons</h2>
-    <div class="mainMenus">
+    <br>
+    {# Filtre #}
+    <input type="number" id="prixMax" placeholder="Prix">
+    <select id="theme">
+        <option value="">Tous les thèmes</option>
+        {% for theme in themes %}
+            <option value="{{ theme.id }}">{{ theme.description }}</option>
+        {% endfor %}
+    </select>
+    <select id="regime">
+        <option value="">Tous les régimes</option>
+        {% for regime in regimes %}
+            <option value="{{ regime.id }}">{{ regime.description }}</option>
+        {% endfor %}
+    </select>
+    <input type="number" id="nbPersonne" placeholder="Boîte à repas">
+    <br>
+
+    <div class="mainMenus" id="menuList">
         {# Boucle FOR IN qui itère dans l'objet qui est en fait l'Entité Menu #}
         {% for menu in menus %}
             <div class="divMenus">
@@ -28,3 +46,8 @@
         </div>
 
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/javascript/menus.js"></script>
+{% endblock javascripts %}

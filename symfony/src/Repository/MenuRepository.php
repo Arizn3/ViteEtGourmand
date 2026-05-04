@@ -16,28 +16,27 @@ class MenuRepository extends ServiceEntityRepository
         parent::__construct($registry, Menu::class);
     }
 
-    //    /**
-    //     * @return Menu[] Returns an array of Menu objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('m.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findByFilters($prixMax, $theme, $regime, $nbPersonne)
+    {
+        $queryB = $this->createQueryBuilder('menu');
 
-    //    public function findOneBySomeField($value): ?Menu
-    //    {
-    //        return $this->createQueryBuilder('m')
-    //            ->andWhere('m.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($prixMax) {
+            $queryB->andWhere('menu.prixPersonne <= :prixMax')
+                    ->setParameter('prixMax', $prixMax);
+        }
+        if ($theme) {
+            $queryB->andWhere('menu.theme = :theme')
+                    ->setParameter('theme', $theme);
+        }
+        if ($regime) {
+            $queryB->andWhere('menu.regime = :regime')
+                    ->setParameter('regime', $regime);
+        }
+        if ($nbPersonne) {
+            $queryB->andWhere('menu.personneMini <= :nb')
+                    ->setParameter('nb', $nbPersonne);
+        }
+
+        return $queryB->getQuery()->getResult();
+    }
 }

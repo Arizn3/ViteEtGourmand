@@ -172,6 +172,8 @@ final class EmployeController extends AbstractController
             // Système de mail en cas d'annulation d'une commande
             if ($statut === 'Annuler') {
 
+                $commande->setDeletedAt(new \DateTime());
+
                 // Récupération du message de l'input (Twig)
                 $messageEmail = $request->request->get('message_email');
 
@@ -200,6 +202,8 @@ L\'équipe Vite & Gourmand
             // avec un système de mail pour l'utilisateur
             if ($statut === 'Terminer') {
 
+                $commande->setDeletedAt(new \DateTime());
+
                 // Information sur la commande terminée
                 $menuNom = $commande->getMenu()->getTitre();
                 $prix = $commande->getPrixMenu();
@@ -212,7 +216,7 @@ L\'équipe Vite & Gourmand
                     'periode' => $periode
                 ]);
 
-                // Sinon création d'un nouveau document
+                // Sinon création d'un nouveau document dans MongoDB
                 if (!$stat) {
                     $stat = new Stat();
                     $stat->setMenu($menuNom);
@@ -221,7 +225,7 @@ L\'équipe Vite & Gourmand
                     $stat->setChiffreAffaire(0);
                 };
 
-                // Incrémentation
+                // Incrémentation dans MongoDB
                 $stat->setTotalCommandes($stat->getTotalCommandes() + 1);
                 $stat->setChiffreAffaire($stat->getChiffreAffaire() + $prix);
 
