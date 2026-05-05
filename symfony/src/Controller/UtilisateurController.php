@@ -110,6 +110,16 @@ final class UtilisateurController extends AbstractController
         ]);
         $form->handleRequest($request);
 
+        $today = new \DateTime();
+        $minDate = (clone $today)->modify('+ 7 days');
+
+        if ($commande->getDatePrestation() < $minDate) {
+            $this->addFlash('error', '⚠️ La date de livraison doit être au minimum 7 jours après la date de commande');
+            return $this->redirectToRoute('app_utilisateur_modifier_commande', [
+                'id' => $commande->getId()
+            ]);
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             return $this->redirectToRoute('app_utilisateur_commandes', [

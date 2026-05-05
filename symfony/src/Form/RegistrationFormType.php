@@ -21,8 +21,8 @@ class RegistrationFormType extends AbstractType
     {
         $this->router = $router;
     }
-        
-    
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $url = $this->router->generate('app_home_conditions_mention');
@@ -71,8 +71,12 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Veuillez choisir un mot de passe',
                     ]),
                     new Assert\Length([
-                        'min' => 6,
+                        'min' => 10,
                         'minMessage' => 'Le mot de passe doit contenir minimum {{ limit }} caractères',
+                    ]),
+                    new Assert\Regex([
+                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/',
+                        'message' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.',
                     ]),
                 ],
             ])

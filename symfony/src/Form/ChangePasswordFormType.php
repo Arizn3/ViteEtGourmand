@@ -43,12 +43,15 @@ class ChangePasswordFormType extends AbstractType
                         'message' => 'Saisir un nouveau mot de passe',
                     ]),
                     new Assert\Length([
-                        'min' => 6,
+                        'min' => 10,
                         'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères',
                     ]),
+                    new Assert\Regex([
+                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/',
+                        'message' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.',
+                    ]),
                 ],
-            ]);
-        ;
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

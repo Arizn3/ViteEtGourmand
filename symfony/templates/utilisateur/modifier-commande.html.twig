@@ -7,8 +7,19 @@
     <h3>Modifier ma commande</h3>
     
     <p>Menu : {{ commande.menu.titre }}</p>
-    <p>Le menu de la commande ne peut plus être modifié.</p>
+    <p>Le menu de la commande et le nombre de boîte à repas ne peut plus être modifié.</p>
+    <p>
+        Pour le changement des éléments non-modifiables, veuillez nous contacter directement par téléphone, ou via l'onglet "Contact" de l'application.
+    </p>
 
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <br>
     {{ form_start(form) }}
 
     {# Date de livraison #}

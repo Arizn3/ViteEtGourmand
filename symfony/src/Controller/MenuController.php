@@ -23,8 +23,8 @@ final class MenuController extends AbstractController
 
         return $this->render('menu/index.html.twig', [
             'menus' => $menus,
-            'themes' => $theme->findAll(),
-            'regimes' => $regimeRepo->findAll(),
+            'themes' => $theme->findBy(['deletedAt' => null]),
+            'regimes' => $regimeRepo->findBy(['deletedAt' => null]),
         ]);
     }
     
@@ -46,8 +46,8 @@ final class MenuController extends AbstractController
     
             return $this->render('menu/index.html.twig', [
                 'menus' => $menus,
-                'themes' => $themeRepo->findAll(),
-                'regimes' => $regimeRepo->findAll(),
+                'themes' => $themeRepo->findBy(['deletedAt' => null]),
+                'regimes' => $regimeRepo->findBy(['deletedAt' => null]),
             ]);
         }
 

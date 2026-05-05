@@ -169,6 +169,28 @@ final class EmployeController extends AbstractController
                 throw new \Exception('Statut Invalide');
             };
 
+            if ($statut === 'En attente du retour de matériel') {
+
+                $email = (new Email())
+                    ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                    ->to($commande->getUtilisateur()->getEmail())
+                    ->subject('Retour matériel')
+                    ->text('Bonjour,
+
+Nous vous remercions de nous avoir fait confiance, et espérons que votre événement s\'est bien déroulé.
+Nous vous rendons attentif au fait que le matériel loué doit être restitué sous 10 jours ouvrés.
+
+Les conditions générales prévoient 600 euros de frais que nous serions bien désolés de devoir vous facturer.
+Pour rendre le matériel dans de bonnes conditions, veuillez prendre contact avec nous dans les plus brefs délais,
+en passant par l\'onglet contact du site.
+
+Nous restons à votre disposition, cordialement.
+L\'équipe Vite & Gourmand
+                    ');
+
+                $mailer->send($email);
+            }
+
             // Système de mail en cas d'annulation d'une commande
             if ($statut === 'Annuler') {
 

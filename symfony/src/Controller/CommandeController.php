@@ -111,7 +111,7 @@ final class CommandeController extends AbstractController
                 ->text('Bonjour,
 
 Votre commande va être prise en compte par notre service.
-Accéder à votre espace personnel pour voir l\'avancement de votre commande.
+Accédez à votre espace personnel pour suivre l\'avancement de votre commande.
 
 Merci d\'avoir choisi Vite & Gourmand !
 

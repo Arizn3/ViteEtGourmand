@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 // Controller pour l'inscription
 class RegistrationController extends AbstractController
@@ -23,7 +25,8 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         RoleRepository $roleRepository,
         Security $security,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        MailerInterface $mailer
     ): Response {
         $user = new Utilisateur();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -41,6 +44,23 @@ class RegistrationController extends AbstractController
             $user->setRole($roleUser);
 
             $user->setCreatedAt(new \DateTime());
+
+            $email = (new Email())
+                ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                ->to($user->getEmail())
+                ->subject('Bienvenue chez nous !')
+                ->text('Bonjour,
+
+Un grand merci de nous avoir rejoints. Nous sommes ravis de vous accueillir parmi nos nouveaux clients,
+et nous réjouissons de vous accompagner dans vos événements gourmands, qu\'ils soient familiaux ou d\'entreprise.
+
+Vous pouvez dès à présent découvrir nos menus, et passer commande via l\'application Vite&Gourmand.
+
+Nous restons à votre disposition, cordialement.
+L\'équipe Vite & Gourmand
+                ');
+
+            $mailer->send($email);
 
             $entityManager->persist($user);
             $entityManager->flush();

@@ -16,9 +16,7 @@
             {% for plat in menu.plats %}
             <p>{{ plat.nomPlat }}</p>
             {% endfor %}
-            <p>{{ menu.description }} Lorem ipsum dolor sit amet,<br>
-                consectetur adipiscing elit, sed do eiusmod tempor <br>
-                incididunt ut labore et dolore.</p>
+            <p>{{ menu.description }}</p>
             {% for plat in menu.plats %}
                 {% for allergene in plat.allergenes %}
                     {% if allergene.description not in allAllergenes %}
