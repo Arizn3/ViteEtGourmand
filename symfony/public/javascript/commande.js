@@ -35,13 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (date_prestation && date_prestation.value) {
             const prestationDate = new Date(date_prestation.value);
             const today = new Date();
-            
+
             const minDate = new Date();
             minDate.setDate(today.getDate() + 7);
-            
+
             console.log(prestationDate);
             console.log(minDate);
-            
+
             if (prestationDate < minDate) {
                 erreur.textContent = '👉 La date de livraison doit être au minimum dans 7 jours';
                 return;
@@ -117,7 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('⚠️ Veuillez remplir tous les champs correctement avant de valider la commande');
             return;
         } else {
-            alert('✅ Votre commande à bien été enregistrer, un email vous à été envoyer');
+            const btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerText = "Envoi en cours...";
         }
     })
 });
