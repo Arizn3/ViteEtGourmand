@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Avis;
 use App\Entity\Commande;
 use App\Form\AvisType;
-use App\Form\ChangePasswordFormType;
+use App\Form\UserChangePasswordFormType;
 use App\Form\CommandeType;
 use App\Form\UtilisateurType;
 use App\Repository\AvisRepository;
@@ -160,7 +160,7 @@ final class UtilisateurController extends AbstractController
         ]);
 
         // Modification du mot de passe
-        $form = $this->createForm(ChangePasswordFormType::class);
+        $form = $this->createForm(UserChangePasswordFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
