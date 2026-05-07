@@ -105,6 +105,7 @@ final class CommandeController extends AbstractController
             $commande->setPrixMenu($prixTotal);
             $commande->setPrixLivraison($prixLivraison);
             $commande->setDateCmd(new \DateTime());
+            $commande->setCreatedAt(new \DateTime());
             $commande->setStatut('Votre commande va être prise en compte');
             $commande->setPretMateriel(true);
             $commande->setRestitutionMateriel(false);
