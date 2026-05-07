@@ -39,9 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const minDate = new Date();
             minDate.setDate(today.getDate() + 7);
 
-            console.log(prestationDate);
-            console.log(minDate);
-
             if (prestationDate < minDate) {
                 erreur.textContent = '👉 La date de livraison doit être au minimum dans 7 jours';
                 return;
@@ -76,21 +73,39 @@ document.addEventListener('DOMContentLoaded', () => {
         let prixLivraison = 0;
         // Majoration du prix en cas de livraison hors de la ville de Bordeaux
         if (ville_livraison.value.toLowerCase() !== 'bordeaux') {
-            // Distance temporaire simuler
-            let distance = 10;
-            prixLivraison = 5 + (distance * 0.59);
-        }
 
-        // Affichage du prix dynamique avec majoration si il y a
-        if (prixLivraison > 0) {
-            prixTotalLivraison.textContent = 'Frais de livraison : ' + prixLivraison.toFixed(2) + ' €';
+            if (ville_livraison.value.trim() === '') {
+                return;
+            }
+
+            fetch(calculLivraisonUrl +
+                '?ville=' +
+                encodeURIComponent(ville_livraison.value)
+            )
+
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        prixTotalLivraison.textContent = data.error;
+                        return;
+                    }
+
+                    prixLivraison = data.prixLivraison;
+
+                    prixTotalLivraison.textContent = 'Frais de livraison : ' +
+                        prixLivraison.toFixed(2) + ' €';
+
+                    let totalFinal = total + prixLivraison;
+
+                    prix.textContent = 'Prix Total : ' +
+                        totalFinal.toFixed(2) + ' €';
+                });
         } else {
             prixTotalLivraison.textContent = 'Livraison gratuite sur Bordeaux';
-        }
 
-        // Affichage du prix dynamique
-        let totalFinal = total + prixLivraison;
-        prix.textContent = 'Prix total : ' + totalFinal.toFixed(2) + ' €';
+            prix.textContent = 'Prix total : ' +
+                total.toFixed(2) + ' €';
+        }
     }
 
     // Évènements JS pour les érreurs de champs manquant pour la commande
@@ -122,4 +137,4 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerText = "Envoi en cours...";
         }
     })
-});
+})

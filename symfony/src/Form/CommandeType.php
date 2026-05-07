@@ -6,6 +6,7 @@ use App\Entity\Commande;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CommandeType extends AbstractType
 {
@@ -24,7 +25,15 @@ class CommandeType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'id' => 'commande_heureLivraison'
-                ]
+                ],
+                'constraints' => [
+                    new Assert\Range([
+                        'min' => '11:00',
+                        'max' => '19:00',
+                        'notInRangeMessage' =>
+                            'Les livraisons sont disponibles entre 11h et 19h.'
+                    ])
+                ],
             ])
             ->add('adresseLivraison', null, [
                 'label' => 'Adresse de livraison :',

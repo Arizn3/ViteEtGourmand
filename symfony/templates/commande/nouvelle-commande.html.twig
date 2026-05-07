@@ -55,6 +55,7 @@
     {# Heure de livraison #}
     {{ form_label(form.heureLivraison) }}
     {{ form_widget(form.heureLivraison) }}
+    {{ form_errors(form.heureLivraison) }}
     <br>
 
     {# Ville #}
@@ -76,5 +77,10 @@
 
 {% block javascripts %}
     {{ parent() }}
+
+    <script>
+        const calculLivraisonUrl = "{{ path('app_calcul_livraison') }}";
+    </script>
+
     <script src="/javascript/commande.js" defer></script>
 {% endblock javascripts %}

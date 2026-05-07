@@ -81,6 +81,12 @@ final class UtilisateurController extends AbstractController
 
         // La commande peut être annulée uniquement si elle n'a pas été prise en compte
         if ($commande->getStatut() === 'Votre commande va être prise en compte') {
+
+            $menu = $commande->getMenu();
+            $menu->setQttRestante(
+                $menu->getQttRestante() + $commande->getNbPersonne()
+            );
+
             $commande->setStatut('Annuler');
             $em->flush();
         } else {

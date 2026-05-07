@@ -12,6 +12,8 @@ use App\Entity\Menu;
 use App\Form\CommandeType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use App\Service\DistanceService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 // Contrôleur pour les commandes
 final class CommandeController extends AbstractController
@@ -22,6 +24,7 @@ final class CommandeController extends AbstractController
         Menu $menu,
         EntityManagerInterface $em,
         MailerInterface $mailer,
+        DistanceService $distanceService
     ): Response {
 
         if (
@@ -83,10 +86,20 @@ final class CommandeController extends AbstractController
             $prixLivraison = 0;
 
             if (strtolower($commande->getVilleLivraison()) !== 'bordeaux') {
-                // Simulation temporaire
-                $distance = 10;
-                $prixLivraison = 5 + ($distance * 0.59);
-                $prixTotal += $prixLivraison;
+
+                try {
+                    $distance = $distanceService->getDistance(
+                        $commande->getVilleLivraison()
+                    );
+                    $prixLivraison = 5 + ($distance * 0.59);
+                    $prixTotal += $prixLivraison;
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Ville invalide');
+                    return $this->redirectToRoute('app_commande', [
+                        'id' => $menu->getId()
+                    ]);
+                }
+
             }
 
             $commande->setPrixMenu($prixTotal);
@@ -128,5 +141,33 @@ L\'équipe Vite & Gourmand
             'menu' => $menu,
             'utilisateur' => $utilisateur
         ]);
+    }
+
+    #[Route('/calcul-livraison', name: 'app_calcul_livraison')]
+    public function calculeLivraison(Request $request, DistanceService $distanceService): JsonResponse
+    {
+        $ville = trim($request->query->get('ville'));
+
+        try {
+            if (strtolower($ville) === 'bordeaux') {
+                return $this->json([
+                    'prixLivraison' => 0
+                ]);
+            }
+
+            $distance = $distanceService->getDistance($ville);
+            $prixLivraison = 5 + ($distance * 0.59);
+
+            return $this->json([
+                'distance' => $distance,
+                'prixLivraison' => round($prixLivraison, 2)
+            ]);
+
+        } catch (\Throwable $th) {
+
+            return $this->json([
+                'error' => 'Ville invalide'
+            ], 400);
+        }
     }
 }

@@ -195,6 +195,7 @@ L\'équipe Vite & Gourmand
             if ($statut === 'Annuler') {
 
                 $commande->setDeletedAt(new \DateTime());
+                $commande->getMenu()->getQttRestante() + $commande->getNbPersonne();
 
                 // Récupération du message de l'input (Twig)
                 $messageEmail = $request->request->get('message_email');
@@ -273,6 +274,11 @@ L\'équipe Vite & Gourmand
 
                 $mailer->send($email);
             };
+
+            $menu = $commande->getMenu();
+            $menu->setQttRestante(
+                $menu->getQttRestante() + $commande->getNbPersonne()
+            );
 
             $commande->setStatut($statut);
 

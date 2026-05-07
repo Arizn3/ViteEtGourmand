@@ -11,7 +11,7 @@ use Twig\TwigFunction;
 // AbstractExtension crée une Extension Twig
 class HoraireExtension extends AbstractExtension
 {
-    private $horaireService;
+    private HoraireService $horaireService;
 
     public function __construct(HoraireService $horaireService)
     {

@@ -9,7 +9,7 @@ use App\Repository\HoraireRepository;
 
 class HoraireService
 {
-    private $horaireRepo;
+    private HoraireRepository $horaireRepo;
 
     // Méthode qui utilise le fichier HoraireRepository de l'Entité Horaire
     public function __construct(HoraireRepository $horaireRepo)
