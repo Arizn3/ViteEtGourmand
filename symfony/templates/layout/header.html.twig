@@ -1,9 +1,13 @@
-<h1>Vite&Gourmand</h1>
-<p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-    incididunt ut labore et dolore magna aliqua.
-</p>
-{# Déconnexion #}
-{% if app.user %}
-<a href="{{ logout_path() }}">Déconnexion</a>
-{% endif %}
+<div class="divG">
+    <h1>Vite<span class="et">&</span>Gourmand</h1>
+    <p>Commandez simplement, dégustez pleinement</p>
+</div>
+<div class="divD">
+    <div>
+        <a href="#"><img src="uploads/images/facebook_icon.png" width="30px" height="30px" alt="instagram"></a>
+        <a href="#"><img src="uploads/images/Instagram_icon.png" width="30px" height="30px" alt="facebook"></a>
+    </div>
+    {% if app.user %}
+        <a class="deconnexion" href="{{ logout_path() }}">Déconnexion</a>
+    {% endif %}
+</div>

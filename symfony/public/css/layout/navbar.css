@@ -1,6 +1,6 @@
 /* Barre de navigation */
 nav {
-    background-color: cornflowerblue;
+    background-image: url("/uploads/images/img_navbar.png");
     text-align: center;
     box-shadow: 0px 5px 10px gray;
     margin: 0 24%;
@@ -20,11 +20,19 @@ nav a {
     margin: 0 2%;
 }
 
+.navAccueil:hover {
+    text-shadow: #ffffff 1px 0 10px;
+}
+
 /* Menus */
 .navMenus {
     position: relative;
     display: inline-block;
     margin: 0 2%;
+}
+
+.navMenus:hover {
+    text-shadow: #ffffff 1px 0 10px;
 }
 
 /* Histoire */
@@ -34,11 +42,19 @@ nav a {
     margin: 0 2%;
 }
 
+.navHistoire:hover {
+    text-shadow: #ffffff 1px 0 10px;
+}
+
 /* Connexion / Inscription */
 .navLogin {
     position: relative;
     display: inline-block;
     margin: 0 2%;
+}
+
+.navLogin:hover {
+    text-shadow: #ffffff 1px 0 10px;
 }
 
 /* Menu utilisateur */
@@ -56,11 +72,15 @@ nav a {
     color: white;
 }
 
+.btnNavUtilisateur:hover {
+    text-shadow: #ffffff 1px 0 10px;
+}
+
 .lienUtilisateur {
     display: none;
     position: absolute;
-    background-color: cornflowerblue;
-    min-width: 130px;
+    background-image: url("/uploads/images/img_navbar.png");
+    min-width: 110px;
     box-shadow: 0px 4px 8px gray;
     z-index: 1;
 }
@@ -71,7 +91,7 @@ nav a {
 }
 
 .lienUtilisateur a:hover {
-    color: black;
+    text-shadow: #ffffff 1px 0 10px;
 }
 
 /* Menu employé */
@@ -89,10 +109,14 @@ nav a {
     color: white;
 }
 
+.btnNavEmploye:hover {
+    text-shadow: #ffffff 1px 0 10px;
+}
+
 .lienEmploye {
     display: none;
     position: absolute;
-    background-color: cornflowerblue;
+    background-image: url("/uploads/images/img_navbar.png");
     min-width: 130px;
     box-shadow: 0px 4px 8px gray;
     z-index: 1;
@@ -104,7 +128,7 @@ nav a {
 }
 
 .lienEmploye a:hover {
-    color: black;
+    text-shadow: #ffffff 1px 0 10px;
 }
 
 /* Menu Administrateur */
@@ -122,11 +146,15 @@ nav a {
     color: white;
 }
 
+.btnNavAdmin:hover {
+    text-shadow: #ffffff 1px 0 10px;
+}
+
 .lienAdmin {
     display: none;
     position: absolute;
-    background-color: cornflowerblue;
-    min-width: 130px;
+    background-image: url("/uploads/images/img_navbar.png");
+    min-width: 177px;
     box-shadow: 0px 4px 8px gray;
     z-index: 1;
 }
@@ -137,7 +165,7 @@ nav a {
 }
 
 .lienAdmin a:hover {
-    color: black;
+    text-shadow: #ffffff 1px 0 10px;
 }
 
 /* Constact */
@@ -147,4 +175,8 @@ nav a {
     text-decoration: none;
     color: white;
     margin: 0 2%;
+}
+
+.navContact:hover {
+    text-shadow: #ffffff 1px 0 10px;
 }
