@@ -1,16 +1,29 @@
-<h4>Horaires</h4>
-
-<div>
-    <a href="{{ path('app_home_conditions_mention') }}">Conditions Générale et Mention Légales</a>
+<div class="divContactFooter">
+    <h6 class="titreFooterContact">Contactez-nous</h6>
+    <p>📞 09 09 09 09 09</p>
+    <p>✉️ 33vitegourmand@gmail.com</p>
+    <h6 class="titreFooterSocial">Suivez-nous</h6>
+    <div class="divLogoFooter">
+        <a href="#"><img src="uploads/images/facebook_icon.png" width="30px" height="30px" alt="instagram"></a>
+        <a href="#"><img src="uploads/images/Instagram_icon.png" width="30px" height="30px" alt="facebook"></a>
+    </div>
 </div>
-
-<table>
-    {% for h in horaires() %}
-    <tr>
-        <td>{{ h.jour }}</td>
-        <td>{{ h.heureOuverture|date('H:i') }}</td>
-        <td>-</td>
-        <td>{{ h.heureFermeture|date('H:i') }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="divMentionFooter">
+    <a href="{{ path('app_home_conditions_mention') }}">Conditions Générale et Mention Légales</a>
+    <p>Le site Vite&Gourmand est un projet <br> réalisé dans le cadre d’un exercice pédagogique <br> de fin d’études.
+Ce site est fictif et ne propose <br> aucun service commercial réel.</p>
+<p>Les informations collectées via les formulaires <br> du site sont utilisées uniquement dans le cadre <br> du fonctionnement de l’application.</p>
+</div>
+<div class="divHoraireFooter">
+    <p>Horaires</p>
+    <table>
+        {% for h in horaires() %}
+        <tr>
+            <td>{{ h.jour }}</td>
+            <td>{{ h.heureOuverture|date('H:i') }}</td>
+            <td>-</td>
+            <td>{{ h.heureFermeture|date('H:i') }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>

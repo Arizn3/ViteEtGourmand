@@ -45,6 +45,10 @@ header {
     margin: 1%;
 }
 
+.divD a {
+    margin-right: 5px;
+}
+
 .deconnexion {
     text-decoration: none;
     border: 1px solid black;

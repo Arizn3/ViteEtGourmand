@@ -1,0 +1,76 @@
+footer {
+    display: flex;
+    justify-content: space-between;
+    background-image: url(/uploads/images/img_header.png);
+    background-repeat: no-repeat;
+    background-color: black;
+    background-position: bottom;
+    border-top: 1px solid black;
+    margin-top: 5%;
+    padding: 1%;
+    color: white;
+}
+
+.divMentionFooter,
+.divContactFooter {
+    width: 20%;
+}
+
+/* Mention */
+
+.divMentionFooter {
+    text-align: center;
+}
+
+.divMentionFooter a {
+    text-decoration: none;
+    text-shadow: 1px 1px 2px brown;
+    color: white;
+}
+
+.divMentionFooter p {
+    font-style: oblique;
+}
+
+/* Horaire */
+
+.divHoraireFooter p {
+    margin-top: 0%;
+    margin-bottom: 1%;
+    text-align: center;
+    font-size: x-large;
+    text-shadow: 1px 1px 2px brown;
+}
+
+.divHoraireFooter {
+    width: 10%;
+    margin-left: 10%;
+}
+
+.divHoraireFooter table {
+    text-align: center;
+}
+
+/* Contact */
+
+.divLogoFooter a {
+    margin-left: 8%;
+}
+
+.divContactFooter p {
+    margin-left: 5%;
+}
+
+.divContactFooter h6 {
+    font-size: x-large;
+}
+
+.titreFooterContact {
+    margin: 0 0 3% 5%;
+    text-shadow: 1px 1px 2px brown;
+}
+
+.titreFooterSocial {
+    margin: 5% 0 3% 5%;
+    text-shadow: 1px 1px 2px brown;
+}
