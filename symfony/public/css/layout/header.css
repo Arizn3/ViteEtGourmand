@@ -9,7 +9,6 @@ header {
     display: flex;
     background-image: url(/uploads/images/img_header.png);
     background-repeat: no-repeat;
-    background-color: black;
     background-position: center;
     margin-bottom: -1%;
 }

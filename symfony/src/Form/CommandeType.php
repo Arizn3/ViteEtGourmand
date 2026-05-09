@@ -26,14 +26,6 @@ class CommandeType extends AbstractType
                 'attr' => [
                     'id' => 'commande_heureLivraison'
                 ],
-                'constraints' => [
-                    new Assert\Range([
-                        'min' => '11:00',
-                        'max' => '19:00',
-                        'notInRangeMessage' =>
-                            'Les livraisons sont disponibles entre 11h et 19h.'
-                    ])
-                ],
             ])
             ->add('adresseLivraison', null, [
                 'label' => 'Adresse de livraison :',
@@ -49,16 +41,15 @@ class CommandeType extends AbstractType
                     'id' => 'commande_villeLivraison'
                 ]
             ]);
-            if ($options['modification'] === false) {
-                $builder->add('nbPersonne', null, [
-                    'label' => 'Nombre de boîte à repas :',
-                    'required' => true,
-                    'attr' => [
-                        'id' => 'commande_nbPersonne'
-                    ]
-                ]);
-            }
-        ;
+        if ($options['modification'] === false) {
+            $builder->add('nbPersonne', null, [
+                'label' => 'Nombre de boîte à repas :',
+                'required' => true,
+                'attr' => [
+                    'id' => 'commande_nbPersonne'
+                ]
+            ]);
+        };
     }
 
     public function configureOptions(OptionsResolver $resolver): void

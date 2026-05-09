@@ -9,12 +9,11 @@ use App\Entity\Theme;
 use App\Repository\PlatRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
-use DateTime;
-use Doctrine\Common\Collections\Expr\Value;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Count;
 
 class MenuType extends AbstractType
 {
@@ -75,6 +74,12 @@ class MenuType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'required' => true,
+                'constraints' => [
+                    new Count([
+                        'min' => 3,
+                        'minMessage' => 'Veuillez sélectionner au moins 3 plats'
+                    ])
+                ],
                 'query_builder' => function (PlatRepository $pr) {
                     return $pr->createQueryBuilder('p')
                         ->andWhere('p.deletedAt IS NULL');

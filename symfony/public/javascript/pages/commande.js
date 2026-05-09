@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prixPersonne = parseFloat(nb_personnes.dataset.prix);
     const min = parseInt(nb_personnes.dataset.min);
     const max = parseInt(nb_personnes.dataset.max);
+    let derniereVille = '';
 
     // Fonction qui vérifie les champs, cette fonction est ensuite appeler en callback pour un évènement
     function verifierFormulaire() {
@@ -78,13 +79,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            fetch(calculLivraisonUrl +
+            if (derniereVille === ville_livraison.value.trim()) {
+                return;
+            }
+
+            derniereVille = ville_livraison.value.trim();
+
+            fetch(
+                calculLivraisonUrl +
                 '?ville=' +
-                encodeURIComponent(ville_livraison.value)
+                encodeURIComponent(ville_livraison.value.trim())
             )
 
-                .then(response => response.json())
+                .then(response => {
+
+                    if (!response.ok) {
+                        throw new Error('Ville invalide');
+                    }
+
+                    return response.json();
+                })
+
                 .then(data => {
+
                     if (data.error) {
                         prixTotalLivraison.textContent = data.error;
                         return;
@@ -92,13 +109,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     prixLivraison = data.prixLivraison;
 
-                    prixTotalLivraison.textContent = 'Frais de livraison : ' +
+                    prixTotalLivraison.textContent =
+                        'Frais de livraison : ' +
                         prixLivraison.toFixed(2) + ' €';
 
                     let totalFinal = total + prixLivraison;
 
-                    prix.textContent = 'Prix Total : ' +
+                    prix.textContent =
+                        'Prix total : ' +
                         totalFinal.toFixed(2) + ' €';
+                })
+
+                .catch(() => {
+
+                    prix.textContent = '';
+
+                    prixTotalLivraison.textContent =
+                        'Ville invalide';
                 });
         } else {
             prixTotalLivraison.textContent = 'Livraison gratuite sur Bordeaux';
@@ -112,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nb_personnes.addEventListener('input', verifierFormulaire);
     date_prestation.addEventListener('input', verifierFormulaire);
     heure_livraison.addEventListener('input', verifierFormulaire);
-    ville_livraison.addEventListener('input', verifierFormulaire);
+    ville_livraison.addEventListener('change', verifierFormulaire);
     adresse_livraison.addEventListener('input', verifierFormulaire);
 
     // Évènement d'interception du submit (la validation) en cas de champ manquant

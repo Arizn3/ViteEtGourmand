@@ -83,6 +83,14 @@ final class CommandeController extends AbstractController
                 $prixTotal *= 0.9;
             }
 
+            $heure = $commande->getHeureLivraison()->format('H:i');
+            if ($heure < '11:00' || $heure > '19:00') {
+                $this->addFlash('error', '⚠️ Les livraisons sont disponibles entre 11h et 19h.');
+                return $this->redirectToRoute('app_commande', [
+                    'id' => $menu->getId()
+                ]);
+            }
+
             $prixLivraison = 0;
 
             if (strtolower($commande->getVilleLivraison()) !== 'bordeaux') {
@@ -99,7 +107,6 @@ final class CommandeController extends AbstractController
                         'id' => $menu->getId()
                     ]);
                 }
-
             }
 
             $commande->setPrixMenu($prixTotal);
@@ -147,7 +154,7 @@ L\'équipe Vite & Gourmand
     #[Route('/calcul-livraison', name: 'app_calcul_livraison')]
     public function calculeLivraison(Request $request, DistanceService $distanceService): JsonResponse
     {
-        $ville = trim($request->query->get('ville'));
+        $ville = urldecode($request->query->get('ville'));
 
         try {
             if (strtolower($ville) === 'bordeaux') {
@@ -163,12 +170,11 @@ L\'équipe Vite & Gourmand
                 'distance' => $distance,
                 'prixLivraison' => round($prixLivraison, 2)
             ]);
-
         } catch (\Throwable $th) {
 
-            return $this->json([
+            return new JsonResponse([
                 'error' => 'Ville invalide'
-            ], 400);
+            ]);
         }
     }
 }

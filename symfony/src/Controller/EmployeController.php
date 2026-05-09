@@ -217,6 +217,11 @@ Nous restons à votre disposition, cordialement.
 L\'équipe Vite & Gourmand
                     ');
 
+                    $menu = $commande->getMenu();
+                    $menu->setQttRestante(
+                        $menu->getQttRestante() + $commande->getNbPersonne()
+                    );
+
                     $mailer->send($email);
                 };
             };
@@ -274,11 +279,6 @@ L\'équipe Vite & Gourmand
 
                 $mailer->send($email);
             };
-
-            $menu = $commande->getMenu();
-            $menu->setQttRestante(
-                $menu->getQttRestante() + $commande->getNbPersonne()
-            );
 
             $commande->setStatut($statut);
 

@@ -1,35 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="/css/pages/home.css">
+{% endblock stylesheets %}
+
+{% block title %}Accueil 🏠{% endblock title %}
 
 {% block content %}
 
-    <h3>Texte de présentation</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore<br>
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat.<br>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-    </p>
-    <h3>Notre savoir-faire</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        <br>
-        magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-    </p>
-    <section>
-        <h3>Avis clients</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            <br>
-            magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.<br>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-            laborum
+<section class="presentation">
+    <div>
+        <h2>Vite&Gourmand, c'est nous</h2>
+        <p>
+            Nous sommes Julie et José, deux passionnés de cuisine installés à Bordeaux depuis plus de 25 ans. <br>Au
+            départ,
+            nous préparions principalement des repas pour notre entourage et de petits événements locaux,<br> avant de
+            développer progressivement notre activité à travers toute la Gironde. <br><br>
+
+            Au fil des années, nous avons toujours gardé la même envie : proposer des menus gourmands,<br> conviviaux et
+            préparés avec soin pour chaque occasion, qu’il s’agisse d’un repas du quotidien, d’une fête <br>de famille
+            ou
+            d’un événement de saison comme Noël ou Pâques.
         </p>
-    </section>
+    </div>
+    <img src="/uploads/images/img_presentation.png" width="400px" height="400px" alt="Notre enseigne">
+</section>
+
+<section class="savoirFaire">
+    <img src="/uploads/images/img_savoirFaire.jpg" width="400px" height="400px" alt="">
+    <div>
+        <h2>Notre savoir-faire</h2>
+        <p>
+            Au fil des années, notre savoir-faire s’est construit autour de la proximité avec nos clients, de l’écoute <br>
+            et de l’envie constante d’améliorer nos menus pour vous proposer une expérience toujours plus gourmande. <br><br>
+            Chez Vite & Gourmand, chaque menu est imaginé avec soin afin de proposer des plats variés, équilibrés et <br>
+            adaptés aux envies de chacun. Nous accordons une attention particulière à la qualité des produits, au <br>
+            respect des saisons et à la préparation de recettes authentiques.
+        </p>
+    </div>
+</section>
+
+<h2 class="titreAvis">Les avis de nos clients</h2>
+<section class="sectionAvis">
+
+    <button id="btnPrecedent">⬅️</button>
+
+    {% for a in avis %}
+
+    <div class="divAvis" {% if not loop.first %} style="display:none" {% endif %}>
+
+        <p class="etoile">
+            {% for i in 1..5 %}
+            {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} </p>
+                <p class="avis"> {{ a.libelle }} </p>
+                <p class="utilisateur">{{ a.utilisateur.prenom }} {{ a.utilisateur.nom }}</p>
+
+    </div>
+
+    {% endfor %}
+
+    <button id="btnSuivant">➡️</button>
+
+</section>
 
 {% endblock content %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="/javascript/pages/avis.js" defer></script>
+{% endblock javascripts %}

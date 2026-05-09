@@ -1,0 +1,130 @@
+main {
+    height: 1400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+/* Presentation */
+.presentation {
+    display: flex;
+    padding: 0 1% 1%;
+    margin: 5% 1% 1% 14%;
+}
+
+.presentation div {
+    margin: 1% 5% 1% 1%;
+    padding: 1%;
+}
+
+.presentation h2 {
+    font-size: xx-large;
+    font-family: Apple Chancery;
+    margin-top: 10%;
+}
+
+.presentation img {
+    border-radius: 25%;
+    align-self: center;
+    margin: 1% auto 1% 5%;
+    border: 2px solid black;
+}
+
+.presentation:hover h2 {
+    transition-duration: 1s;
+    text-shadow: skyblue 3px 0 10px;
+}
+
+.presentation:hover img {
+    transition-duration: 1s;
+    box-shadow: 0 0 20px black;
+}
+
+/* Savoir faire */
+.savoirFaire {
+    display: flex;
+    padding: 0% 1% 1%;
+    margin: 1% 15% 1% 1%;
+}
+
+.savoirFaire div {
+    margin: 1% 1% 1% 5%;
+    padding: 1%;
+}
+
+.savoirFaire h2 {
+    font-size: xx-large;
+    font-family: Apple Chancery;
+}
+
+.savoirFaire img {
+    border-radius: 25%;
+    align-self: center;
+    margin: 1% 5% 1% auto;
+    border: 2px solid black;
+}
+
+.savoirFaire:hover h2 {
+    transition-duration: 1s;
+    text-shadow: skyblue 3px 0 10px;
+}
+
+.savoirFaire:hover img {
+    transition-duration: 1s;
+    box-shadow: 0 0 20px black;
+}
+
+/* Avis client */
+.titreAvis {
+    font-size: x-large;
+    text-align: center;
+}
+
+.etoile {
+    text-align: center;
+}
+
+.sectionAvis {
+    height: 100%;
+    display: flex;
+    padding: 1%;
+    margin: 1% auto 1% auto;
+}
+
+.divAvis {
+    margin: 1%;
+    padding: 5%;
+    width: 300px;
+    height: 200px;
+    background-image: url("/uploads/images/img_navbar.png");
+    border: 2px solid cornflowerblue;
+    border-radius: 5%;
+}
+
+.divAvis:hover {
+    transition-duration: 1s;
+    text-shadow: #ffffff 1px 0 10px;
+}
+
+.sectionAvis button {
+    margin: 25% 3%;
+    background-color: cornflowerblue;
+    height: 30px;
+    width: 30px;
+    border: none;
+    border-radius: 50%;
+}
+
+.sectionAvis button:active {
+    background-color: rgb(79, 115, 183);
+}
+
+.avis {
+    color: white;
+}
+
+.utilisateur {
+    color: aliceblue;
+    font-size: large;
+    font-style: oblique;
+}
