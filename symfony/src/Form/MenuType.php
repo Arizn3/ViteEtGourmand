@@ -9,11 +9,13 @@ use App\Entity\Theme;
 use App\Repository\PlatRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
+use BcMath\Number;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Count;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class MenuType extends AbstractType
 {
@@ -43,10 +45,15 @@ class MenuType extends AbstractType
                 'required' => true,
                 'attr' => ['min' => 1]
             ])
-            ->add('prixPersonne', null, [
+            ->add('prixPersonne', NumberType::class, [
                 'label' => 'Prix par personne :',
                 'required' => true,
-                'attr' => ['min' => 1]
+                'scale' => 2,
+                'html5' => true,
+                'attr' => [
+                    'min' => 1,
+                    'step' => 0.10
+                ]
             ])
             ->add('description', null, [
                 'label' => 'Ajouter une decription / condition :',

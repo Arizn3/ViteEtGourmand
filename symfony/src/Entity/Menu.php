@@ -31,11 +31,16 @@ class Menu
 
     #[Assert\NotBlank()]
     #[Assert\Positive()]
+    #[Assert\Length(min: 1, max: 300)]
     #[ORM\Column]
     private ?float $prixPersonne = null;
 
     #[Assert\NotBlank()]
-    #[ORM\Column(length: 50)]
+    #[Assert\Length(
+        max: 1000,
+        maxMessage: 'La description ne peut pas dépasser 1000 caractères.'
+    )]
+    #[ORM\Column(type: 'text')]
     private ?string $description = null;
 
     #[Assert\NotBlank()]

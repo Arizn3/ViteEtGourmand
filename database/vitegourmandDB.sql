@@ -173,7 +173,7 @@ CREATE TABLE `menu` (
   `titre` varchar(50) NOT NULL,
   `personne_mini` int NOT NULL,
   `prix_personne` double NOT NULL,
-  `description` varchar(50) NOT NULL,
+  `description` longtext NOT NULL,
   `qtt_restante` int NOT NULL,
   `created_at` date NOT NULL,
   `deleted_at` date DEFAULT NULL,
