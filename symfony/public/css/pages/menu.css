@@ -1,14 +1,124 @@
-.mainMenu {
+main {
+    height: 700px;
+}
+
+/* Photos */
+.photo {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid saddlebrown;
+    border-radius: 10%;
+    width: 600px;
+    height: 600px;
+    transition-duration: 1s;
+}
+
+.photo:hover {
+    transition-duration: 1s;
+    box-shadow: 0 0 20px black;
+    background-color: rgb(210, 249, 249);
+}
+
+.gallerie {
     display: flex;
     justify-content: center;
-    margin: 5%;
+    margin: 1%;
+    padding: 1%;
 }
 
-img {
-    border: 3px solid black;
+.gallerie img {
+    margin: 0 1% 0 1%;
+    padding: 1px;
+    width: 100px;
+    height: 100px;
     border-radius: 10%;
+    border: 1px solid saddlebrown;
+    transition-duration: 500ms;
 }
 
-.mainMenu .divMenu {
-    margin-left: 5%;
+.gallerie img:hover {
+    transition-duration: 500ms;
+    box-shadow: 0 0 20px saddlebrown;
+    background-color: rgb(210, 249, 249);
+}
+
+/* Menu */
+.divMenu {
+    display: flex;
+    margin: 5% 20%;
+}
+
+/* Detail du menu */
+.divDetail {
+    width: 600px;
+    height: 620px;
+    margin-left: 50px;
+}
+
+.divMenu h3 {
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+.themeRegime {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: medium;
+    color: saddlebrown;
+}
+
+.plat {
+    text-align: center;
+    font-family: Copperplate;
+}
+
+.description {
+    padding: 10px;
+    margin: 20px auto 0;
+    font-family: Songti TC;
+}
+
+.allergeneTitre {
+    padding: 0;
+    margin: 0 auto 0 10px;
+}
+
+.allergenes {
+    color: saddlebrown;
+    margin: 0;
+}
+
+.pr,
+.nb,
+.qtt {
+    color: darkblue;
+    text-align: center;
+}
+
+.btn {
+    text-align: center;
+    margin: 10%;
+    font-size: 20px;
+}
+
+.btn a {
+    text-decoration: none;
+    background-color: azure;
+    border: 1px solid saddlebrown;
+    border-radius: 15% / 50%;
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+    color: black;
+    transition-duration: 500ms;
+}
+
+.btn a:hover {
+    transition-duration: 500ms;
+    box-shadow: 0 0 20px saddlebrown;
+}
+
+.btn a:active {
+    border: 2px solid saddlebrown;
 }

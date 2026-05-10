@@ -5,22 +5,42 @@
     <link rel="stylesheet" href="/css/pages/menu.css">
 {% endblock stylesheets %}
 
-{% block title %} Détail d'un menu {% endblock title %}
+{% block title %} {{ menu.titre }} {% endblock title %}
 
 {% block content %}
 
-    <div class="mainMenu">
+    <div class="divMenu">
+        
         {% set plat = menu.plats|first %}
         {% set allAllergenes = [] %}
-        <img src="/uploads/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="30%">
-        <div class="divMenu">
-            <h3>{{ menu.titre }}</h3>
-            <p>Thème : {{ menu.theme.description }}</p>
-            <p>Régime : {{ menu.regime.description }}</p>
+        
+        <div class="divPhotos">    
+            
+            <img id="photo" src="/uploads/plats/{{ menu.plats|first.photo }}" class="photo">
+            
+            <div class="gallerie">
+                
+                {% for plat in menu.plats %}
+                    <img src="/uploads/plats/{{ plat.photo }}" class="photos">
+                {% endfor %}
+                
+            </div>
+
+        </div>
+
+        <div class="divDetail">
+
+            <h3><b>{{ menu.titre }}</b></h3>
+
+            <p class="themeRegime">{{ menu.theme.description }}</p>
+            <p class="themeRegime">{{ menu.regime.description }}</p>
+
             {% for plat in menu.plats %}
-                <p>{{ plat.nomPlat }}</p>
+                <p class="plat">{{ plat.nomPlat }}</p>
             {% endfor %}
-            <p>{{ menu.description }}</p>
+
+            <p class="description">{{ menu.description }}</p>
+
             {% for plat in menu.plats %}
                 {% for allergene in plat.allergenes %}
                     {% if allergene.description not in allAllergenes %}
@@ -28,18 +48,31 @@
                     {% endif %}
                 {% endfor %}
             {% endfor %}
-            <p>Allergènes présents :</p>
+
+            <p class="allergeneTitre"><u>Allergènes présents dans le menu :</u></p>
+
             <ul>
                 {% for a in allAllergenes %}
-                    <li>{{ a }}</li>
+                    <p class="allergenes">‣ <b>{{ a }}</b></p>
                 {% endfor %}
             </ul>
-            <p>● {{ menu.prixPersonne }}€ par personne</p>
-            <p>● À partir de {{ menu.personneMini }} boîte à repas</p>
-            <p>{{ menu.qttRestante }} quantités disponibles</p>
-            <a href="/menu">Liste des menus</a>
-            <a href="{{ path('app_commande', {id: menu.id}) }}">Commander</a>
+
+            <p class="pr">● <b>{{ menu.prixPersonne }}€</b> par personne</p>
+            <p class="nb">● À partir de <b>{{ menu.personneMini }}</b> boîte à repas</p>
+            <p class="qtt">● <b>{{ menu.qttRestante }}</b> quantités disponibles</p>
+
+            <div class="btn">
+                <a href="/menu">Liste des menus</a>
+                <a href="{{ path('app_commande', {id: menu.id}) }}">Commander</a>
+            </div>
+
         </div>
+
     </div>
 
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/javascript/pages/menu.js"></script>
+{% endblock javascripts %}
