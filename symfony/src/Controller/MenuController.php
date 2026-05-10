@@ -21,10 +21,13 @@ final class MenuController extends AbstractController
         // findby() récupère uniquement les menus qui n'ont pas de date dans DELETED_AT
         $menus = $menuRepository->findBy(['deletedAt' => null]);
 
+        $utilisateur = $this->getUser();
+
         return $this->render('menu/index.html.twig', [
             'menus' => $menus,
             'themes' => $theme->findBy(['deletedAt' => null]),
             'regimes' => $regimeRepo->findBy(['deletedAt' => null]),
+            'utilisateur' => $utilisateur,
         ]);
     }
     

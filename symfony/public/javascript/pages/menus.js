@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuList = document.getElementById('menuList');
 
     function fetchMenus() {
-        
+
         // URLSearchParams transforme les valeurs en URL
         const params = new URLSearchParams({
             prixMax: prixMax.value,
@@ -41,5 +41,46 @@ document.addEventListener('DOMContentLoaded', () => {
     theme.addEventListener('change', fetchMenus);
     regime.addEventListener('change', fetchMenus);
     nbPersonne.addEventListener('input', fetchMenus);
+
+
+    const menu = document.querySelectorAll('.carteMenu');
+
+    const btnSuivant = document.getElementById('btnSuivant');
+    const btnPrecedent = document.getElementById('btnPrecedent');
+
+    let index = 0;
+
+    function afficherMenu(i) {
+
+        menu.forEach(div => {
+            div.classList.remove('active');
+        });
+
+        for (let j = i; j < i + 3 && j < menu.length; j++) {
+            menu[j].classList.add('active');
+        }
+    }
+
+    btnSuivant.addEventListener('click', () => {
+        index += 3;
+
+        if (index >= menu.length) {
+            index = 0;
+        }
+
+        afficherMenu(index);
+    });
+
+    btnPrecedent.addEventListener('click', () => {
+        index -= 3;
+
+        if (index < 0) {
+            index = Math.max(menu.length - 3, 0);
+        }
+
+        afficherMenu(index);
+    });
+
+    afficherMenu(index);
 
 });

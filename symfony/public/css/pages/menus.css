@@ -1,11 +1,125 @@
-.mainMenus {
-    display: flex;
+main {
+    height: 700px;
 }
 
-.mainMenus .divMenus {
-    padding: 1%;
-    margin: 1%;
-    width: 10%;
-    border: 1px solid black;
+main h2 {
     text-align: center;
+    margin-top: 2%;
+    font-family: Didot;
+    color: saddlebrown;
+}
+
+main h3 {
+    text-align: center;
+    margin-top: 2%;
+    font-family: cursive;
+}
+
+/* Filtres */
+.filtres {
+    text-align: center;
+    margin: 2% auto 1%;
+}
+
+.filtres input,
+select {
+    background-color: linen;
+    border: 1px solid gray;
+    border-radius: 10% / 50%;
+    height: 30px;
+    text-align: center;
+    width: 11rem;
+}
+
+.option {
+    text-align: center;
+    color: blue;
+}
+
+/* Menus */
+.carteMenu {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    transition: opacity 1s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.carteMenu.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+
+.divMenus {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3%;
+}
+
+.divMenus a {
+    text-decoration: none;
+    color: inherit;
+    margin-top: 1%;
+    opacity: 0;
+}
+
+.divMenu {
+    background-color: azure;
+    width: 300px;
+    height: 300px;
+    border: 2px solid saddlebrown;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.divMenu:hover {
+    transition-duration: 500ms;
+    box-shadow: 0 0 20px black;
+    background-color: rgb(210, 249, 249)
+}
+
+.divMenu img {
+    width: 100px;
+    height: 100px;
+    border: 1px solid gray;
+    border-radius: 30% / 50%;
+}
+
+/* Bouton */
+.divMenus button {
+    width: 100px;
+    height: 200px;
+    background-color: azure;
+    align-self: center;
+}
+
+.divMenus button:hover {
+    transition-duration: 300ms;
+    background-color: rgb(210, 249, 249);
+}
+
+.divMenus button:active {
+    transition-duration: 300ms;
+    background-color: rgb(167, 195, 195);
+    border: 1px solid black;
+}
+
+.btnSuivant {
+    margin: auto 10% auto 0;
+    border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+    border-left: 1px solid black;
+    border-right: 10px solid rgb(172, 172, 172);
+    border-top: 2px solid rgb(172, 172, 172);
+    border-bottom: 2px solid rgb(172, 172, 172);
+}
+
+.btnPrecedent {
+    margin: auto 0 auto 10%;
+    border-radius: 100% 0 0 100% / 50% 0 0 50%;
+    border-right: 1px solid black;
+    border-left: 10px solid rgb(172, 172, 172);
+    border-top: 2px solid rgb(172, 172, 172);
+    border-bottom: 2px solid rgb(172, 172, 172);
 }

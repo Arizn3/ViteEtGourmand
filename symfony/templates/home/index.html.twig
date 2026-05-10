@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="/css/pages/home.css">
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/home.css">
 {% endblock stylesheets %}
 
 {% block title %}Accueil 🏠{% endblock title %}
@@ -51,10 +51,10 @@
     <div class="divAvis" {% if not loop.first %} style="display:none" {% endif %}>
 
         <p class="etoile">
-            {% for i in 1..5 %}
-            {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} </p>
-                <p class="avis"> {{ a.libelle }} </p>
-                <p class="utilisateur">{{ a.utilisateur.prenom }} {{ a.utilisateur.nom }}</p>
+        {% for i in 1..5 %}
+        {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} </p>
+        <p class="avis"> {{ a.libelle }} </p>
+        <p class="utilisateur">{{ a.utilisateur.prenom }} {{ a.utilisateur.nom }}</p>
 
     </div>
 
