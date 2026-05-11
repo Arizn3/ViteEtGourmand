@@ -1,44 +1,53 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/contact.css">
+{% endblock stylesheets %}
+
 {% block title %} Contactez-nous {% endblock title %}
 
 {% block content %}
 
-<h3>Contactez-nous</h3>
+    <div class="divContact">
 
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
+        <h3>Contactez-nous</h3>
+        
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
+        
+        <p>
+            <b>Utilisez ce formulaire pour nous contacter.</b><br><br>Votre message sera pris en compte rapidement
+            et une réponse vous sera envoyée par email.<br>Vous pouvez aussi nous <b>contacter par telephone</b>,
+            toute la semaine de 11h à 19h au <b>0909090909</b>.
+        </p>
+        
+        <p>
+            📦 Si vous utilisez ce formulaire pour <b>un retour de matériel</b>, veillez à indiquer <b>la date et l'horaire</b><br>
+            auxquels vous souhaitez le déposer. Une réponse vous sera donnée dans les plus brefs délais.
+        </p>
+        
+        <form method="post">
+            
+            <div>
+                <label for="email">Votre Email :</label><br>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <br>
+            <div>
+                <label for="message">Votre message :</label><br>
+                <textarea type="text" id="message" name="message" rows="5" required></textarea>
+            </div>
+            <br>
+            <button type="submit">Envoyer</button>
+            
+        </form>
 
-    <p>
-        Utilisez ce formulaire pour nous contacter. Votre message sera pris en compte rapidement <br>
-        et une réponse vous sera envoyée par email. Vous pouvez aussi nous contacter par telephone, <br>
-        toute la semaine de 11h à 19h au 0909090909.
-    </p>
-
-    <p>
-        Si vous utilisez ce formulaire pour un retour de matériel, veillez à indiquer la date et l'horaire <br>
-        auxquels vous souhaitez le déposer. Une réponse vous sera donnée dans les plus brefs délais.
-    </p>
-
-    <form method="post">
-
-        <div>
-            <label for="email">Votre Email :</label><br>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <br>
-        <div>
-            <label for="message">Votre message :</label><br>
-            <textarea type="text" id="message" name="message" rows="5" required></textarea>
-        </div>
-        <br>
-        <button type="submit">Envoyer</button>
-
-    </form>
+    </div>
 
 {% endblock content %}
