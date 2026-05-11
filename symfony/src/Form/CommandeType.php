@@ -46,7 +46,8 @@ class CommandeType extends AbstractType
                 'label' => 'Nombre de boîte à repas :',
                 'required' => true,
                 'attr' => [
-                    'id' => 'commande_nbPersonne'
+                    'id' => 'commande_nbPersonne',
+                    'min' => 1,
                 ]
             ]);
         };

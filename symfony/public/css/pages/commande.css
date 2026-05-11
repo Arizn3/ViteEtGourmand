@@ -1,0 +1,178 @@
+main {
+    height: 800px;
+}
+
+/* Commande détail */
+.color {
+    color: saddlebrown;
+}
+
+.divDetailCommande {
+    text-align: center;
+    border: 1px solid saddlebrown;
+    width: 300px;
+    padding: 10px;
+    margin: 3% auto 1%;
+    border-radius: 10% / 20%;
+    background-color: aliceblue;
+    transition-duration: 500ms;
+}
+
+.divDetailCommande:hover {
+    transition-duration: 500ms;
+    box-shadow: 0 0 100px dodgerblue;
+}
+
+/* Formulaire */
+.sectionFormulaire {
+    display: flex;
+}
+
+.divFormulaireCommande {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid saddlebrown;
+    width: 300px;
+    height: 450px;
+    padding: 10px;
+    margin: 0 auto 0 28px;
+    border-radius: 10% / 20%;
+    background-color: dodgerblue;
+    transition-duration: 500ms;
+}
+
+.divFormulaireCommande:hover {
+    transition-duration: 500ms;
+    box-shadow: 0 0 10px black;
+}
+
+/* Messages textes */
+.messages {
+    margin-left: 576px;
+    width: 10%;
+    height: 400px;
+}
+
+#prix {
+    border: 2px solid wheat;
+    background-image: url(/uploads/images/img_navbar.png);
+    color: white;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    text-align: center;
+    align-content: center;
+    margin: 10% auto;
+    padding: 1%;
+}
+
+#prixTotalLivraison {
+    background-image: url(/uploads/images/img_navbar.png);
+    border: 2px solid wheat;
+    color: white;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    text-align: center;
+    align-content: center;
+    margin: 1% auto;
+    padding: 1%;
+}
+
+/* form */
+.divFormulaireCommande form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 6% auto 0;
+}
+
+.divFormulaireCommande input {
+    background-color: aliceblue;
+    text-align: center;
+    user-select: none;
+}
+
+#commande_nbPersonne {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    margin: 1% auto 5% auto;
+}
+
+#commande_datePrestation {
+    width: 80px;
+    height: 21px;
+    border-radius: 10px;
+    border: 2px solid gray;
+    margin: 3% auto 5% auto;
+    padding: 0% 0% 0% 3%;
+}
+
+#commande_heureLivraison {
+    width: 70px;
+    height: 20px;
+    border-radius: 10px;
+    border: 2px solid gray;
+    margin: 3% auto 5% auto;
+    padding: 0% 0% 0% 10%;
+}
+
+#commande_villeLivraison {
+    width: 230px;
+    height: 20px;
+    border-radius: 10px;
+    border: 2px solid gray;
+    margin: 3% auto 5% auto;
+}
+
+#commande_adresseLivraison {
+    width: 300px;
+    height: 20px;
+    border-radius: 10px;
+    border: 2px solid gray;
+    margin: 3% auto 8% auto;
+}
+
+/* Bouton */
+.divFormulaireCommande button {
+    width: 100px;
+    height: 30px;
+    margin: 0 auto 3%;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    transition-duration: 500ms;
+}
+
+.divFormulaireCommande button:hover {
+    transition-duration: 500ms;
+    background-color: white;
+    color: blue;
+    border: 1px solid blue;
+}
+
+.divFormulaireCommande a {
+    width: 140px;
+    height: 25px;
+    font-size: 13px;
+    margin: 0 auto;
+    padding: 9px 0 0 0;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+    transition-duration: 500ms;
+}
+
+.divFormulaireCommande a:hover {
+    transition-duration: 500ms;
+    background-color: white;
+    color: blue;
+    border: 1px solid blue;
+}

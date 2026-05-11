@@ -1,77 +1,87 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/commande.css">
+{% endblock stylesheets %}
+
 {% block title %} Nouvelle commande {% endblock title %}
 
 {% block content %}
 
-    <h3>Nouvelle commande</h3>
+    <div class="divDetailCommande">
 
-    <p>Menu : {{ menu.titre }}</p>
-    <p>Boîte à repas minimum pour commander : {{ menu.personneMini }}</p>
+        <h3>Nouvelle commande</h3>
+        
+        <p>Menu choisi : <b><span class="color">{{ menu.titre }}</span></b></p>
+        <p>Boîte à repas minimum : <b><span class="color">{{ menu.personneMini }}</span></b></p>
+        
+        <p>Nom : <b>{{ utilisateur.nom }}</b></p>
+        <p>Prenom : <b>{{ utilisateur.prenom }}</b></p>
+        <p>Email : <b>{{ utilisateur.email }}</b></p>
+        <p>Telephone : <b>{{ utilisateur.telephone }}</b></p>
+        
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
 
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
-    <p id="erreur"></p>
-    <p id="prix"></p>
-    <p id="prixTotalLivraison"></p>
+    </div>
+    <section class="sectionFormulaire">
 
-    <br>
+        <div class="messages">
+            <p id="prix"></p>
+            <p id="prixTotalLivraison"></p>
+        </div>
 
-    <p>Nom : {{ utilisateur.nom }}</p>
-    <p>Prenom : {{ utilisateur.prenom }}</p>
-    <p>Email : {{ utilisateur.email }}</p>
-    <p>Telephone : {{ utilisateur.telephone }}</p>
+        <div class="divFormulaireCommande">
+            
+            {{ form_start(form, {
+                attr: {
+                    id: 'form_commande'
+                }
+            }) }}
+            
+            {# Nombre de boîte à repas #}
+            {{ form_label(form.nbPersonne) }}
+            {{ form_widget(form.nbPersonne, {
+                attr: {
+                    'data-prix': menu.prixPersonne,
+                    'data-min': menu.personneMini,
+                    'data-max': menu.qttRestante,
+                }
+            }) }}
+            
+            {# Date de livraison #}
+            {{ form_label(form.datePrestation) }}
+            {{ form_widget(form.datePrestation) }}
+            
+            {# Heure de livraison #}
+            {{ form_label(form.heureLivraison) }}
+            {{ form_widget(form.heureLivraison) }}
+            {{ form_errors(form.heureLivraison) }}
+            
+            {# Ville #}
+            {{ form_label(form.villeLivraison) }}
+            {{ form_widget(form.villeLivraison) }}
+            
+            {# Adresse #}
+            {{ form_label(form.adresseLivraison) }}
+            {{ form_widget(form.adresseLivraison) }}
+            
+            <button type="submit">Enregistrer</button>
+            <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Retour aux détails</a>
+            
+            {{ form_end(form) }}
 
-    <br>
-
-    {{ form_start(form, {
-        attr: {
-            id: 'form_commande'
-        }
-    }) }}
-
-    {# Nombre de boîte à repas #}
-    {{ form_label(form.nbPersonne) }}
-    {{ form_widget(form.nbPersonne, {
-        attr: {
-            'data-prix': menu.prixPersonne,
-            'data-min': menu.personneMini,
-            'data-max': menu.qttRestante,
-        }
-    }) }}
-    <br>
-
-    {# Date de livraison #}
-    {{ form_label(form.datePrestation) }}
-    {{ form_widget(form.datePrestation) }}
-    <br>
-
-    {# Heure de livraison #}
-    {{ form_label(form.heureLivraison) }}
-    {{ form_widget(form.heureLivraison) }}
-    {{ form_errors(form.heureLivraison) }}
-    <br>
-
-    {# Ville #}
-    {{ form_label(form.villeLivraison) }}
-    {{ form_widget(form.villeLivraison) }}
-    <br>
-
-    {# Adresse #}
-    {{ form_label(form.adresseLivraison) }}
-    {{ form_widget(form.adresseLivraison) }}
-    <br>
-    <button type="submit">Enregistrer</button>
-
-    {{ form_end(form) }}
-
-    <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Retour aux détails</a>
+        </div>  
+            
+    </section>
 
 {% endblock content %}
 
