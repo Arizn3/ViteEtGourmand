@@ -1,0 +1,67 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+.retour {
+    margin: 40px 0;
+    padding: 10px 0 0 20px;
+    background-color: saddlebrown;
+    color: white;
+    text-decoration: none;
+    border: 1px solid black;
+    width: 160px;
+    height: 30px;
+    border-radius: 20% / 50%;
+    align-self: center;
+    transition-duration: 500ms;
+}
+
+.retour:hover {
+    transition-duration: 500ms;
+    text-shadow: white 1px 0 10px;
+    box-shadow: 0 0 20px saddlebrown;
+}
+
+/* CGV */
+.cgv {
+    align-self: center;
+    width: 1000px;
+    height: auto;
+}
+
+.cgv li {
+    font-weight: bolder;
+}
+
+.cgv p {
+    margin-left: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Mentions légales */
+.mention {
+    border: 1px solid black;
+    margin-top: 30px;
+    padding: 15px;
+    width: 800px;
+    height: auto;
+    background-color: blanchedalmond;
+    align-self: center;
+}
+
+.mention h2 {
+    text-align: center;
+}
+
+.mention li {
+    font-weight: bolder;
+}
+
+.mention p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
