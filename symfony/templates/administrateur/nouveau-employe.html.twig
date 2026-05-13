@@ -2,59 +2,72 @@
 
 {% block title %} Création d'un nouveau compte employé {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/admin/admin-compte-employe.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    <h3>Nouveau compte employé</h3>
-    <br><br>
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
+    <div class="formulaireEmploye">
+
+        <h3>Nouveau compte employé</h3>
+        
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-    <form method="post">
-        <label for="email">Indiquer un email :</label>
-        <input type="email" name="email" required>
-        <label for="prenom">Prenom :</label>
-        <input type="text" name="prenom" required>
-        <label for="nom">Nom :</label>
-        <input type="text" name="nom" required>
-        <button type="submit">Valider</button>
-    </form>
+        
+        <form method="post">
+            <label for="email" class="labelEmail">Indiquer un email :</label>
+            <input type="email" name="email" class="emailEmploye" required>
+            <label for="prenom">Prenom :</label>
+            <input type="text" name="prenom" class="prenomEmploye" required>
+            <label for="nom">Nom :</label>
+            <input type="text" name="nom" class="nomEmploye" required>
+            <button type="submit">Valider</button>
+        </form>
+        
+    </div>
 
-    <br><br>
-    <h3>Liste des comptes actifs</h3>
+    <div class="listeEmploye">
 
-    {% for supp, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ supp }}">
-                {{ message }}
-            </div>
+        <h3>Liste des comptes actifs</h3>
+        
+        {% for supp, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ supp }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-
-    <table>
-        <tr>
-            <th>Email</th>
-            <th>Nom</th>
-            <th>Prenom</th>
-        </tr>
-        {% for comptes in compte %}
+        
+        <table>
             <tr>
-                <td>{{ comptes.email }}</td>
-                <td>{{ comptes.nom }}</td>
-                <td>{{ comptes.prenom }}</td>
+                <th>Email</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+            </tr>
+            {% for comptes in compte %}
+            <tr>
+                <td class="emailEmploye">{{ comptes.email }}</td>
+                <td class="nomEmploye">{{ comptes.nom }}</td>
+                <td class="prenomEmploye">{{ comptes.prenom }}</td>
                 <td>
                     <a href="{{ path('app_suppression_employe', {id: comptes.id}) }}" class="btn-supression">❌</a>
                 </td>
             </tr>
-        {% endfor %}
-    </table>
+            {% endfor %}
+        </table>
+        
+    </div>
 
 {% endblock content %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="/javascript/pages/admin-employe.js"></script>
+    <script src="/javascript/pages/admin/admin-employe.js"></script>
 {% endblock javascripts %}

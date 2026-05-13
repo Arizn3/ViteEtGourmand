@@ -1,0 +1,85 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    height: auto;
+    min-height: 700px;
+}
+
+/* Formulaire de compte employé */
+.formulaireEmploye {
+    background-color: azure;
+    box-shadow: 0 0 15px gray;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    width: 500px;
+    margin: 100px auto;
+    transition: 500ms;
+}
+
+.formulaireEmploye:hover {
+    transition: 500ms;
+    box-shadow: 0 0 30px grey;
+}
+
+.formulaireEmploye form {
+    display: flex;
+    flex-direction: column;
+}
+
+.emailEmploye {
+    width: 200px;
+    margin: 10px;
+}
+
+.prenomEmploye {
+    width: 130px;
+    margin: 10px;
+}
+
+.nomEmploye {
+    width: 130px;
+    margin: 10px;
+}
+
+.formulaireEmploye button {
+    width: 100px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+.labelEmail {
+    margin-top: 15px;
+}
+
+/* Liste des comptes employés */
+.listeEmploye {
+    margin: auto;
+    text-align: center;
+}
+
+.listeEmploye table {
+    background-color: darkgray;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: auto;
+}
+
+.listeEmploye table a {
+    text-decoration: none;
+}
+
+.emailEmploye {
+    width: 250px;
+}
+
+.nomEmploye {
+    width: 130px;
+}
+
+.prenomEmploye {
+    width: 130px;
+}
