@@ -2,24 +2,34 @@
 
 {% block title %} Gestion des horaires {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-horaire-modifier.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
 
-    <h3>Modifier les horaires pour {{ horaire.jour }}</h3>
+    <div class="horaireModifier">
 
-    {{ form_start(form) }}
-
-    {{ form_errors(form) }}
-
-    {{ form_row(form.heureOuverture) }}
-    {{ form_row(form.HeureFermeture) }}
-
-    <button>Enregistrer</button>
-
-    {{ form_end(form) }}
-
-    <a href="{{ path('app_employe_horaire') }}">Retour</a>
+        <a href="{{ path('app_employe_horaire') }}">Retour</a>
+        
+        <h3>Modifier les horaires pour {{ horaire.jour }}</h3>
+        
+        {{ form_start(form) }}
+        
+        {{ form_errors(form) }}
+        
+        {{ form_row(form.heureOuverture) }}
+        {{ form_row(form.HeureFermeture) }}
+        
+        <button>Enregistrer</button>
+        
+        {{ form_end(form) }}
+        
+        
+    </div>
 
 {% endblock content %}

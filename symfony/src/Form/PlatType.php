@@ -24,6 +24,7 @@ class PlatType extends AbstractType
                 // 'mapped' => false : Le traitement des images se fait manuellement dans EmployeController.php
                 'mapped' => false,
                 'required' => true,
+                'label' => 'Photo : Veillez à ce que la photo soit en format carré, de taille 500 x 500 de préférence.',
                 'constraints' => [
                     // Contraintes utiliser pour les entrées de type File, avec le namespace ~/File
                     new File([

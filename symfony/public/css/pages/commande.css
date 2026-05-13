@@ -90,7 +90,6 @@ main {
 
 .divFormulaireCommande input {
     background-color: aliceblue;
-    text-align: center;
     user-select: none;
 }
 
@@ -103,21 +102,17 @@ main {
 }
 
 #commande_datePrestation {
-    width: 80px;
     height: 21px;
     border-radius: 10px;
     border: 2px solid gray;
     margin: 3% auto 5% auto;
-    padding: 0% 0% 0% 3%;
 }
 
 #commande_heureLivraison {
-    width: 70px;
     height: 20px;
     border-radius: 10px;
     border: 2px solid gray;
     margin: 3% auto 5% auto;
-    padding: 0% 0% 0% 10%;
 }
 
 #commande_villeLivraison {

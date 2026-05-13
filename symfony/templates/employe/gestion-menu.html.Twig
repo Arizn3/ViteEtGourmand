@@ -2,44 +2,56 @@
 
 {% block title %} Gestion des menus {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-menu.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    {# Nom du compte employé connecté #}
-    <p> Compte : {{ app.user.userIdentifier }}</p>
+    <section class="sectionMenus">
 
-    <h3>Gestion des menus</h3>
-    <a href="{{ path('app_nouveau_menu') }}">Nouveau menu</a>
-    <a href="{{ path('app_menu_nouveau_plat') }}">Ajouter un plat</a>
-    <a href="{{ path('app_nouveau_theme') }}">Ajouter un Thème</a>
-    <a href="{{ path('app_nouveau_regime') }}">Ajouter un Régime</a>
-    <br><br>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Date de création</th>
-            <th>Menu</th>
-            <th>Thème</th>
-            <th>Régime</th>
-            <th>Quantité</th>
-            <th>Modification</th>
-        </tr>
-        {% for menu in menus %}
+        {# Nom du compte employé connecté #}
+        <p> Compte : {{ app.user.userIdentifier }}</p>
+        
+        <h3>Gestion des menus</h3>
+
+        <div class="divLiens">
+            <a href="{{ path('app_nouveau_menu') }}">Nouveau menu</a>
+            <a href="{{ path('app_menu_nouveau_plat') }}">Ajouter un plat</a>
+            <a href="{{ path('app_nouveau_theme') }}">Ajouter un Thème</a>
+            <a href="{{ path('app_nouveau_regime') }}">Ajouter un Régime</a>
+        </div>
+        
+        <table class="tableMenus">
             <tr>
-                <td>{{ menu.id }}</td>
-                <td>{{ menu.createdAt|date("d/m/Y") }}</td>
-                <td>{{ menu.titre }}</td>
-                <td>{{ menu.theme.description }}</td>
-                <td>{{ menu.regime.description }}</td>
-                <td>{{ menu.qttRestante }}</td>
-                <td>
-                    <a href="{{ path('app_previsualisation_menu', {id: menu.id}) }}">🔍</a>
-                    <a href="{{ path('app_menu_modifier', {id: menu.id}) }}">✍🏻</a>
-                    <a href="{{ path('app_menu_desactiver', {id: menu.id}) }}" class="btn-supression">❌</a>
+                <th>ID</th>
+                <th>Date de création</th>
+                <th>Menu</th>
+                <th>Thème</th>
+                <th>Régime</th>
+                <th>Quantité</th>
+                <th>Modification</th>
+            </tr>
+            {% for menu in menus %}
+            <tr>
+                <td class="tableID">{{ menu.id }}</td>
+                <td class="tableDate">{{ menu.createdAt|date("d/m/Y") }}</td>
+                <td class="tableMenu">{{ menu.titre }}</td>
+                <td class="tableTheme">{{ menu.theme.description }}</td>
+                <td class="tableRegime">{{ menu.regime.description }}</td>
+                <td class="tableQtt">{{ menu.qttRestante }}</td>
+                <td class="tableModification">
+                    <a href="{{ path('app_previsualisation_menu', {id: menu.id}) }}" title="Visualiser le menu">🔍</a>
+                    <a href="{{ path('app_menu_modifier', {id: menu.id}) }}" title="Modifier le menu">✍🏻</a>
+                    <a href="{{ path('app_menu_desactiver', {id: menu.id}) }}" class="btn-supression" title="Supprimer le menu">❌</a>
                 </td>
             </tr>
-        {% endfor %}
-    </table>
-    
+            {% endfor %}
+        </table>
+
+    </section>
+
 {% endblock content %}
 
 {% block javascripts %}

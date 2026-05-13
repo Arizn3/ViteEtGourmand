@@ -1,0 +1,90 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    height: auto;
+    min-height: 500px;
+}
+
+.horaireTitre {
+    margin: 10px auto;
+    text-align: center;
+}
+
+.horaireTitre a {
+    text-decoration: none;
+    border: 1px solid saddlebrown;
+    background-color: blue;
+    color: white;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 2px 10px;
+    transition-duration: 300ms;
+}
+
+.horaireTitre a:hover {
+    transition-duration: 300ms;
+    background-color: beige;
+    color: blue;
+}
+
+.horaireTable {
+    background-color: whitesmoke;
+    margin: 40px auto;
+    width: 400px;
+    border: 1px solid blue;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px grey;
+    height: auto;
+}
+
+.horaireTable table tr:hover {
+    background-color: white;
+    color: blue;
+}
+
+.horaireTable a {
+    text-decoration: none;
+}
+
+/* Cellule */
+.horaireJour {
+    background-color: antiquewhite;
+    padding: 10px;
+}
+
+.horaireJourTd {
+    width: 100px;
+    text-align: center;
+}
+
+.horaireOuverture {
+    background-color: antiquewhite;
+    padding: 10px;
+}
+
+.horaireOuvertureTd {
+    width: 100px;
+    text-align: center;
+}
+
+.horaireFermeture {
+    background-color: antiquewhite;
+    padding: 10px;
+}
+
+.horaireFermetureTd {
+    width: 100px;
+    text-align: center;
+}
+
+.horaireModifier {
+    background-color: antiquewhite;
+    padding: 10px;
+}
+
+.horaireModifierTd {
+    text-align: center;
+}

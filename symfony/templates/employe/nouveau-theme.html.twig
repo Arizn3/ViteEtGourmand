@@ -2,53 +2,61 @@
 
 {% block title %} Nouveau thème {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-theme.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
 
-    <h3>Création d'un nouveau thème</h3>
-    <a href="{{ path('app_employe_gestion_menu') }}">retour</a>
-    <br><br>
+    <div class="formulaire">
 
-    {{ form_start(form) }}
+        <h3>Création d'un nouveau thème</h3>
+        <a href="{{ path('app_employe_gestion_menu') }}">retour</a>
 
-    {# Nom du thème #}
-    {{ form_label(form.description) }}
-    <br>
-    {{ form_widget(form.description) }}
-    <br><br>
+        {{ form_start(form) }}
 
-    <button type="submit">Enregistrer</button>
-    <br><br>
+        {# Nom du thème #}
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
 
-    {{ form_end(form) }}
+        <button type="submit">Enregistrer</button>
 
-    {# Thème disponible #}
+        {{ form_end(form) }}
 
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
+    </div>
+
+    <div class="listeTheme">
+
+        {# Thème disponible #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
-    <table>
-        <tr>
-            <th>Thèmes disponibles</th>
-        </tr>
-        {% for themes in theme %}
-        <tr>
-            <td>
-                {{ themes.description }}
-                <a href="{{ path('app_supprime_theme', {id: themes.id}) }}" class="btn-supression">❌
-                </a>
-            </td>
-        </tr>
+        <table>
 
-        {% endfor %}
-    </table>
+            <tr>
+                <th>Thèmes disponibles</th>
+            </tr>
+            {% for themes in theme %}
+                <tr>
+                    <td>
+                        <a href="{{ path('app_supprime_theme', {id: themes.id}) }}" class="btn-supression" title="Supprimer">❌</a>
+                        {{ themes.description }}
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
 
 {% endblock content %}
 

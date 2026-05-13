@@ -27,7 +27,22 @@ document.addEventListener('DOMContentLoaded', function () {
             if (div.style.display === 'none') {
                 div.style.display = 'block';
             };
+
         });
+    });
+
+    const input = document.querySelector('#plat_photo');
+    const previsualisation = document.querySelector('#previsualisation');
+
+    input.addEventListener('change', (e) => {
+
+        const file = e.target.files[0];
+
+        if (file) {
+            previsualisation.src = URL.createObjectURL(file);
+            previsualisation.style.display = 'block';
+        }
+
     });
 
 });

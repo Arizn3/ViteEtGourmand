@@ -21,6 +21,7 @@ main {
     font-size: xx-large;
     font-family: Apple Chancery;
     margin-top: 10%;
+    transition-duration: 1s;
 }
 
 .presentation img {
@@ -28,6 +29,7 @@ main {
     align-self: center;
     margin: 1% auto 1% 5%;
     border: 2px solid black;
+    transition-duration: 1s;
 }
 
 .presentation:hover h2 {
@@ -55,6 +57,7 @@ main {
 .savoirFaire h2 {
     font-size: xx-large;
     font-family: Apple Chancery;
+    transition-duration: 1s;
 }
 
 .savoirFaire img {
@@ -62,6 +65,7 @@ main {
     align-self: center;
     margin: 1% 5% 1% auto;
     border: 2px solid black;
+    transition-duration: 1s;
 }
 
 .savoirFaire:hover h2 {

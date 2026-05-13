@@ -2,83 +2,102 @@
 
 {% block title %} Gestion des commandes {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-commandes.css">
+{% endblock stylesheets %}
+
 {% block content %}
+
+    {# Persistance des filtres #}
+    {% set filters = {
+    idFilter: app.request.get('idFilter'),
+    email: app.request.get('email'),
+    statut: app.request.get('status'),
+    idTerminer: app.request.get('idTerminer'),
+    emailTerminer: app.request.get('emailTerminer'),
+    statutTerminer: app.request.get('statutTerminer')
+    } %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
 
-    {# Persistance des filtres #}
-    {% set filters = {
-        idFilter: app.request.get('idFilter'),
-        email: app.request.get('email'),
-        statut: app.request.get('status'),
-        idTerminer: app.request.get('idTerminer'),
-        emailTerminer: app.request.get('emailTerminer'),
-        statutTerminer: app.request.get('statutTerminer')
-    } %}
+    <section class="sectionActif">
 
-    <h3>Liste des commandes actifs</3>
-    {# Nombre de commandes actives #}
-    <p>Total commandes : {{ commandesActives|length }}</p>
-    {# Filtre possible #}
-    <form method="get">
-        <input type="text" name="idFilter" placeholder="ID commande" value="{{ app.request.get('idFilter') }}">
-        <input type="text" name="email" placeholder="Email client" value="{{ app.request.get('email') }}">
-        <select name="statut">
-            <option selected disabled>Statut</option>
-            <option value="Votre commande va être prise en compte">Votre commande va être prise en compte</option>
-            <option value="Votre commande a été prise en compte">Votre commande a été prise en compte</option>
-            <option value="Votre commande est en préparation">Votre commande est en préparation</option>
-            <option value="En cours de livraison">En cours de livraison</option>
-            <option value="Commande livrée">Commande livrée</option>
-            <option value="En attente du retour de matériel">En attente du retour de matériel</option>
-        </select>
-        <button type="submit">Filtre</button>
-        <a href="{{ path('app_employe_commande') }}" , class="btn">Réinitialiser</a>
-    </form>
+        <h3>Liste des commandes actifs</h3>
 
-    <br><br>
-    {# Tableau HTML des commandes actifs #}
-    <table>
-        <tr>
-            <th>ID commande</th>
-            <th>Date</th>
-            <th>Client</th>
-            <th>Menu</th>
-            <th>Prix</th>
-            <th>Livraison</th>
-            <th>Ville</th>
-            <th>Date de livraison</th>
-            <th>Heure de livraison</th>
-            <th>Statut commande</th>
-        </tr>
-        <tr>
-            {% for commande in commandes %}
-            {% if commande.statut != 'Terminer' and commande.statut != 'Annuler' %}
-            <td>{{ commande.id }}</td>
-            <td>{{ commande.dateCmd|date("d/m/Y") }}</td>
-            <td>{{ commande.utilisateur.email }} <a
-                    href="{{ path('app_utilisateur', filters|merge({id: commande.utilisateur.id})) }}">🫆</a></td>
-            <td>{{ commande.menu.titre }}</td>
-            <td>{{ commande.prixMenu }} €</td>
-            <td>{{ commande.prixLivraison }} €</td>
-            <td>{{ commande.villeLivraison }} <a
-                    href="{{ path('app_adresse_livraison', filters|merge({id: commande.id})) }}">🚚</a>
-            </td>
-            <td>{{ commande.datePrestation|date("d/m/Y") }}</td>
-            <td>{{ commande.heureLivraison|date("H:i") }}</td>
-            <td>{{ commande.statut }} <a
-                    href="{{ path('app_commande_statut', filters|merge({id: commande.id})) }}">🔄</a></td>
-        </tr>
-        {% endif %}
-        {% else %}
+        {# Nombre de commandes actifs #}
+        <p>Total commandes : {{ commandesActives|length }}</p>
+
+        {# Filtres possible #}
+        <form method="get">
+
+            <input type="text" name="idFilter" placeholder="ID commande" value="{{ app.request.get('idFilter') }}">
+
+            <input type="text" name="email" placeholder="Email client" value="{{ app.request.get('email') }}">
+
+            <select name="statut">
+                <option selected disabled>Statut</option>
+                <option value="Votre commande va être prise en compte">Votre commande va être prise en compte</option>
+                <option value="Votre commande a été prise en compte">Votre commande a été prise en compte</option>
+                <option value="Votre commande est en préparation">Votre commande est en préparation</option>
+                <option value="En cours de livraison">En cours de livraison</option>
+                <option value="Commande livrée">Commande livrée</option>
+                <option value="En attente du retour de matériel">En attente du retour de matériel</option>
+            </select>
+
+            <button type="submit">Filtre</button>
+
+            <a href="{{ path('app_employe_commande') }}" , class="btn">No Filtre</a>
+
+        </form>
+
+        {# Tableau HTML des commandes actifs #}
+        <table>
+            <tr>
+                <th>ID commande</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Menu</th>
+                <th>Prix</th>
+                <th>Livraison</th>
+                <th>Ville</th>
+                <th>Date de livraison</th>
+                <th>Heure de livraison</th>
+                <th>Statut commande</th>
+            </tr>
+            <tr>
+                {% for commande in commandes %}
+                {% if commande.statut != 'Terminer' and commande.statut != 'Annuler' %}
+                <td class="idCommande">{{ commande.id }}</td>
+                <td class="dateCmd">{{ commande.dateCmd|date("d/m/Y") }}</td>
+                <td class="client">{{ commande.utilisateur.email }} <a
+                        href="{{ path('app_utilisateur', filters|merge({id: commande.utilisateur.id})) }}">🫆</a></td>
+                <td class="menu">{{ commande.menu.titre }}</td>
+                <td class="prixM">{{ commande.prixMenu }} €</td>
+                <td class="prixL">{{ commande.prixLivraison }} €</td>
+                <td class="villeL">{{ commande.villeLivraison }} <a
+                        href="{{ path('app_adresse_livraison', filters|merge({id: commande.id})) }}">🚚</a>
+                </td>
+                <td class="dateL">{{ commande.datePrestation|date("d/m/Y") }}</td>
+                <td class="heureL">{{ commande.heureLivraison|date("H:i") }}</td>
+                <td class="statutC">{{ commande.statut }} <a
+                        href="{{ path('app_commande_statut', filters|merge({id: commande.id})) }}">🔄</a></td>
+            </tr>
+            {% endif %}
+            {% else %}
             <p>Aucune commande disponible</p>
-        {% endfor %}
+            {% endfor %}
         </table>
-        <br><br><br>
+
+    </section>
+
+    <section class="sectionTerminer">
+
         {# Tableau des commandes terminées #}
-        <h3>Commandes terminées</3>
-        {# Filtre possible #}
+        <h3>Commandes terminées</h3>
+
+        {# Filtres possible #}
         <form method="GET">
             <input type="text" name="idTerminer" placeholder="ID commande" value="{{ app.request.get('idTerminer') }}">
             <input type="text" name="emailTerminer" placeholder="Email client"
@@ -89,24 +108,25 @@
                 <option value="Annuler">Annuler</option>
             </select>
             <button type="submit">Filtre</button>
-            <a href="{{ path('app_employe_commande') }}" , class="btn">Réinitialiser</a>
+            <a href="{{ path('app_employe_commande') }}" , class="btn">No Filtre</a>
         </form>
-        <br><br>
-    <table>
-        <tr>
-            <th>ID commande</th>
-            <th>client</th>
-            <th>Ville</th>
-            <th>Statut</th>
-        </tr>
-        {% for commande in commandesTerminees %}
+        <table>
             <tr>
-                <td>{{ commande.id }}</td>
-                <td>{{ commande.utilisateur.email }}</td>
-                <td>{{ commande.villeLivraison }}</td>
-                <td>{{ commande.statut }}</td>
+                <th>ID commande</th>
+                <th>client</th>
+                <th>Ville</th>
+                <th>Statut</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for commande in commandesTerminees %}
+            <tr>
+                <td class="idCommandeT">{{ commande.id }}</td>
+                <td class="emailT">{{ commande.utilisateur.email }}</td>
+                <td class="villeT">{{ commande.villeLivraison }}</td>
+                <td class="statutT">{{ commande.statut }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </section>
 
 {% endblock content %}

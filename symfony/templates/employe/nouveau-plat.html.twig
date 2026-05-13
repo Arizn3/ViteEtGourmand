@@ -2,73 +2,87 @@
 
 {% block title %} Nouveau plat {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-nouveau-plat.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    {# Nom du compte employé connecté #}
-    <p> Compte : {{ app.user.userIdentifier }}</p>
+    <section class="sectionFormulaire">
 
-    <h3>Création d'un nouveau plat</h3>
-    <a href="{{ path('app_employe_gestion_menu') }}">retour</a>
-    <br><br>
+        {# Nom du compte employé connecté #}
+        <p> Compte : {{ app.user.userIdentifier }}</p>
+        
+        <div class="divTitre">
+        
+            <h3>Création d'un nouveau plat</h3>
+            
+            <a href="{{ path('app_employe_gestion_menu') }}">Gestion des menus</a>
+        
+        </div>
 
-    {{ form_start(form) }}
-
-    {# Nom du plat #}
-    {{ form_label(form.nomPlat) }}
-    <br>
-    {{ form_widget(form.nomPlat) }}
-    <br><br>
-
-    {# Photo #}
-    {{ form_label(form.photo) }}
-    {{ form_errors(form.photo) }}
-    <br>
-    {{ form_widget(form.photo) }}
-    <br><br>
-
-    {# Allergène(s) #}
-    {% for allergene in form.allergenes %}
-        {{ form_widget(allergene) }}
-        {{ form_label(allergene) }}
-        <br>
-    {% endfor %}
-
-    <br>
-    <button type="submit">Enregistrer</button>
-    <br><br>
-
-    {{ form_end(form) }}
-
-    {# Plat disponible #}
-
-    <div id="photo-div" style="display: none;">
-        <img src="" alt="Photo du plat" width="200" height="200">
-    </div>
-
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
+        {{ form_start(form) }}
+        
+        {# Nom du plat #}
+        <b>{{ form_label(form.nomPlat) }}</b>
+        {{ form_widget(form.nomPlat) }}
+        
+        {# Photo #}
+        <b>{{ form_label(form.photo) }}</b>
+            <img alt="Photo du plat" style="display: none;" id="previsualisation" class="photoTelecharger">
+            {{ form_errors(form.photo) }}
+        {{ form_widget(form.photo) }}
+        
+        {# Allergène(s) #}
+        <b><p>Allergène</p></b>
+        <div class="divAllergene">
+            {% for allergene in form.allergenes %}
+            <div class="allergene">
+                {{ form_widget(allergene) }}
+                {{ form_label(allergene) }}
             </div>
-        {% endfor %}
-    {% endfor %}
+            {% endfor %}
+        </div>
+        
+        <button type="submit">Enregistrer</button>
+        
+        {{ form_end(form) }}
 
-    <table>
-        <tr>
-            <th>Plats disponibles</th>
-        </tr>
-        {% for plats in plat %}
-        <tr>
-            <td>
-                {{ plats.nomPlat }}
-                <a href="#" class="btn-photo" data-photo="{{ plats.photo }}">📷</a>
-                <a href="{{ path('app_supprime_plat', {id: plats.id}) }}" class="btn-supression">❌
-                </a>
-            </td>
-        </tr>
+    </section>
 
+    <section class="sectionPlats">
+
+        {# Plat disponible #}
+        <div id="photo-div" style="display: none;">
+            <img src="" alt="Photo du plat" class="PhotoPlatsDisponible">
+        </div>
+        
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    </table>
+        
+        <table>
+                <h3 class="titrePlats"> Plats disponibles </h3>
+            {% for plats in plat %}
+            <tr>
+                <td>
+                    {{ plats.nomPlat }}
+                    <div class="lienPlats">
+                        <a href="#" class="btn-photo" data-photo="{{ plats.photo }}" title="Visulaliser">📷</a>
+                        <a href="{{ path('app_supprime_plat', {id: plats.id}) }}" class="btn-supression" title="Supprimer">❌
+                    </div>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </section>
 
 {% endblock content %}
 

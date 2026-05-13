@@ -1,0 +1,72 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    height: auto;
+    min-height: 700px;
+}
+
+/* Formulaire */
+.formulaire {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5%;
+}
+
+.formulaire a {
+    text-decoration: none;
+    background-color: cornflowerblue;
+    border-radius: 5px / 5px;
+    color: white;
+    border: 1px solid white;
+    font-size: 15px;
+    padding: 1px 10px 2px;
+    font-family: Euphemia UCAS;
+    width: 50px;
+    margin: 1% auto;
+    text-align: center;
+}
+
+.formulaire button {
+    text-decoration: none;
+    background-color: cornflowerblue;
+    border-radius: 5px / 5px;
+    color: white;
+    border: 1px solid white;
+    font-size: 10px;
+    padding: 1px 10px 2px;
+    font-family: Euphemia UCAS;
+    width: 70px;
+    margin: 1% auto;
+    text-align: center;
+}
+
+.formulaire a:hover {
+    background-color: blue;
+}
+
+.formulaire button:hover {
+    background-color: blue;
+}
+
+/* Liste */
+.listeTheme {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titreTheme {
+    margin-bottom: 1%;
+}
+
+.listeTheme table a {
+    text-decoration: none;
+}
+
+.listeTheme table td {
+    color: cornflowerblue;
+}

@@ -9,8 +9,8 @@
 
 {% block content %}
 
-    {% if utilisateur %}
-        <h3>Bonjour {{ utilisateur.prenom }}</h3>
+    {% if app.user %}
+        <h3>Bonjour {{ app.user.prenom }}</h3>
     {% else %}
         <h3>Vous devez être connecté pour passer commande</h3>
     {% endif %}
@@ -41,34 +41,39 @@
         <h2>Ce que nous vous proposons actuellement</h2>
 
     {# Menus #}
-    <div class="divMenus" id="menuList">
+
+    <section class="sectionMenus">
 
         <button id="btnPrecedent" class="btnPrecedent">⬅️</button>
-
-        {% for menu in menus %}
-
-        <a href="{{ path('app_menu_detail', {id: menu.id}) }}" class="carteMenu">
-
-            <div class="divMenu">
-
-                <p>{{ menu.titre }}</p>
-                {% set plat = menu.plats|first %}
-                <img src="/uploads/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="100%">
-                <p>► {{ menu.prixPersonne }}€ par personne</p>
-                <p>► À partir de {{ menu.personneMini }} boîtes à repas</p>
-
-            </div>
-        </a>
+        
+        <div class="divMenus" id="menuList">
             
-        {% else %}
-
+            {% for menu in menus %}
+            
+            <a href="{{ path('app_menu_detail', {id: menu.id}) }}" class="carteMenu">
+                
+                <div class="divMenu">
+                    
+                    <p>{{ menu.titre }}</p>
+                    {% set plat = menu.plats|first %}
+                    <img src="/uploads/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="100%">
+                    <p>► {{ menu.prixPersonne }}€ par personne</p>
+                    <p>► À partir de {{ menu.personneMini }} boîtes à repas</p>
+                    
+                </div>
+            </a>
+            
+            {% else %}
+            
             <p>Aucun menu disponible</p>
-
-        {% endfor %}
-
+            
+            {% endfor %}
+            
+        </div>
+        
         <button id="btnSuivant" class="btnSuivant">➡️</button>
 
-    </div>
+    </section>
 
 {% endblock content %}
 

@@ -1,0 +1,120 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    height: auto;
+}
+
+.divTitre h3 {
+    margin: 30px;
+}
+
+/* Bouton retour */
+.divTitre a {
+    text-decoration: none;
+    border: 1px solid saddlebrown;
+    background-color: blue;
+    color: white;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 2px 10px;
+    transition-duration: 300ms;
+}
+
+.divTitre a:hover {
+    transition-duration: 300ms;
+    background-color: beige;
+    color: blue;
+}
+
+/* Formulaire */
+.formulaire {
+    width: 1800px;
+    margin: 25px;
+    padding: 10px;
+}
+
+.formulaire form {
+    display: flex;
+    width: 1800px;
+    flex-direction: column;
+    width: auto;
+}
+
+.colorDate {
+    color: saddlebrown;
+}
+
+#menu_titre {
+    margin: 5px auto 20px 0;
+    width: 190px;
+}
+
+.formulaire form select {
+    margin: 5px auto 20px 0;
+    width: 150px;
+}
+
+#menu_personneMini {
+    margin: 5px auto 20px 0;
+    width: 40px;
+}
+
+#menu_prixPersonne,
+#menu_qttRestante {
+    margin: 5px auto 20px 0;
+    width: 50px;
+}
+
+#menu_description {
+    margin: 5px auto 20px 0;
+    width: 350px;
+    height: 150px;
+    max-width: 350px;
+    min-width: 350px;
+    max-height: 150px;
+    min-height: 150px;
+}
+
+.listePlats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.plat {
+    width: 180px;
+    padding: 15px;
+    border: 2px solid saddlebrown;
+    border-radius: 20px;
+    background: white;
+    transition: 300ms;
+}
+
+.plat:hover {
+    box-shadow: 0 0 20px saddlebrown;
+}
+
+.plat:has(input:checked) {
+    border: 2px solid white;
+    background: saddlebrown;
+    color: white;
+}
+
+/* Bouton enregistrer */
+.formulaire form button {
+    border: 1px solid saddlebrown;
+    background-color: blue;
+    color: white;
+    border-radius: 20px;
+    margin: 30px auto 0 40px;
+    padding: 2px 10px;
+    transition-duration: 300ms;
+}
+
+.formulaire form button:hover {
+    transition-duration: 300ms;
+    background-color: beige;
+    color: blue;
+}

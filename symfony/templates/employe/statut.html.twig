@@ -2,29 +2,42 @@
 
 {% block title %} Statut de la commande {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-statut.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    <h3>Statut pour la commande {{ commande.id }}</h3>
+    <div class="employeStatut">
 
-    {# Menu de selection du statut pour la commande ciblée #}
-    <form method="POST" id="form-statut">
-        <select name="statut" id="statut-select">
-            <option selected disabled>{{ commande.statut }}</option>
-            <option value="Votre commande a été prise en compte">Votre commande a été prise en compte</option>
-            <option value="Votre commande est en préparation">Votre commande est en préparation</option>
-            <option value="En cours de livraison">En cours de livraison</option>
-            <option value="Commande livrée">Commande livrée</option>
-            <option value="En attente du retour de matériel">En attente du retour de matériel</option>
-            <option value="Terminer">Terminer</option>
-            <option value="Annuler">Annuler</option>
-        </select>
-        <br><br>
-        <textarea name="message_email" id="message_email" rows="4" placeholder="Motif de l'annulation"></textarea>
-        <button type="submit">Valider</button>
-    </form>
-    <br><br>
-    <a href="{{ path('app_employe_commande', app.request.query.all) }}">Retour</a>
-    
+        <h3>Statut pour la commande {{ commande.id }}</h3>
+
+        {# Menu de selection du statut pour la commande ciblée #}
+        <form method="POST" id="form-statut">
+
+            <select name="statut" id="statut-select">
+                <option selected disabled>{{ commande.statut }}</option>
+                <option value="Votre commande a été prise en compte">Votre commande a été prise en compte</option>
+                <option value="Votre commande est en préparation">Votre commande est en préparation</option>
+                <option value="En cours de livraison">En cours de livraison</option>
+                <option value="Commande livrée">Commande livrée</option>
+                <option value="En attente du retour de matériel">En attente du retour de matériel</option>
+                <option value="Terminer">Terminer</option>
+                <option value="Annuler">Annuler</option>
+            </select>
+
+            <textarea required class="motif" name="message_email" id="message_email" rows="4"
+                placeholder="Motif de l'annulation">( ⚠️ Ce motif sera visible dans l'email automatique envoyé au client )</textarea>
+
+            <button type="submit">Valider</button>
+
+        </form>
+
+        <a class="retour" href="{{ path('app_employe_commande', app.request.query.all) }}">Retour</a>
+
+    </div>
+
 {% endblock content %}
 
 {% block javascripts %}

@@ -1,0 +1,88 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    height: auto;
+}
+
+.sectionMenus {
+    margin: 10px;
+}
+
+/* Lien / Bouton */
+.divLiens {
+    margin: 40px 0 20px 120px;
+}
+
+.divLiens a {
+    text-decoration: none;
+    border: 1px solid saddlebrown;
+    background-color: blue;
+    color: white;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 2px 10px;
+    transition-duration: 300ms;
+}
+
+.divLiens a:hover {
+    transition-duration: 300ms;
+    background-color: beige;
+    color: blue;
+}
+
+/* Table des menus */
+.tableMenus {
+    margin: 10px;
+    padding: 10px;
+    background-color: beige;
+    border: 1px solid saddlebrown;
+}
+
+.tableID {
+    width: 20px;
+    text-align: left;
+    font-weight: bolder;
+}
+
+.tableDate {
+    width: 100px;
+    text-align: center;
+}
+
+.tableMenu {
+    width: 200px;
+    text-align: center
+}
+
+.tableTheme {
+    width: 150px;
+    text-align: center
+}
+
+.tableRegime {
+    width: 150px;
+    text-align: center
+}
+
+.tableQtt {
+    width: 100px;
+    text-align: center
+}
+
+.tableModification {
+    width: 100px;
+    text-align: center
+}
+
+.tableMenus a {
+    width: 100px;
+    text-decoration: none;
+    text-align: center
+}
+
+.tableMenus tr:hover {
+    background-color: aliceblue;
+    color: blue;
+}

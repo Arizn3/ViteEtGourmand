@@ -9,7 +9,6 @@ use App\Entity\Theme;
 use App\Repository\PlatRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
-use BcMath\Number;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -76,15 +75,20 @@ class MenuType extends AbstractType
             ])
             ->add('plats', EntityType::class, [
                 'class' => Plat::class,
-                'label' => 'Choix des plats :',
+                'label' => 'Choix des plats (minimum 3) :',
                 'choice_label' => 'nomPlat',
                 'expanded' => true,
                 'multiple' => true,
                 'required' => true,
+                'row_attr' => ['class' => 'listePlats'],
                 'constraints' => [
                     new Count([
                         'min' => 3,
-                        'minMessage' => 'Veuillez sélectionner au moins 3 plats'
+                        'minMessage' => 'Veuillez sélectionner au moins 3 plats',
+                    ]),
+                    new Count([
+                        'max' => 3,
+                        'maxMessage' => 'Veuillez sélectionner uniquement 3 plats',
                     ])
                 ],
                 'query_builder' => function (PlatRepository $pr) {

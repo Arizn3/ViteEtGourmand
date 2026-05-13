@@ -2,34 +2,47 @@
 
 {% block title %} Historique des avis {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-avis-historique.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    {# Nom du compte employé connecté #}
-    <p> Compte : {{ app.user.userIdentifier }}</p>
+    <div class="titreHistorique">
 
-    <h3>Historique des avis</h3>
-    <a href="{{ path('app_employe_avis') }}">Gestion des avis</a>
-    <br><br>
+        {# Nom du compte employé connecté #}
+        <p> Compte : {{ app.user.userIdentifier }}</p>
+        
+        <h3>Historique des avis</h3>
+        <a href="{{ path('app_employe_avis') }}">Gestion des avis</a>
 
-    <table>
-        <tr>
-            <th>Utilisateur</th>
-            <th>Note</th>
-            <th>Message</th>
-            <th>Statut</th>
-        </tr>
-        {% for a in avis %}
-        <tr>
-            <td>{{ a.utilisateur.email }}</td>
-            <td>
-                {% for i in 1..5 %}
-                {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} </td>
-            <td>{{ a.libelle }}</td>
-            <td>{{ a.statut }}</td>
-        </tr>
-        {% else %}
-        <p>Aucun avis</p>
-        {% endfor %}
-    </table>
+    </div>
+    
+    <div class="historique">
+
+        <table>
+            <tr>
+                <th class="utilisateurAvis">Utilisateur</th>
+                <th class="noteAvis">Note</th>
+                <th class="messageAvis">Message</th>
+                <th class="statutAvis">Statut</th>
+            </tr>
+            {% for a in avis %}
+            <tr>
+                <td class="utilisateurAvisTd">{{ a.utilisateur.email }}</td>
+                <td class="noteAvisTd">
+                    {% for i in 1..5 %}
+                    {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %}
+                </td>
+                <td class="messageAvisTd">{{ a.libelle }}</td>
+                <td class="statutAvisTd">{{ a.statut }}</td>
+            </tr>
+            {% else %}
+                <p>Aucun avis</p>
+            {% endfor %}
+            </table>
+
+    </div>
 
 {% endblock content %}

@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Mise à jour du DOM
                 if (newMenuList) {
                     menuList.innerHTML = newMenuList.innerHTML;
+                    menu = document.querySelectorAll('.carteMenu');
+                    index = 0;
+                    afficherMenu(index);
                 }
             });
     };
@@ -42,8 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     regime.addEventListener('change', fetchMenus);
     nbPersonne.addEventListener('input', fetchMenus);
 
-
-    const menu = document.querySelectorAll('.carteMenu');
+    let menu = document.querySelectorAll('.carteMenu');
 
     const btnSuivant = document.getElementById('btnSuivant');
     const btnPrecedent = document.getElementById('btnPrecedent');
@@ -63,21 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnSuivant.addEventListener('click', () => {
         index += 3;
-
         if (index >= menu.length) {
             index = 0;
         }
-
         afficherMenu(index);
     });
 
     btnPrecedent.addEventListener('click', () => {
         index -= 3;
-
         if (index < 0) {
-            index = Math.max(menu.length - 3, 0);
+            index = Math.floor((menu.length - 1) / 3) * 3;
         }
-
         afficherMenu(index);
     });
 

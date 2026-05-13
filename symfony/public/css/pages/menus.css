@@ -37,6 +37,12 @@ select {
 }
 
 /* Menus */
+.sectionMenus {
+    display: flex;
+    justify-content: center;
+    margin: 70px auto auto;
+}
+
 .carteMenu {
     opacity: 0;
     visibility: hidden;
@@ -55,13 +61,12 @@ select {
 .divMenus {
     display: flex;
     justify-content: space-between;
-    margin-top: 3%;
 }
 
 .divMenus a {
     text-decoration: none;
     color: inherit;
-    margin-top: 1%;
+    margin: auto 30px auto 30px;
     opacity: 0;
 }
 
@@ -88,26 +93,25 @@ select {
 }
 
 /* Bouton */
-.divMenus button {
+.sectionMenus button {
     width: 100px;
     height: 200px;
     background-color: azure;
-    align-self: center;
 }
 
-.divMenus button:hover {
+.sectionMenus button:hover {
     transition-duration: 300ms;
     background-color: rgb(210, 249, 249);
 }
 
-.divMenus button:active {
+.sectionMenus button:active {
     transition-duration: 300ms;
     background-color: rgb(167, 195, 195);
     border: 1px solid black;
 }
 
 .btnSuivant {
-    margin: auto 10% auto 0;
+    margin: auto 0 auto 50px;
     border-radius: 0 100% 100% 0 / 0 50% 50% 0;
     border-left: 1px solid black;
     border-right: 10px solid rgb(172, 172, 172);
@@ -116,7 +120,7 @@ select {
 }
 
 .btnPrecedent {
-    margin: auto 0 auto 10%;
+    margin: auto 50px;
     border-radius: 100% 0 0 100% / 50% 0 0 50%;
     border-right: 1px solid black;
     border-left: 10px solid rgb(172, 172, 172);

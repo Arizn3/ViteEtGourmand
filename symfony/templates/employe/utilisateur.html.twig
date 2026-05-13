@@ -1,17 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-utilisateur.css">
+{% endblock stylesheets %}
+
 {% block title %} Information Utilisateur {% endblock title %}
 
 {% block content %}
 
-    <h3>Information Client</h3>
+    <div class="informationClient">
 
-    <p><strong>Email :</strong> {{ utilisateur.email }}</p>
-    <p><strong>Nom :</strong> {{ utilisateur.nom }}</p>
-    <p><strong>Prenom :</strong> {{ utilisateur.prenom }}</p>
-    <p><strong>Téléphone :</strong> {{ utilisateur.telephone }}</p>
-    <p><strong>Adresse :</strong> {{ utilisateur.adresse }}</p>
+        <h3>Information Client</h3>
+        
+        <p><strong>Email :</strong> {{ utilisateur.email }}</p>
+        <p><strong>Nom :</strong> {{ utilisateur.nom }}</p>
+        <p><strong>Prenom :</strong> {{ utilisateur.prenom }}</p>
+        <p><strong>Téléphone :</strong> {{ utilisateur.telephone }}</p>
+        <p><strong>Adresse :</strong> {{ utilisateur.adresse }}</p>
+        
+        <a class="retour" href="{{ path('app_employe_commande', app.request.query.all) }}">Retour</a>
 
-    <a href="{{ path('app_employe_commande', app.request.query.all) }}">Retour</a>
+    </div>
 
 {% endblock content %}

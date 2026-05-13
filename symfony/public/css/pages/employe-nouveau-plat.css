@@ -1,0 +1,148 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    height: auto;
+    min-height: 1000px;
+    display: flex;
+    margin-top: 30px;
+}
+
+.divTitre {
+    margin: 20px 0 20px 20px;
+}
+
+/* Bouton retour */
+.divTitre a {
+    text-decoration: none;
+    border: 1px solid saddlebrown;
+    background-color: blue;
+    color: white;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 2px 10px;
+    transition-duration: 300ms;
+}
+
+.divTitre a:hover {
+    transition-duration: 300ms;
+    background-color: beige;
+    color: blue;
+}
+
+/* Formulaire */
+.sectionFormulaire {
+    width: 800px;
+    margin: 0 auto 0 100px;
+    padding: 10px;
+}
+
+.sectionFormulaire form {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+
+#plat_nomPlat {
+    width: 200px;
+    margin: 5px auto 10px 5px;
+}
+
+#plat_photo {
+    margin: 5px auto 10px 5px;
+}
+
+.photoTelecharger {
+    width: 200px;
+    height: 200px;
+    border: 1px solid saddlebrown;
+    border-radius: 20%;
+    padding: 1px;
+    transition: 500ms;
+    margin: 5px;
+}
+
+.photoTelecharger:hover {
+    transition: 500ms;
+    box-shadow: 0 0 30px saddlebrown;
+}
+
+/* Bouton enregistrer */
+.sectionFormulaire form button {
+    border: 1px solid saddlebrown;
+    background-color: blue;
+    color: white;
+    border-radius: 20px;
+    margin: 30px auto 0 40px;
+    padding: 2px 10px;
+    transition-duration: 300ms;
+}
+
+.sectionFormulaire form button:hover {
+    transition-duration: 300ms;
+    background-color: beige;
+    color: blue;
+}
+
+.divAllergene {
+    display: flex;
+    flex-direction: column;
+}
+
+.allergene {
+    margin: 2px;
+}
+
+.allergene:has(input:checked) {
+    color: saddlebrown;
+}
+
+/* Table plat */
+.sectionPlats {
+    width: auto;
+    margin: 0px 40% 0px auto;
+    padding: 10px;
+}
+
+.sectionPlats td {
+    border: 1px solid blue;
+    border-radius: 30px / 50px;
+    margin: 10px;
+    padding: 5px;
+    background-color: cornflowerblue;
+    color: white;
+    transition: 500ms;
+    width: 300px;
+    text-align: center;
+}
+
+.lienPlats {
+    text-align: center;
+}
+
+.sectionPlats td:hover {
+    transition: 500ms;
+    background-color: aliceblue;
+    color: cornflowerblue;
+}
+
+.sectionPlats a {
+    text-decoration: none;
+
+}
+
+.PhotoPlatsDisponible {
+    width: 200px;
+    height: 200px;
+    border: 1px solid blue;
+    border-radius: 20%;
+    padding: 1px;
+    transition: 500ms;
+    margin: 5px;
+}
+
+.PhotoPlatsDisponible:hover {
+    transition: 500ms;
+    box-shadow: 0 0 30px blue;
+}

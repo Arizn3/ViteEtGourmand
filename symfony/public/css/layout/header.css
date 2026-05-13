@@ -14,18 +14,18 @@ header {
 }
 
 /* DivG */
-.divG {
+.divTitreHeader {
     margin: 0% 28% 0 31%;
 }
 
-.divG h1 {
+.divTitreHeader h1 {
     margin: 5% 0 0 10%;
     color: white;
     font-size: 5rem;
     font-family: Didot;
 }
 
-.divG p {
+.divTitreHeader p {
     color: white;
     font-family: Copperplate, Comic Sans MS, Verdana;
     margin: 0 0 0 16%;
@@ -38,13 +38,13 @@ header {
 }
 
 /* DivD */
-.divD {
+.divLiensHeader {
     display: flex;
     flex-direction: column;
     margin: 1%;
 }
 
-.divD a {
+.divLiensHeader a {
     margin-right: 5px;
 }
 

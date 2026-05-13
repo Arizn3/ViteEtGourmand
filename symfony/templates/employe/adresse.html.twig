@@ -2,14 +2,23 @@
 
 {% block title %} Adresse de livraison {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-adresse.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    <h3>Adresse de livraison</h3>
+    <div class="adresseClient">
+        
+        <h3>Adresse de livraison</h3>
+        
+        <p><strong>ID Commande :</strong> {{ commande.id }}</p>
+        <p><strong>Ville :</strong> {{ commande.villeLivraison }}</p>
+        <p><strong>Adresse :</strong> {{ commande.adresseLivraison }}</p>
+        
+        <a class="retour" href="{{ path('app_employe_commande', app.request.query.all) }}">Retour</a>
 
-    <p><strong>ID Commande :</strong> {{ commande.id }}</p>
-    <p><strong>Ville :</strong> {{ commande.villeLivraison }}</p>
-    <p><strong>Adresse :</strong> {{ commande.adresseLivraison }}</p>
-
-    <a href="{{ path('app_employe_commande', app.request.query.all) }}">Retour</a>
+    </div>
 
 {% endblock content %}

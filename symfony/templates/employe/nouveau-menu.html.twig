@@ -2,71 +2,78 @@
 
 {% block title %} Nouveau menu {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-modification-menu.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
 
-    <h3>Création d'un nouveau menu</h3>
-    <a href="{{ path('app_employe_gestion_menu') }}">retour</a>
-    <br><br>
+    <div class="divTitre">
+        
+        <h3>Création d'un nouveau menu</h3>
+        
+        <a href="{{ path('app_employe_gestion_menu') }}">Gestion des menus</a>
+        
+    </div>
 
-    {{ form_start(form) }}
-    {# Date #}
-    <p>Date : {{ menu.createdAt|date('d/m/Y') }}</p>
-    {{ form_errors(form.plats) }}
+    <section class="formulaire">
 
-    {# Titre du menu #}
-    {{ form_label(form.titre) }}
-    <br>
-    {{ form_widget(form.titre) }}
-    <br><br>
+        {{ form_start(form) }}
+        
+        {# Date #}
+        <p>Date de création du menu : <b><span class="colorDate">{{ menu.createdAt|date('d/m/Y') }}</span></b></p>
+        {{ form_errors(form.plats) }}
+        
+        {# Nom du menu #}
+        {{ form_label(form.titre) }}
+        {{ form_widget(form.titre) }}
+        
+        {# Choix du thème #}
+        {{ form_label(form.theme) }}
+        {{ form_widget(form.theme) }}
+        
+        {# Menu dipsponible à partir de X personnes #}
+        {{ form_label(form.personneMini) }}
+        {{ form_widget(form.personneMini) }}
+        
+        {# Prix par personne #}
+        {{ form_label(form.prixPersonne) }}
+        {{ form_widget(form.prixPersonne) }}
+        
+        {# Description #}
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        
+        {# Quantité restante #}
+        {{ form_label(form.qttRestante) }}
+        {{ form_widget(form.qttRestante) }}
+        
+        {# Choix du régime #}
+        {{ form_label(form.regime) }}
+        {{ form_widget(form.regime) }}
+        
+        {# Choix des plats #}
+        <p>Veuillez sélectionner au moins 3 plats</p>
+        <div class="listePlats">
+            {% for plat in form.plats %}
+                <label class="plat">
+                    {{ form_widget(plat) }}
+                    <span>
+                        {{ plat.vars.label }}
+                    </span>
+                </label>
+            {% endfor %}
+        </div>
+        
+        <button type="submit">Enregistrer</button>
+        
+        {{ form_end(form) }}
 
-    {# Choix du thème #}
-    {{ form_label(form.theme) }}
-    <br>
-    {{ form_widget(form.theme) }}
-    <br><br>
+    </section>
 
-    {# Menu dipsponible à partir de X personnes #}
-    {{ form_label(form.personneMini) }}
-    <br> 
-    {{ form_widget(form.personneMini) }}
-    <br><br>
-
-    {# Prix par personne #}
-    {{ form_label(form.prixPersonne) }}
-    <br>
-    {{ form_widget(form.prixPersonne) }}
-    <br><br>
-
-    {# Description #}
-    {{ form_label(form.description) }}
-    <br>
-    {{ form_widget(form.description) }}
-    <br><br>
-
-    {# Quantité restante #}
-    {{ form_label(form.qttRestante) }}
-    <br>
-    {{ form_widget(form.qttRestante) }}
-    <br><br>
-
-    {# Choix du régime #}
-    {{ form_label(form.regime) }}
-    <br>
-    {{ form_widget(form.regime) }}
-    <br><br>
-
-    {# Choix des plats #}
-    {{ form_label(form.plats) }}
-    <p>(la photo du premier plat sélectionné sera afficher dans la liste des menus)</p>
-    <br>
-    {{ form_widget(form.plats) }}
-    <br><br>
-
-    <button type="submit">Enregistrer</button>
-
-    {{ form_end(form) }}
 
 {% endblock content %}

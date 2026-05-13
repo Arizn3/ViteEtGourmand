@@ -2,53 +2,61 @@
 
 {% block title %} Nouveau régime {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-regime.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
 
-    <h3>Création d'un nouveau régime</h3>
-    <a href="{{ path('app_employe_gestion_menu') }}">retour</a>
-    <br><br>
+    <div class="formulaire">
+        
+        <h3>Ajout d'un nouveau régime</h3>
+        <a href="{{ path('app_employe_gestion_menu') }}">retour</a>
+        
+        {{ form_start(form) }}
+        
+        {# Nom du thème #}
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        
+        <button type="submit">Enregistrer</button>
+        
+        {{ form_end(form) }}
 
-    {{ form_start(form) }}
+    </div>
+        
+    <div class="listeRegime">
 
-    {# Nom du thème #}
-    {{ form_label(form.description) }}
-    <br>
-    {{ form_widget(form.description) }}
-    <br><br>
-
-    <button type="submit">Enregistrer</button>
-    <br><br>
-
-    {{ form_end(form) }}
-
-    {# Thème disponible #}
-
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
+        {# Thème disponible #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
+        
+        <table>
+            
+            <tr>
+                <th>Thèmes disponibles</th>
+            </tr>
+            {% for regimes in regime %}
+                <tr>
+                    <td>
+                        <a href="{{ path('app_supprime_regime', {id: regimes.id}) }}" class="btn-supression" title="Supprimer">❌</a>
+                        {{ regimes.description }}
+                    </td>
+                </tr>
+            {% endfor %}
+    
+        </table>
 
-    <table>
-        <tr>
-            <th>Thèmes disponibles</th>
-        </tr>
-        {% for regimes in regime %}
-        <tr>
-            <td>
-                {{ regimes.description }}
-                <a href="{{ path('app_supprime_regime', {id: regimes.id}) }}" class="btn-supression">❌
-                </a>
-            </td>
-        </tr>
-
-        {% endfor %}
-    </table>
+    </div>
 
 {% endblock content %}
 

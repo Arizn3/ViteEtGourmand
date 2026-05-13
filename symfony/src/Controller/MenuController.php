@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Theme;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -27,7 +26,6 @@ final class MenuController extends AbstractController
             'menus' => $menus,
             'themes' => $theme->findBy(['deletedAt' => null]),
             'regimes' => $regimeRepo->findBy(['deletedAt' => null]),
-            'utilisateur' => $utilisateur,
         ]);
     }
     

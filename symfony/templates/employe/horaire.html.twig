@@ -2,32 +2,45 @@
 
 {% block title %} Gestion des horaires {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/employe-horaire.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
     {# Nom du compte employé connecté #}
     <p> Compte : {{ app.user.userIdentifier }}</p>
 
-    <h3>Gestion des horaires</h3>
-    <p>Ces horaires sont visibles sur la page d'accueil.</p>
+    <div class="horaireTitre">
+        
+        <h3>Gestion des horaires</h3>
+        <p>Ces horaires sont visibles sur la page d'accueil.</p>
+        
+    </div>
 
-    <table>
-        <tr>
-            <th>Jour</th>
-            <th>Ouverture</th>
-            <th>Fermeture</th>
-            <th>Modifier</th>
-        </tr>
+    <div class="horaireTable">
 
-        {% for h in horaires %}
+        <table>
             <tr>
-                <td>{{ h.jour }}</td>
-                <td>{{ h.heureOuverture|date('H:i') }}</td>
-                <td>{{ h.HeureFermeture|date('H:i') }}</td>
-                <td>
+                <th class="horaireJour">Jour</th>
+                <th class="horaireOuverture">Ouverture</th>
+                <th class="horaireFermeture" >Fermeture</th>
+                <th class="horaireModifier">Modifier</th>
+            </tr>
+            
+            {% for h in horaires %}
+            <tr>
+                <td class="horaireJourTd">{{ h.jour }}</td>
+                <td class="horaireOuvertureTd">{{ h.heureOuverture|date('H:i') }}</td>
+                <td class="horaireFermetureTd">{{ h.HeureFermeture|date('H:i') }}</td>
+                <td class="horaireModifierTd">
                     <a href="{{ path('app_employe_nouveau_horaire', {id: h.id}) }}">✏️</a>
                 </td>
             </tr>
-        {% endfor %}
-    </table>
+            {% endfor %}
+        </table>
+
+    </div>
 
 {% endblock content %}
