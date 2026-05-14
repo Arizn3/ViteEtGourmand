@@ -1,17 +1,22 @@
-{% extends 'base.html.twig' %}
+<head>
+    <title> Réinitialisez votre mot de passe </title>
+    <link rel="stylesheet" href="/css/pages/home/reset.css">
+</head>
 
-{% block title %} Réinitialisez votre mot de passe {% endblock title %}
+<body>
+    
+    <main>
 
-{% block content %}
-
-    <h1>Réinitialisez votre mot de passe</h1>
-
-    {{ form_start(resetForm) }}
-
+        <h1>Réinitialisez votre mot de passe</h1>
+        
+        {{ form_start(resetForm) }}
+        
         {{ form_row(resetForm.plainPassword) }}
-
+        
         <button class="btn btn-primary">Réinitialisez</button>
+        
+        {{ form_end(resetForm) }}
 
-    {{ form_end(resetForm) }}
-
-{% endblock content %}
+    </main>
+    
+</body>

@@ -1,0 +1,45 @@
+body {
+    background-color: aliceblue;
+    height: 600px;
+}
+
+main {
+    margin: 200px auto auto;
+    width: 1000px;
+    height: 400px;
+    text-align: center;
+}
+
+.main a {
+    text-decoration: none;
+}
+
+.et {
+    color: brown;
+}
+
+.pouce {
+    font-size: xxx-large;
+    margin-top: 0;
+}
+
+.lastP {
+    margin-bottom: 40px;
+}
+
+.btnRetourApp {
+    transition-duration: 500ms;
+    border: 1px solid black;
+    background-color: saddlebrown;
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px saddlebrown;
+}
+
+.btnRetourApp:hover {
+    transition-duration: 500ms;
+    box-shadow: 0 0 20px saddlebrown;
+    text-shadow: 0 0 10px white;
+}

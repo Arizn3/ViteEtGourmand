@@ -1,15 +1,26 @@
-{% extends 'base.html.twig' %}
+<head>
+    <title> Courriel de réinitialisation du mot de passe envoyé </title>
+    <link rel="stylesheet" href="/css/pages/home/check-email.css">
+</head>
 
-{% block title %} Courriel de réinitialisation du mot de passe envoyé {% endblock title %}
+<body>
+    <main>
 
-{% block content %}
-    <p>
-        Si un compte correspondant à votre adresse e-mail existe, un e-mail contenant un lien vous permettant de <br>
-        réinitialiser votre mot de passe vient de vous être envoyé.
-        Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData,
-        'ResetPasswordBundle') }}.
-    </p>
-    <p>Si vous ne recevez pas d'e-mail, veuillez vérifier vos courriers indésirables ou <a
-        href="{{ path('app_forgot_password_request') }}">essayer à nouveau</a>.</p>
+        <h1>Vite<span class="et">&</span>Gourmand</h1>
+        <p class="pouce">👍🏼</p>
+        <p>
+            Si un compte correspondant à votre adresse e-mail existe, un e-mail contenant un lien vous permettant de
+            <br>
+            réinitialiser votre mot de passe vient de vous être envoyé.
+            <b>Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData,
+            'ResetPasswordBundle') }}</b>.
+        </p>
+        <p class="lastP">
+            Si vous ne recevez pas d'e-mail, veuillez vérifier vos courriers indésirables ou
+            <a href="{{ path('app_forgot_password_request') }}">essayer à nouveau</a>.
+        </p>
 
-{% endblock content %}
+        <a class="btnRetourApp" href="{{ path('app_home') }}">Retour à l'application</a>
+
+    </main>
+</body>

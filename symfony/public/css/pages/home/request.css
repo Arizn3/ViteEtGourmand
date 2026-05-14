@@ -1,0 +1,36 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    width: 300px;
+    height: 300px;
+    border: 1px solid saddlebrown;
+    background-color: antiquewhite;
+    box-shadow: 0 0 10px saddlebrown;
+    transition: 500ms;
+    margin: 200px auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+main:hover {
+    transition: 500ms;
+    box-shadow: 0 0 20px saddlebrown;
+}
+
+#reset_password_request_form_email {
+    margin: 20px auto 20px 5px;
+}
+
+main button {
+    margin-top: 15px;
+    cursor: pointer;
+    background-color: gainsboro;
+}
+
+main button:hover {
+    background-color: gray;
+    color: white;
+}

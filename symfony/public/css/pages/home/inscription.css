@@ -1,0 +1,83 @@
+body {
+    background-color: aliceblue;
+    height: auto
+}
+
+.mainFormulaireConnexion {
+    background-color: antiquewhite;
+    border-radius: 20px;
+    border: 2px solid white;
+    box-shadow: 0 0 10px saddlebrown;
+    width: 300px;
+    height: auto;
+    margin: 200px auto;
+    display: flex;
+    flex-direction: column;
+    transition: 500ms;
+    padding: 20px;
+}
+
+.mainFormulaireConnexion:hover {
+    box-shadow: 0 0 30px saddlebrown;
+    transition: 500ms;
+}
+
+.mainFormulaireConnexion form {
+    text-align: center;
+}
+
+.mainFormulaireConnexion h1 {
+    text-align: center;
+}
+
+#registration_form_email {
+    margin-left: 11px;
+    margin-bottom: 2px;
+}
+
+#registration_form_prenom {
+    margin-bottom: 2px;
+}
+
+#registration_form_nom {
+    margin-left: 18px;
+    margin-bottom: 10px;
+}
+
+#registration_form_telephone {
+    margin-left: 16px;
+    margin-bottom: 2px;
+}
+
+#registration_form_adresse {
+    margin-left: 1px;
+    margin-bottom: 2px;
+}
+
+#registration_form_plainPassword_second {
+    margin-bottom: 20px;
+}
+
+#registration_form_plainPassword_first {
+    margin-bottom: 10px;
+}
+
+#registration_form_agreeTerms {
+    margin-bottom: 10px;
+}
+
+.btnConnexion {
+    text-align: center;
+    margin: 15px auto 0;
+}
+
+.mainFormulaireConnexion button {
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.mainFormulaireConnexion a {
+    text-decoration: none;
+    margin: 10px 0 0;
+    color: darkslategray;
+}
