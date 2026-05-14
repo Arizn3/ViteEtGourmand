@@ -1,0 +1,53 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    height: 700px;
+}
+
+.DivDetailCommande {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    background-color: antiquewhite;
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 700px;
+    height: auto;
+    box-shadow: 0 0 15px saddlebrown;
+    padding: 20px;
+    margin: 70px auto;
+    transition: 500ms;
+}
+
+.DivDetailCommande:hover {
+    box-shadow: 0 0 30px saddlebrown;
+    transition: 500ms;
+}
+
+.textColor {
+    color: saddlebrown;
+}
+
+.DivDetailCommande a {
+    text-decoration: none;
+    background-color: rgb(0, 94, 255);
+    color: white;
+    border-radius: 20px;
+    border: 1px blue;
+    cursor: pointer;
+    box-shadow: 0 0 2px white;
+    font-size: smaller;
+    padding: 2px 6px;
+    margin: 0 auto 10px;
+    font-family: Arial Unicode MS;
+}
+
+.DivDetailCommande a:hover {
+    background-color: rgb(0, 73, 198);
+}
+
+.DivDetailCommande a:active {
+    background-color: rgb(1, 54, 147);
+}

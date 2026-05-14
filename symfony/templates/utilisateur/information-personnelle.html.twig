@@ -2,68 +2,82 @@
 
 {% block title %} Informations personnelles {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/utilisateur/information-personnelle.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    <h3>Mes informations personnelles</h3>
+    <div class="informationPersonnelle">
 
-    <p>Mon email : {{ utilisateur.email }}</p>
-    <p>Prenom : {{ utilisateur.prenom }}</p>
-    <p>Nom : {{ utilisateur.nom }}</p>
-    <p>Mobile : {{ utilisateur.telephone }}</p>
-    <p>Adresse : {{ utilisateur.adresse }}</p>
-    <a href="{{ path('app_utilisateur_modifier_information_personnelle') }}">Modifier mes informations</a>
-    <a href="{{ path('app_utilisateur_supprimer_compte') }}" id="btnSuppression">Supprimer mon compte</a>
+        <h3>Mes informations personnelles</h3>
+        
+        <p>Mon email : <span class="color">{{ utilisateur.email }}</span></p>
+        <p>Prenom : <span class="color">{{ utilisateur.prenom }}</span></p>
+        <p>Nom : <span class="color">{{ utilisateur.nom }}</span></p>
+        <p>Mobile : <span class="color">{{ utilisateur.telephone }}</span></p>
+        <p class="adresseUtilisateur">Adresse : <span class="color">{{ utilisateur.adresse }}</span></p>
+        
+        <a href="{{ path('app_utilisateur_modifier_information_personnelle') }}">Modifier mes informations</a>
+        <a href="{{ path('app_utilisateur_supprimer_compte') }}" id="btnSuppression">Supprimer mon compte</a>
+        
+        <h3 class="Modifiermdp">Modifier mon mot de passe</h3>
+        
+        
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
 
-    <br><br><br>
-    
-    <h3>Modifier mon mot de passe</h3>
-
-    {{ form_start(form) }}
-
+        {{ form_start(form) }}
+        
         {{ form_row(form.currentPassword) }}
         {{ form_row(form.newPassword.first) }}
         {{ form_row(form.newPassword.second) }}
-
+        
         <button>Changer le mot de passe</button>
+        
+        {{ form_end(form) }}
 
-    {{ form_end(form) }}
-
-    <br><br>
-
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-
-    {% if avis %}
-        <p> Votre avis : </p>
-        <p> Statut de l'avis : {{ avis.statut }} </p>
-        <p>
-            Note :
+    </div>
+        
+    <div class="avisUtilisateur">
+        
+        {% if avis %}
+        <h3>Votre avis</h3>
+        <p class="noteAvis">
             {% for i in 1..avis.note %}
-                ⭐️
+            ⭐️
             {% endfor %}
         </p>
-        <p>{{ avis.libelle }}</p>
-        <a href="{{ path('app_utilisateur_avis') }}">Modifier mon avis</a>
-        <a href="{{ path('app_utilisateur_supprimer_avis', {id: avis.id}) }}">Supprimer mon avis</a>
-    {% else %}
-        <h3>Votre avis nous intéresse !</h3>
-        <p>Une fois une commande terminée, vous pouvez nous laisser un avis ici : </p>
+        <p class="textAvis">{{ avis.libelle }}</p>
+
+        <a href="{{ path('app_utilisateur_avis') }}" class="avecAvis">Modifier mon avis</a>
+        <a href="{{ path('app_utilisateur_supprimer_avis', {id: avis.id}) }}" class="avecAvis">Supprimer mon avis</a>
+
+        {% else %}
+            <h3>Votre avis nous intéresse !</h3>
+            <p>Une fois une commande terminée, vous pouvez nous laisser un avis ici : </p>
         {% if commandeTerminer %}
-            <a href="{{ path('app_utilisateur_avis') }}">Je donne mon avis</a>
+            <a href="{{ path('app_utilisateur_avis') }}" class="aAvis">Je donne mon avis 👍🏼</a>
         {% else %}
             <p>Vous n'avez pas encore finaliser une commande 😕</p>
         {% endif %}
-        <p>Sinon, terminer une commande et laisser nous un commentaire sur la qualité de notre service & de nos produits. Merci !</p>
-    {% endif %}
+            <p>
+                Sinon, terminer une commande et laisser nous un commentaire sur la qualité de notre service <span class="brown">&</span> de nos produits.
+                Vite<span class="brown">&</span>Gourmand vous Merci !
+            </p>
+        {% endif %}
+
+    </div>
 
 {% endblock content %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="/javascript/pages/menus/utilisateur-home.js"></script>
+    <script src="/javascript/pages/utilisateur/utilisateur-home.js"></script>
 {% endblock javascripts %}

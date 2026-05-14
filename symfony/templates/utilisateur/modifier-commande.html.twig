@@ -2,49 +2,53 @@
 
 {% block title %} Modification commande {% endblock title %}
 
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="/css/pages/utilisateur/modifier-commande.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    <h3>Modifier ma commande</h3>
-    
-    <p>Menu : {{ commande.menu.titre }}</p>
-    <p>Le menu de la commande et le nombre de boîte à repas ne peut plus être modifié.</p>
-    <p>
-        Pour le changement des éléments non-modifiables, veuillez nous contacter directement par téléphone, ou via l'onglet "Contact" de l'application.
-    </p>
+    <div class="modifierCommandeFormulaire">
 
-    {% for label, messages in app.flashes %}
+        <h3>Modifier ma commande</h3>
+
+        <p>Menu : <span class="color">{{ commande.menu.titre }}</span></p>
+        <p>
+            Une fois votre commande validée, seules la date et l’heure de livraison peuvent être modifiées directement
+            depuis votre espace personnel.
+        </p>
+        <p>
+            <span class="TextColor">Pour toute autre demande de modification</span>, nous vous invitons à nous <b>contacter par téléphone ou via l’onglet
+            Contact</b>. En raison de la préparation de produits frais, de l’organisation des commandes et de la facturation,
+            certaines modifications peuvent impacter le bon déroulement de la préparation et de la livraison.
+        </p>
+        <p>Merci de votre compréhension</p>
+
+        {% for label, messages in app.flashes %}
         {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
+        <div class="flash-{{ label }}">
+            {{ message }}
+        </div>
         {% endfor %}
-    {% endfor %}
-    <br>
-    {{ form_start(form) }}
+        {% endfor %}
 
-    {# Date de livraison #}
-    {{ form_label(form.datePrestation) }}
-    {{ form_widget(form.datePrestation) }}
-    <br>
+        {{ form_start(form) }}
 
-    {# Heure de livraison #}
-    {{ form_label(form.heureLivraison) }}
-    {{ form_widget(form.heureLivraison) }}
-    <br>
+        {# Date de livraison #}
+        {{ form_label(form.datePrestation) }}
+        {{ form_widget(form.datePrestation) }}
 
-    {# Ville #}
-    {{ form_label(form.villeLivraison) }}
-    {{ form_widget(form.villeLivraison) }}
-    <br>
+        {# Heure de livraison #}
+        {{ form_label(form.heureLivraison) }}
+        {{ form_widget(form.heureLivraison) }}
 
-    {# Adresse #}
-    {{ form_label(form.adresseLivraison) }}
-    {{ form_widget(form.adresseLivraison) }}
-    <br>
-    <button type="submit">Enregistrer</button>
+        <button type="submit">Enregistrer</button>
 
-    {{ form_end(form) }}
+        {{ form_end(form) }}
 
-    <a href="{{ path('app_utilisateur_commandes_en_cours', {id: commande.id}) }}">Retour</a>
+        <a href="{{ path('app_utilisateur_commandes_en_cours', {id: commande.id}) }}">Retour</a>
+
+    </div>
 
 {% endblock content %}

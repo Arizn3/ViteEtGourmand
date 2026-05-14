@@ -2,37 +2,41 @@
 
 {% block title %} Modifier mes informations personnelle {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/utilisateur/modifier-information.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    <h3>Modifier mes informations</h3>
+    <div class="divFormulaire">
 
-    {{ form_start(form) }}
+        <h3>Modifier mes informations</h3>
+        
+        {{ form_start(form) }}
+        
+        {# Email #}
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        {# Prenom #}
+        {{ form_label(form.prenom) }}
+        {{ form_widget(form.prenom) }}
+        {# Nom #}
+        {{ form_label(form.nom) }}
+        {{ form_widget(form.nom) }}
+        {# Mobile #}
+        {{ form_label(form.telephone) }}
+        {{ form_widget(form.telephone) }}
+        {# Adresse #}
+        {{ form_label(form.adresse) }}
+        {{ form_widget(form.adresse) }}
+        
+        <button type="submit">Enregistrer les modifications</button>
+        
+        {{ form_end(form) }}
+        
+        <a href="{{ path('app_utilisateur_information_personnelle') }}">Retour</a>
 
-    {# Email #}
-    {{ form_label(form.email) }}
-    {{ form_widget(form.email) }}
-    <br>
-    {# Prenom #}
-    {{ form_label(form.prenom) }}
-    {{ form_widget(form.prenom) }}
-    <br>
-    {# Nom #}
-    {{ form_label(form.nom) }}
-    {{ form_widget(form.nom) }}
-    <br>
-    {# Mobile #}
-    {{ form_label(form.telephone) }}
-    {{ form_widget(form.telephone) }}
-    <br>
-    {# Adresse #}
-    {{ form_label(form.adresse) }}
-    {{ form_widget(form.adresse) }}
-
-    <br>
-    <button type="submit">Enregistrer les modifications</button>
-
-    {{ form_end(form) }}
-
-    <a href="{{ path('app_utilisateur_information_personnelle') }}">Retour</a>
+    </div>
 
 {% endblock content %}

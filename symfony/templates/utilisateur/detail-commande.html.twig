@@ -2,34 +2,41 @@
 
 {% block title %} Détail de ma commande {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/utilisateur/detail-commande.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    <h3>Détail de ma commande</h3>
-    
-    <p>Suivi de commande :</p>
-
-    <ul>
-        {% for h in historiques %}
+    <div class="DivDetailCommande">
+        
+        <h2>Détail de ma commande</h2>
+        
+        <p>Suivi de commande :</p>
+        
+        <ul>
+            {% for h in historiques %}
             <li>
                 <strong>{{ h.statut }}</strong>
                 - {{ h.date|date('d/m/Y H:i') }}
             </li>
-        {% endfor %}
-    </ul>
-
-    <p>Date de la commande : {{ commande.dateCmd|date('d/m/Y') }}</p>
-    <p>Date de livraison : {{ commande.datePrestation|date('d/m/Y') }}</p>
-    <p>Heure de livraison : {{ commande.heureLivraison|date('H:i') }}</p>
-    <p>Adresse : {{ commande.villeLivraison }} - {{ commande.adresseLivraison }}</p>
-    <p>Menu : {{ commande.menu.titre }}</p>
-    <p>Nombre de boîte à repas : {{ commande.nbPersonne }}</p>
-    <p>Prix : {{ commande.prixMenu }} €</p>
-
-    <br>
-    {% if commande.statut !== 'Terminer' %}
-        <a href="{{ path('app_utilisateur_modifier_commande', {id: commande.id}) }}">Modifier les informations de la commande</a>
-        <br>
-    {% endif %}
-    <a href="{{ path('app_utilisateur_commandes') }}">Retour</a>
+            {% endfor %}
+        </ul>
+        
+        <b><p>Date de la commande :</b> <span class="textColor">{{ commande.dateCmd|date('d/m/Y') }}</span></span></p>
+        <b><p>Date de livraison :</b> <span class="textColor">{{ commande.datePrestation|date('d/m/Y') }}</span></p>
+        <b><p>Heure de livraison :</b> <span class="textColor">{{ commande.heureLivraison|date('H:i') }}</span></p>
+        <b><p>Adresse :</b> <span class="textColor">{{ commande.villeLivraison }} - {{ commande.adresseLivraison }}</span></p>
+        <b><p>Menu :</b> <span class="textColor">{{ commande.menu.titre }}</span></p>
+        <b><p>Nombre de boîte à repas :</b> <span class="textColor">{{ commande.nbPersonne }}</span></p>
+        <b><p>Prix :</b> <span class="textColor">{{ commande.prixMenu }} €</span></p>
+        
+        {% if commande.statut !== 'Terminer' %}
+        <a href="{{ path('app_utilisateur_modifier_commande', {id: commande.id}) }}">Modifier la date de livraison</a>
+        {% endif %}
+        <a href="{{ path('app_utilisateur_commandes') }}">Retour</a>
+        
+    </div>
 
 {% endblock content %}

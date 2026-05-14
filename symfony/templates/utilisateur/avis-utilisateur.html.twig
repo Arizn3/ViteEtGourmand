@@ -2,18 +2,29 @@
 
 {% block title %} Ajouter ou modifier votre avis {% endblock title %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/pages/utilisateur/avis-utilisateur.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    {{ form_start(form) }}
+    <div class="divAvisUtilisateur">
 
-    {{ form_row(form.note) }}
-    {{ form_row(form.libelle) }}
-    
-    <button>Valider</button>
+        {{ form_start(form) }}
+        
+        {{ form_row(form.note) }}
 
-    {{ form_end(form) }}
+        <p>Votre avis est limité à 50 caractères maximum.</p>
 
-    <br><br>
-    <a href="{{ path('app_utilisateur_information_personnelle') }}">Retour</a>
+        {{ form_row(form.libelle) }}
+        
+        <button>Valider</button>
+        
+        {{ form_end(form) }}
+        
+        <a href="{{ path('app_utilisateur_information_personnelle') }}">Retour</a>
+
+    </div>
 
 {% endblock content %}

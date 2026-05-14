@@ -42,10 +42,10 @@
                     <a href="{{ path('app_avis_action', {id: a.id, action: 'REFUSER'}) }}">❌</a>
                 </td>
             </tr>
-        </table>
             {% else %}
                 <p>Aucun avis</p>
             {% endfor %}
+        </table>
     </div>
         
 {% endblock content %}

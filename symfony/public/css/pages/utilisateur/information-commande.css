@@ -1,0 +1,61 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    height: auto;
+    min-height: 700px;
+}
+
+/* Commande */
+.divMaCommande {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.divMaCommande div {
+    border: 1px solid blue;
+    box-shadow: 0 0 10px blue;
+    margin-top: 1%;
+    padding: 10px;
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.divMaCommande a {
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Commandes */
+.divMesCommandesH3 {
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.divMesCommandes {
+    display: flex;
+    gap: 10%;
+    justify-content: center;
+    margin: 0 20%;
+}
+
+.divMesCommandes a {
+    text-decoration: none;
+}
+
+.commandeHistorique {
+    border: 1px solid black;
+    box-shadow: 0 0 10px saddlebrown;
+    padding: 10px;
+    background-color: antiquewhite;
+    text-align: center;
+    transition: 500ms;
+}
+
+.commandeHistorique:hover {
+    box-shadow: 0 0 30px saddlebrown;
+    transition: 500ms;
+}

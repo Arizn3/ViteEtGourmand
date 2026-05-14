@@ -26,21 +26,25 @@ class CommandeType extends AbstractType
                 'attr' => [
                     'id' => 'commande_heureLivraison'
                 ],
-            ])
-            ->add('adresseLivraison', null, [
+            ]);
+        if ($options['modification'] === false) {
+            $builder->add('adresseLivraison', null, [
                 'label' => 'Adresse de livraison :',
                 'required' => true,
                 'attr' => [
                     'id' => 'commande_adresseLivraison'
                 ]
-            ])
-            ->add('villeLivraison', null, [
+            ]);
+        };
+        if ($options['modification'] === false) {
+            $builder->add('villeLivraison', null, [
                 'label' => 'Ville :',
                 'required' => true,
                 'attr' => [
-                    'id' => 'commande_villeLivraison'
+                    'id' => 'commande_villeLivraison',
                 ]
             ]);
+        };
         if ($options['modification'] === false) {
             $builder->add('nbPersonne', null, [
                 'label' => 'Nombre de boîte à repas :',

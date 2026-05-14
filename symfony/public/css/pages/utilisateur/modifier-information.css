@@ -1,0 +1,103 @@
+body {
+    background-color: aliceblue;
+}
+
+main {
+    height: 700px;
+}
+
+.divFormulaire {
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: cornflowerblue;
+    box-shadow: 0 0 10px gray;
+    color: white;
+    transition: 500ms;
+    width: 700px;
+    height: 500px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.divFormulaire h3 {
+    margin-bottom: 30px;
+}
+
+.divFormulaire:hover {
+    transition: 500ms;
+    box-shadow: 0 0 30px gray;
+}
+
+.divFormulaire form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#utilisateur_email {
+    width: 300px;
+    margin: 10px auto 20px;
+}
+
+#utilisateur_prenom {
+    width: 100px;
+    margin: 10px auto 20px;
+}
+
+#utilisateur_nom {
+    width: 100px;
+    margin: 10px auto 20px;
+}
+
+#utilisateur_telephone {
+    width: 100px;
+    margin: 10px auto 20px;
+}
+
+#utilisateur_adresse {
+    width: 300px;
+    margin: 10px auto 20px;
+}
+
+.divFormulaire button {
+    background-color: rgb(0, 94, 255);
+    color: white;
+    border-radius: 20px;
+    border: 1px blue;
+    cursor: pointer;
+    box-shadow: 0 0 2px white;
+    font-size: smaller;
+    margin: 0 auto 10px;
+    font-family: Arial Unicode MS;
+}
+
+.divFormulaire button:hover {
+    background-color: rgb(0, 73, 198);
+}
+
+.divFormulaire button:active {
+    background-color: rgb(1, 54, 147);
+}
+
+.divFormulaire a {
+    text-decoration: none;
+    background-color: rgb(0, 94, 255);
+    color: white;
+    border-radius: 20px;
+    border: 1px blue;
+    cursor: pointer;
+    box-shadow: 0 0 2px white;
+    font-size: smaller;
+    padding: 2px 6px;
+    margin: 0 auto;
+    font-family: Arial Unicode MS;
+}
+
+.divFormulaire a:hover {
+    background-color: rgb(0, 73, 198);
+}
+
+.divFormulaire a:active {
+    background-color: rgb(1, 54, 147);
+}
