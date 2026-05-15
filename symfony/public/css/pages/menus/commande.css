@@ -1,5 +1,9 @@
+body {
+    background-image: url(/uploads/images/fond-ab.png);
+}
+
 main {
-    height: 800px;
+    height: 1000px;
 }
 
 /* Commande détail */
@@ -10,22 +14,25 @@ main {
 .divDetailCommande {
     text-align: center;
     border: 1px solid saddlebrown;
-    width: 300px;
+    width: 600px;
     padding: 10px;
     margin: 3% auto 1%;
     border-radius: 10% / 20%;
     background-color: aliceblue;
     transition-duration: 500ms;
+    box-shadow: 0 0 25px dodgerblue;
 }
 
 .divDetailCommande:hover {
     transition-duration: 500ms;
-    box-shadow: 0 0 100px dodgerblue;
+    box-shadow: 0 0 50px dodgerblue;
 }
 
 /* Formulaire */
 .sectionFormulaire {
     display: flex;
+    justify-content: center;
+    gap: 35px;
 }
 
 .divFormulaireCommande {
@@ -33,25 +40,18 @@ main {
     flex-direction: column;
     align-items: center;
     border: 1px solid saddlebrown;
-    width: 300px;
-    height: 450px;
-    padding: 10px;
-    margin: 0 auto 0 28px;
-    border-radius: 10% / 20%;
+    height: auto;
+    width: 400px;
+    padding: 20px;
+    border-radius: 20px;
     background-color: dodgerblue;
     transition-duration: 500ms;
+    box-shadow: 0 0 15px black;
 }
 
 .divFormulaireCommande:hover {
     transition-duration: 500ms;
-    box-shadow: 0 0 10px black;
-}
-
-/* Messages textes */
-.messages {
-    margin-left: 576px;
-    width: 10%;
-    height: 400px;
+    box-shadow: 0 0 30px black;
 }
 
 #prix {
@@ -65,6 +65,7 @@ main {
     align-content: center;
     margin: 10% auto;
     padding: 1%;
+    box-shadow: 0 0 15px saddlebrown;
 }
 
 #prixTotalLivraison {
@@ -78,6 +79,7 @@ main {
     align-content: center;
     margin: 1% auto;
     padding: 1%;
+    box-shadow: 0 0 15px saddlebrown;
 }
 
 /* form */

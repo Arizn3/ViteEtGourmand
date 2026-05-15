@@ -9,7 +9,7 @@ main {
 /* Table des commandes actifs */
 .sectionActif {
     background-color: darkseagreen;
-    width: 1800px;
+    width: auto;
     height: auto;
     border: 1px solid black;
     padding-left: 20px;

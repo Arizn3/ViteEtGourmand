@@ -1,5 +1,9 @@
+body {
+    background-color: aliceblue;
+}
+
 main {
-    height: 700px;
+    height: 900px;
 }
 
 /* Photos */
@@ -98,8 +102,9 @@ main {
 
 .btn {
     text-align: center;
-    margin: 10%;
     font-size: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .btn a {
@@ -107,10 +112,11 @@ main {
     background-color: azure;
     border: 1px solid saddlebrown;
     border-radius: 15% / 50%;
-    margin: 10px;
+    margin: 10px auto 0 auto;
     padding: 10px;
     font-size: 20px;
     color: black;
+    width: 150px;
     transition-duration: 500ms;
 }
 

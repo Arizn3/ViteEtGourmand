@@ -4,13 +4,15 @@
 </head>
 
 <main class="mainFormulaireConnexion">
-    
+
     <h1>Formulaire d'inscription</h1>
-    
+
+    <p> 👋🏼 Pour le moment, notre service de livraison est disponible uniquement en <b>Gironde</b>. </p>
+
     {{ form_errors(registrationForm) }}
-    
+
     {{ form_start(registrationForm, { attr: { novalidate: 'novalidate' } }) }}
-    
+
     {# Input du formulaire #}
     {{ form_row(registrationForm.email) }}
     {{ form_row(registrationForm.prenom) }}
@@ -19,11 +21,11 @@
     {{ form_row(registrationForm.adresse) }}
     {{ form_row(registrationForm.plainPassword) }}
     {{ form_row(registrationForm.agreeTerms) }}
-    
+
     <button type="submit" class="btn">Je crée mon compte !</button>
-    
+
     {{ form_end(registrationForm) }}
-    
+
     <a href="{{ path('app_home') }}">Accueil</a>
 
 </main>

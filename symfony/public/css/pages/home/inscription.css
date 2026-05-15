@@ -1,5 +1,5 @@
 body {
-    background-color: aliceblue;
+    background-image: url(/uploads/images/fond-ab.png);
     height: auto
 }
 
@@ -15,6 +15,10 @@ body {
     flex-direction: column;
     transition: 500ms;
     padding: 20px;
+}   
+
+.mainFormulaireConnexion p {
+    text-align: center;
 }
 
 .mainFormulaireConnexion:hover {

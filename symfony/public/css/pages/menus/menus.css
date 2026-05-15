@@ -1,3 +1,7 @@
+body {
+    background-image: url(/uploads/images/fond-aw.png);
+}
+
 main {
     height: 700px;
 }

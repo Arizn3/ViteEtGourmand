@@ -102,7 +102,7 @@ final class CommandeController extends AbstractController
                     $prixLivraison = 5 + ($distance * 0.59);
                     $prixTotal += $prixLivraison;
                 } catch (\Exception $e) {
-                    $this->addFlash('error', 'Ville invalide');
+                    $this->addFlash('error', '⚠️ Attention : cette ville n’existe pas ou n’est pas desservie en Gironde.');
                     return $this->redirectToRoute('app_commande', [
                         'id' => $menu->getId()
                     ]);

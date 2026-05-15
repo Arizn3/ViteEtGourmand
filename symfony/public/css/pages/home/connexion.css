@@ -1,5 +1,5 @@
 body {
-    background-color: aliceblue;
+    background-image: url(/uploads/images/fond-ab.png);
     height: 600px;
 }
 
@@ -9,7 +9,7 @@ body {
     border: 2px solid white;
     box-shadow: 0 0 10px saddlebrown;
     width: 300px;
-    height: 280px;
+    height: auto;
     margin: 200px auto;
     display: flex;
     flex-direction: column;

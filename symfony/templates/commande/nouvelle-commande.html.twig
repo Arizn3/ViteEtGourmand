@@ -1,96 +1,98 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="/css/pages/menus/commande.css">
+{{ parent() }}
+<link rel="stylesheet" href="/css/pages/menus/commande.css">
 {% endblock stylesheets %}
 
 {% block title %} Nouvelle commande {% endblock title %}
 
 {% block content %}
 
-    <div class="divDetailCommande">
+<div class="divDetailCommande">
 
-        <h3>Nouvelle commande</h3>
-        
-        <p>Menu choisi : <b><span class="color">{{ menu.titre }}</span></b></p>
-        <p>Boîte à repas minimum : <b><span class="color">{{ menu.personneMini }}</span></b></p>
-        
-        <p>Nom : <b>{{ utilisateur.nom }}</b></p>
-        <p>Prenom : <b>{{ utilisateur.prenom }}</b></p>
-        <p>Email : <b>{{ utilisateur.email }}</b></p>
-        <p>Telephone : <b>{{ utilisateur.telephone }}</b></p>
-        
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
+    <h3>Nouvelle commande</h3>
 
-                <div class="flash-{{ label }}">
-                    {{ message }}
-                </div>
+    <p>Menu choisi : <b><span class="color">{{ menu.titre }}</span></b></p>
+    <p>Boîte à repas minimum : <b><span class="color">{{ menu.personneMini }}</span></b></p>
 
-            {% endfor %}
-        {% endfor %}
+    <p>Nom : <b>{{ utilisateur.nom }}</b></p>
+    <p>Prenom : <b>{{ utilisateur.prenom }}</b></p>
+    <p>Email : <b>{{ utilisateur.email }}</b></p>
+    <p>Telephone : <b>{{ utilisateur.telephone }}</b></p>
 
+</div>
+
+<section class="sectionFormulaire">
+
+    <div>
+        <p id="prix"></p>
+        <p id="prixTotalLivraison"></p>
     </div>
-    <section class="sectionFormulaire">
 
-        <div class="messages">
-            <p id="prix"></p>
-            <p id="prixTotalLivraison"></p>
+    <div class="divFormulaireCommande">
+
+        {% for label, messages in app.flashes %}
+        {% for message in messages %}
+
+        <div class="flash-{{ label }}">
+            {{ message }}
         </div>
 
-        <div class="divFormulaireCommande">
-            
-            {{ form_start(form, {
-                attr: {
-                    id: 'form_commande'
-                }
-            }) }}
-            
-            {# Nombre de boîte à repas #}
-            {{ form_label(form.nbPersonne) }}
-            {{ form_widget(form.nbPersonne, {
-                attr: {
-                    'data-prix': menu.prixPersonne,
-                    'data-min': menu.personneMini,
-                    'data-max': menu.qttRestante,
-                }
-            }) }}
-            
-            {# Date de livraison #}
-            {{ form_label(form.datePrestation) }}
-            {{ form_widget(form.datePrestation) }}
-            
-            {# Heure de livraison #}
-            {{ form_label(form.heureLivraison) }}
-            {{ form_widget(form.heureLivraison) }}
-            {{ form_errors(form.heureLivraison) }}
-            
-            {# Ville #}
-            {{ form_label(form.villeLivraison) }}
-            {{ form_widget(form.villeLivraison) }}
-            
-            {# Adresse #}
-            {{ form_label(form.adresseLivraison) }}
-            {{ form_widget(form.adresseLivraison) }}
-            
-            <button type="submit">Enregistrer</button>
-            <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Retour aux détails</a>
-            
-            {{ form_end(form) }}
+        {% endfor %}
+        {% endfor %}
 
-        </div>  
-            
-    </section>
+        {{ form_start(form, {
+        attr: {
+        id: 'form_commande'
+        }
+        }) }}
+
+        {# Nombre de boîte à repas #}
+        {{ form_label(form.nbPersonne) }}
+        {{ form_widget(form.nbPersonne, {
+        attr: {
+        'data-prix': menu.prixPersonne,
+        'data-min': menu.personneMini,
+        'data-max': menu.qttRestante,
+        }
+        }) }}
+
+        {# Date de livraison #}
+        {{ form_label(form.datePrestation) }}
+        {{ form_widget(form.datePrestation) }}
+
+        {# Heure de livraison #}
+        {{ form_label(form.heureLivraison) }}
+        {{ form_widget(form.heureLivraison) }}
+        {{ form_errors(form.heureLivraison) }}
+
+        {# Ville #}
+        <p>👉 Pour le moment, notre service de livraison est disponible uniquement en <b>Gironde</b></p>
+        {{ form_label(form.villeLivraison) }}
+        {{ form_widget(form.villeLivraison) }}
+
+        {# Adresse #}
+        {{ form_label(form.adresseLivraison) }}
+        {{ form_widget(form.adresseLivraison) }}
+
+        <button type="submit">Enregistrer</button>
+        <a href="{{ path('app_menu_detail', {id: menu.id}) }}">Retour aux détails</a>
+
+        {{ form_end(form) }}
+
+    </div>
+
+</section>
 
 {% endblock content %}
 
 {% block javascripts %}
-    {{ parent() }}
+{{ parent() }}
 
-    <script>
-        const calculLivraisonUrl = "{{ path('app_calcul_livraison') }}";
-    </script>
+<script>
+    const calculLivraisonUrl = "{{ path('app_calcul_livraison') }}";
+</script>
 
-    <script src="/javascript/pages/menus/commande.js" defer></script>
+<script src="/javascript/pages/menus/commande.js" defer></script>
 {% endblock javascripts %}

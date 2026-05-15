@@ -1,5 +1,5 @@
 body {
-    background-color: aliceblue;
+    background-image: url(/uploads/images/fond-aw.png);
 }
 
 main {
@@ -50,7 +50,7 @@ main {
     border: 1px solid black;
     box-shadow: 0 0 10px saddlebrown;
     padding: 10px;
-    background-color: antiquewhite;
+    background-color: azure;
     text-align: center;
     transition: 500ms;
 }

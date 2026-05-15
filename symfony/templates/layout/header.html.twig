@@ -1,13 +1,18 @@
-<div class="divTitreHeader">
-    <h1>Vite<span class="et">&</span>Gourmand</h1>
-    <p>Commandez simplement, dégustez pleinement</p>
-</div>
-<div class="divLiensHeader">
-    <div>
-        <a href="#"><img src="/uploads/images/icon_facebook.png" width="30px" height="30px" alt="instagram"></a>
-        <a href="#"><img src="/uploads/images/icon_instagram.png" width="30px" height="30px" alt="facebook"></a>
+<section class="sectionHeader">
+
+    <div class="divTitreHeader">
+        <h1>Vite<span class="et">&</span>Gourmand</h1>
+        <p>Commandez simplement, dégustez pleinement</p>
     </div>
-    {% if app.user %}
+    
+    <div class="divLiensHeader">
+        <div class="divLogo">
+            <a href="#"><img src="/uploads/images/icon_facebook.png" width="30px" height="30px" alt="instagram"></a>
+            <a href="#"><img src="/uploads/images/icon_instagram.png" width="30px" height="30px" alt="facebook"></a>
+        </div>
+        {% if app.user %}
         <a class="deconnexion" href="{{ logout_path() }}">Déconnexion</a>
-    {% endif %}
-</div>
+        {% endif %}
+    </div>
+
+</section>

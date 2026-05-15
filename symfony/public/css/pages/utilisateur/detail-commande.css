@@ -1,5 +1,5 @@
 body {
-    background-color: aliceblue;
+    background-image: url(/uploads/images/fond-aw.png);
 }
 
 main {
@@ -10,7 +10,7 @@ main {
     display: flex;
     text-align: center;
     flex-direction: column;
-    background-color: antiquewhite;
+    background-color: azure;
     border: 1px solid black;
     border-radius: 20px;
     width: 700px;

@@ -30,16 +30,14 @@ main {
 
 /* Formulaire */
 .formulaire {
-    width: 1800px;
+    width: 1400px;
     margin: 25px;
     padding: 10px;
 }
 
 .formulaire form {
     display: flex;
-    width: 1800px;
     flex-direction: column;
-    width: auto;
 }
 
 .colorDate {

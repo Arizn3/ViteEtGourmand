@@ -1,25 +1,22 @@
-/* Body */
-body {
-    background-color: white;
-}
-
 /* Header */
 header {
     height: 20rem;
-    display: flex;
     background-image: url(/uploads/images/img_header.png);
     background-repeat: no-repeat;
     background-position: center;
     margin-bottom: -1%;
 }
 
-/* DivG */
+.sectionHeader {
+    display: flex;
+}
+
+/* divTitreHeader */
 .divTitreHeader {
-    margin: 0% 28% 0 31%;
+    margin: 0 20% 0 30%;
 }
 
 .divTitreHeader h1 {
-    margin: 5% 0 0 10%;
     color: white;
     font-size: 5rem;
     font-family: Didot;
@@ -28,7 +25,6 @@ header {
 .divTitreHeader p {
     color: white;
     font-family: Copperplate, Comic Sans MS, Verdana;
-    margin: 0 0 0 16%;
     width: max-content;
     font-size: x-large;
 }
@@ -37,15 +33,15 @@ header {
     color: brown;
 }
 
-/* DivD */
-.divLiensHeader {
+/* divLiensHeader */
+.divLogo {
+    margin: 15px;
     display: flex;
-    flex-direction: column;
-    margin: 1%;
+    gap: 10px;
 }
 
-.divLiensHeader a {
-    margin-right: 5px;
+.divLiensHeader {
+    margin: 40px 100px auto 0;
 }
 
 .deconnexion {
