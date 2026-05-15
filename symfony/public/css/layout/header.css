@@ -13,7 +13,7 @@ header {
 
 /* divTitreHeader */
 .divTitreHeader {
-    margin: 0 20% 0 30%;
+    margin: auto;
 }
 
 .divTitreHeader h1 {
@@ -41,7 +41,9 @@ header {
 }
 
 .divLiensHeader {
-    margin: 40px 100px auto 0;
+    position: absolute;
+    margin-left: 90%;
+    margin-top: 30px;
 }
 
 .deconnexion {
