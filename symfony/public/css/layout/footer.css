@@ -3,9 +3,7 @@ footer {
     justify-content: space-between;
     background-image: url(/uploads/images/img_header.png);
     background-repeat: no-repeat;
-    background-color: black;
     background-position: bottom;
-    border-top: 1px solid black;
     margin-top: 5%;
     padding: 2%;
     color: white;
