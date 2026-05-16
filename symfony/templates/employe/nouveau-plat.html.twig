@@ -50,14 +50,18 @@
         {{ form_end(form) }}
 
     </section>
-
     <section class="sectionPlats">
 
-        {# Plat disponible #}
-        <div id="photo-div" style="display: none;">
-            <img src="" alt="Photo du plat" class="PhotoPlatsDisponible">
+        <div class="titrePlats">
+
+            <h3> Plats disponibles </h3>
+            
+            <div id="photo-div" style="display: none;">
+                <img src="" alt="Photo du plat" class="PhotoPlatsDisponible">
+            </div>
+
         </div>
-        
+            
         {% for label, messages in app.flashes %}
             {% for message in messages %}
                 <div class="flash-{{ label }}">
@@ -65,22 +69,24 @@
                 </div>
             {% endfor %}
         {% endfor %}
-        
-        <table>
-                <h3 class="titrePlats"> Plats disponibles </h3>
-            {% for plats in plat %}
-            <tr>
-                <td>
-                    {{ plats.nomPlat }}
-                    <div class="lienPlats">
-                        <a href="#" class="btn-photo" data-photo="{{ plats.photo }}" title="Visulaliser">📷</a>
-                        <a href="{{ path('app_supprime_plat', {id: plats.id}) }}" class="btn-supression" title="Supprimer">❌
-                    </div>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+        {# Plat disponible #}
+        <div class="divTablePlats">
+            
+            <table>
+                {% for plats in plat %}
+                <tr>
+                    <td>
+                        {{ plats.nomPlat }}
+                        <div class="lienPlats">
+                            <a href="#" class="btn-photo" data-photo="{{ plats.photo }}" title="Visulaliser">📷</a>
+                            <a href="{{ path('app_supprime_plat', {id: plats.id}) }}" class="btn-supression" title="Supprimer">❌</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            
+        </div>
 
     </section>
 

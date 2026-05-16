@@ -503,35 +503,33 @@ L\'équipe Vite & Gourmand
         $form = $this->createForm(PlatType::class, $plat);
         $form->handleRequest($request);
 
-        // Photo
-        $photo = $form->get('photo')->getData();
-
-        // Mapping de la photo sous condition
-        if ($photo) {
-
-            $nomOriginal = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-            // Sécuriser le nom de la photo.
-            $safeNom = $slugger->slug($nomOriginal);
-
-            $nouveauNom = $safeNom . '-' . uniqid() . '.' . $photo->guessExtension();
-
-            $photo->move(
-                $this->getParameter('image_directory'),
-                $nouveauNom
-            );
-
-            $plat->setPhoto($nouveauNom);
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $photo = $form->get('photo')->getData();
+
+            if ($photo) {
+
+                $nomOriginal = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $safeNom = $slugger->slug($nomOriginal);
+
+                $nouveauNom = $safeNom . '-' . uniqid() . '.' . $photo->guessExtension();
+
+                $photo->move(
+                    $this->getParameter('image_directory'),
+                    $nouveauNom
+                );
+
+                $plat->setPhoto($nouveauNom);
+            }
+
             $plat->setCreatedAt(new \DateTime());
-            // Persistance des données en base
+
             $em->persist($plat);
             $em->flush();
 
             return $this->redirectToRoute('app_menu_nouveau_plat');
-        };
+        }
 
         return $this->render('employe/nouveau-plat.html.twig', [
             'form' => $form->createView(),

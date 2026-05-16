@@ -27,7 +27,7 @@ main h3 {
 
 .filtres input,
 select {
-    background-color: linen;
+    background-color: azure;
     border: 1px solid gray;
     border-radius: 10% / 50%;
     height: 30px;

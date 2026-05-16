@@ -4,9 +4,8 @@ body {
 
 main {
     height: auto;
-    min-height: 1000px;
     display: flex;
-    margin-top: 30px;
+    margin-top: 100px;
 }
 
 .divTitre {
@@ -98,14 +97,41 @@ main {
     color: saddlebrown;
 }
 
-/* Table plat */
+/* Section plats */
 .sectionPlats {
-    width: auto;
-    margin: 0px 40% 0px auto;
-    padding: 10px;
+    display: flex;
+    margin: 0 250px 0 0;
+    gap: 40px;
 }
 
-.sectionPlats td {
+.titrePlats {
+    text-align: center;
+}
+
+/* Table plat */
+.divTablePlats {
+    width: auto;
+    margin: auto;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-height: 700px;
+    overflow-y: auto;
+    border: 5px solid saddlebrown;
+    border-radius: 10px;
+    background-color: antiquewhite;
+    box-shadow: 0 0 10px saddlebrown;
+    transition: 300ms;
+}
+
+.divTablePlats:hover {
+    transition: 300ms;
+    background-color: aliceblue;
+    box-shadow: 0 0 30px saddlebrown;
+}
+
+.divTablePlats td {
     border: 1px solid blue;
     border-radius: 30px / 50px;
     margin: 10px;
@@ -121,13 +147,13 @@ main {
     text-align: center;
 }
 
-.sectionPlats td:hover {
+.divTablePlats td:hover {
     transition: 500ms;
     background-color: aliceblue;
     color: cornflowerblue;
 }
 
-.sectionPlats a {
+.divTablePlats a {
     text-decoration: none;
 
 }

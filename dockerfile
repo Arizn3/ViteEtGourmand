@@ -15,6 +15,10 @@ RUN apk add --no-cache openssl-dev \
     && pecl install mongodb \
     && docker-php-ext-enable mongodb
 
+# Taille pour les fichiers upload
+RUN echo "upload_max_filesize=10M" > /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size=10M" >> /usr/local/etc/php/conf.d/uploads.ini
+
 # Installation de Composer [source, image Composer] [destination, image PHP]
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 

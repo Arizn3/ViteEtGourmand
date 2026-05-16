@@ -24,13 +24,13 @@ class PlatType extends AbstractType
                 // 'mapped' => false : Le traitement des images se fait manuellement dans EmployeController.php
                 'mapped' => false,
                 'required' => true,
-                'label' => 'Photo : Veillez à ce que la photo soit en format carré, de taille 500 x 500 de préférence.',
+                'label' => 'Photo : Veillez à ce que la photo soit en format carré, de taille 500 x 500 de préférence et ne doit pas dépasser 10 MO.',
                 'constraints' => [
                     // Contraintes utiliser pour les entrées de type File, avec le namespace ~/File
                     new File([
-                        'maxSize' => '2M',
+                        'maxSize' => '10M',
                         'mimeTypes' => ['image/jpeg', 'image/png'],
-                        'mimeTypesMessage' => 'Le fichier doit être une image (JPG ou PNG) et ne pas dépasser 2 Mo.'
+                        'mimeTypesMessage' => 'Le fichier doit être une image (JPG ou PNG) et ne pas dépasser 10 MO.'
                     ])
                 ],
             ])

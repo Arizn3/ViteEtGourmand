@@ -236,7 +236,7 @@ CREATE TABLE `plat` (
   `deleted_at` date DEFAULT NULL,
   `created_at` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,6 +245,7 @@ CREATE TABLE `plat` (
 
 LOCK TABLES `plat` WRITE;
 /*!40000 ALTER TABLE `plat` DISABLE KEYS */;
+INSERT INTO `plat` VALUES (1,'Boeuf bourguignon traditionnel','Boeuf-Bourguignon-2-6a07542f3def6.png',NULL,'2026-05-15');
 /*!40000 ALTER TABLE `plat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,6 +272,7 @@ CREATE TABLE `plat_allergene` (
 
 LOCK TABLES `plat_allergene` WRITE;
 /*!40000 ALTER TABLE `plat_allergene` DISABLE KEYS */;
+INSERT INTO `plat_allergene` VALUES (1,2),(1,9);
 /*!40000 ALTER TABLE `plat_allergene` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,7 +289,7 @@ CREATE TABLE `regime` (
   `created_at` date NOT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -296,6 +298,7 @@ CREATE TABLE `regime` (
 
 LOCK TABLES `regime` WRITE;
 /*!40000 ALTER TABLE `regime` DISABLE KEYS */;
+INSERT INTO `regime` VALUES (1,'Végan','2026-05-15',NULL),(2,'Classique','2026-05-15',NULL),(3,'Sans gluten','2026-05-15',NULL);
 /*!40000 ALTER TABLE `regime` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -365,7 +368,7 @@ CREATE TABLE `theme` (
   `created_at` date NOT NULL,
   `deleted_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,6 +377,7 @@ CREATE TABLE `theme` (
 
 LOCK TABLES `theme` WRITE;
 /*!40000 ALTER TABLE `theme` DISABLE KEYS */;
+INSERT INTO `theme` VALUES (1,'Rustique','2026-05-15',NULL),(2,'Buffet','2026-05-15',NULL),(3,'Convivial','2026-05-15',NULL);
 /*!40000 ALTER TABLE `theme` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -398,7 +402,7 @@ CREATE TABLE `utilisateur` (
   PRIMARY KEY (`id`),
   KEY `IDX_1D1C63B3D60322AC` (`role_id`),
   CONSTRAINT `FK_utilisateur_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -407,7 +411,7 @@ CREATE TABLE `utilisateur` (
 
 LOCK TABLES `utilisateur` WRITE;
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
-INSERT INTO `utilisateur` VALUES (1,'admin@email.com','$2y$13$6htmHjF8jtuteC3iAgB3dOwOBQWd29IWD8Kl4677WaasVVzThEBOW','adminUser','adminUser','0606060606','adminUser',1,'2026-05-01',NULL);
+INSERT INTO `utilisateur` VALUES (1,'admin@email.com','$2y$13$6htmHjF8jtuteC3iAgB3dOwOBQWd29IWD8Kl4677WaasVVzThEBOW','adminUser','adminUser','0606060606','adminUser',1,'2026-05-01',NULL),(2,'emp@email.com','$2y$13$0n0Ob4g49CK8AwVq1WCFqOVgejWyNfmWnwiQlA.Ync7jM/q4j4gf.','Juan','Rodriguez','0000000000','UserEmp',2,'2026-05-15',NULL),(3,'utilisateur1@email.com','$2y$13$i02ip1v6EPQoAso43OScXOnMk4K1B6UKsqhx6V4zfDhmruBz3ZiVW','Lucas','CAPPELLO','0606060606','2 Rés Les Matines, 33680 Le Porge',3,'2026-05-15',NULL),(4,'utilisateur2@email.com','$2y$13$EhTDKqC/owkQkF4z4CQPs.23sygrsFqVxIWx0ig00KKmTraGxgyVu','Luciano','Meloni','0606060606','27 Av. de Bordeaux 31, 33680 Lacanau',3,'2026-05-15',NULL),(5,'utilisateur3@email.com','$2y$13$pJPtvKM7FQWovTHiG9BJT.1m7pIkg1H0qWnPgV8osIXwYWrpZOzoS','Virginie','Uhlen','0606060606','19 esplanade des Antilles, 33607 Pessac',3,'2026-05-15',NULL),(6,'utilisateur4@email.com','$2y$13$wm6cBwdv5A72uE0.FyqUIOEriQqHgqQZwhZkNrcJ.7g74NbNsAVUO','Aurore','Gomes','0606060606','Pl. de la Comédie, 33000 Bordeaux',3,'2026-05-15',NULL),(7,'utilisateur5@email.com','$2y$13$qHj94yhiv9gI7ctVDVkkBOjvRr8tBB36hM3WjKFFg63Z4TpPQyquO','Adam','Al-najjar','0606060606','La Sayé ROUTE DE, 33620 Cavignac',3,'2026-05-15',NULL),(8,'utilisateur6@email.com','$2y$13$q.zdX06KO1x6hvCa1dN5cOVcHUaZnMbX8nDS8VtGtUpYb0W3f4Rdy','Aurelien','Drutalos','0606060606','Rte du Stade, 33820 Braud-et-Saint-Louis',3,'2026-05-15',NULL),(9,'utilisateur7@email.com','$2y$13$A2gnLwEnB37ETzPN6npe2ei2qgnU43rtyCio23l2WyZVhkd56bYf6','Jérémie','Gachon','0606060606','5 Av. Paul Desfarges, 16000 Angoulême',3,'2026-05-15',NULL),(10,'utilisateur8@email.com','$2y$13$6usuf4L4UiIdEmG61Lspyu6i7gcX3B2V4bYBSZpRVRPmRqKnywCIm','David','Gauckler','0606060606','Le bourg, 49 Rte de Torsac, 16410 Dirac',3,'2026-05-15',NULL),(11,'utilisateur9@email.com','$2y$13$TeYYBQEi/5/g3Axgh3D6k.0apV7bwmdn5uB7PpZO4kXi2y39.udCm','Cédric','Wolf','0606060606','À Hustet, 32250 Montréal',3,'2026-05-15',NULL),(12,'utilisateur10@email.com','$2y$13$0M3RoSht9VGFWdLSw9Oxy.8quYzouIQoeNNG4zUaR123clJV6LKiq','Ludivine','Fournier','0606060606','87 Av. de Gascogne, 33114 Le Barp',3,'2026-05-15',NULL);
 /*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -420,4 +424,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-07 21:14:19
+-- Dump completed on 2026-05-15 19:19:44

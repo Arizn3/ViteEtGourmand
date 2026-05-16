@@ -4,6 +4,7 @@ body {
 
 main {
     height: auto;
+    padding: 20px;
 }
 
 /* Table des commandes actifs */
