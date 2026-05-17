@@ -55,7 +55,7 @@ CREATE TABLE `avis` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8F91ABF0FB88E14F` (`utilisateur_id`),
   CONSTRAINT `FK_8F91ABF0FB88E14F` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,6 +64,7 @@ CREATE TABLE `avis` (
 
 LOCK TABLES `avis` WRITE;
 /*!40000 ALTER TABLE `avis` DISABLE KEYS */;
+INSERT INTO `avis` VALUES (1,4,'Service rapide et repas délicieux, merci !','VALIDE',3),(2,5,'Très bon menu et livraison impeccable !','VALIDE',4),(3,4,'Repas savoureux et équipe très agréable !','VALIDE',5),(4,3,'Bon dans l’ensemble, livraison presque en retard.','VALIDE',6),(5,4,'Menu correct et portions satisfaisantes.','VALIDE',7),(6,4,'Très bonne expérience pour notre événement.','EN_ATTENTE',8);
 /*!40000 ALTER TABLE `avis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +97,7 @@ CREATE TABLE `commande` (
   KEY `IDX_6EEAA67DCCD7E912` (`menu_id`),
   CONSTRAINT `FK_commande_menu` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`),
   CONSTRAINT `FK_commande_utilisateur` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,6 +106,7 @@ CREATE TABLE `commande` (
 
 LOCK TABLES `commande` WRITE;
 /*!40000 ALTER TABLE `commande` DISABLE KEYS */;
+INSERT INTO `commande` VALUES (1,'2026-04-10','2026-04-23','11:00:00',537.692,20,39.692,'Terminer',1,0,3,1,'1 Rte de la Landette','Blaignan-Prignac','2026-04-25','2026-04-10'),(2,'2026-04-11','2026-04-20','18:00:00',1193.681,45,23.231,'Terminer',1,0,4,3,'44 Rue Fort Bayard','Branne','2026-04-23','2026-04-11'),(3,'2026-04-17','2026-04-27','16:30:30',481.279,20,51.079,'Terminer',1,0,5,5,'16 Rue des Maourelles','Grayan-et-l\'Hôpital','2026-04-29','2026-04-17'),(4,'2026-04-17','2026-04-25','15:00:00',1134.999,50,14.499,'Terminer',1,0,6,1,'43 Rte de la Providence','Ludon-Médoc','2026-04-27','2026-04-17'),(5,'2026-04-19','2026-04-28','18:00:00',785.322,30,32.022,'Terminer',1,0,7,4,'9 Av. de l\'Europe','Les Peintures','2026-04-29','2026-04-19'),(6,'2026-05-01','2026-05-10','16:00:00',541.94,20,43.94,'Terminer',1,0,3,1,'1371 Rte de St Nazaire','Saint-Avit-Saint-Nazaire','2026-05-12','2026-05-01'),(7,'2026-05-02','2026-05-11','16:00:00',1066.758,40,26.358,'Terminer',1,0,4,3,'12 Rue du Silberberg','Saint-Hippolyte','2026-05-12','2026-05-02'),(8,'2026-05-03','2026-05-14','16:00:00',878.31,35,30.96,'Terminer',1,0,5,2,'24 Muraille','Saint-Pardon-de-Conques','2026-05-15','2026-05-03'),(9,'2026-05-04','2026-05-15','14:00:00',906.624,35,27.774,'Terminer',1,0,8,10,'41 Rue des Primevères','Sainte-Florence','2026-05-16','2026-05-04'),(10,'2026-05-04','2026-05-17','15:00:00',715.153,30,26.653,'Annuler',1,0,9,8,'26 Chem. de Guillemin','Sainte-Terre','2026-05-05','2026-05-04'),(11,'2026-05-10','2026-05-25','12:00:00',577.243,20,39.043,'Votre commande est en préparation',1,0,10,7,'4 Tucos','Sauviac',NULL,'2026-05-10'),(12,'2026-05-17','2026-05-29','14:00:00',464.7,20,34.5,'Votre commande est en préparation',1,0,11,5,'8 rue des chataigniers','Vertheuil',NULL,'2026-05-17'),(13,'2026-05-17','2026-05-27','15:00:00',939.284,40,21.284,'Votre commande va être prise en compte',1,0,12,8,'ZA La Tranche','Villeneuve',NULL,'2026-05-17');
 /*!40000 ALTER TABLE `commande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +125,7 @@ CREATE TABLE `commande_historique` (
   PRIMARY KEY (`id`),
   KEY `IDX_757DF90A82EA2E54` (`commande_id`),
   CONSTRAINT `FK_757DF90A82EA2E54` FOREIGN KEY (`commande_id`) REFERENCES `commande` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,6 +134,7 @@ CREATE TABLE `commande_historique` (
 
 LOCK TABLES `commande_historique` WRITE;
 /*!40000 ALTER TABLE `commande_historique` DISABLE KEYS */;
+INSERT INTO `commande_historique` VALUES (1,1,'Votre commande a été prise en compte','2026-04-10 11:30:00'),(2,1,'Votre commande est en préparation','2026-04-10 16:00:00'),(3,1,'En cours de livraison','2026-04-23 11:00:00'),(4,1,'Commande livrée','2026-04-23 11:30:00'),(5,1,'En attente du retour de matériel','2026-04-24 12:00:00'),(6,1,'Terminer','2026-04-25 15:00:00'),(7,2,'Votre commande a été prise en compte','2026-04-11 17:00:00'),(8,2,'Votre commande est en préparation','2026-04-11 18:50:00'),(9,2,'En cours de livraison','2026-04-20 17:30:00'),(10,2,'Commande livrée','2026-04-20 18:00:00'),(11,2,'En attente du retour de matériel','2026-04-21 13:00:00'),(12,2,'Terminer','2026-04-23 14:15:00'),(13,3,'Votre commande a été prise en compte','2026-04-17 14:34:00'),(14,3,'Votre commande est en préparation','2026-04-17 17:30:00'),(15,3,'En cours de livraison','2026-04-27 15:39:00'),(16,3,'Commande livrée','2026-04-27 16:15:00'),(17,3,'En attente du retour de matériel','2026-04-28 12:15:00'),(18,3,'Terminer','2026-04-29 15:15:00'),(19,4,'Votre commande a été prise en compte','2026-04-17 11:04:00'),(20,4,'Votre commande est en préparation','2026-04-17 14:00:00'),(21,4,'En cours de livraison','2026-04-25 14:00:00'),(22,4,'Commande livrée','2026-04-25 14:50:00'),(23,4,'En attente du retour de matériel','2026-04-26 13:55:00'),(24,4,'Terminer','2026-04-27 14:30:00'),(25,5,'Votre commande a été prise en compte','2026-04-19 14:30:00'),(26,5,'Votre commande est en préparation','2026-04-20 14:00:00'),(27,5,'En cours de livraison','2026-04-28 16:30:00'),(28,5,'Commande livrée','2026-04-28 17:35:00'),(29,5,'En attente du retour de matériel','2026-04-29 14:10:00'),(30,5,'Terminer','2026-04-29 14:40:00'),(31,6,'Votre commande a été prise en compte','2026-05-01 11:00:00'),(32,6,'Votre commande est en préparation','2026-05-01 14:00:00'),(33,6,'En cours de livraison','2026-05-10 15:00:00'),(34,6,'Commande livrée','2026-05-10 16:00:00'),(35,6,'En attente du retour de matériel','2026-05-11 14:00:00'),(36,6,'Terminer','2026-05-12 16:00:00'),(37,7,'Votre commande a été prise en compte','2026-05-02 16:00:00'),(38,7,'Votre commande est en préparation','2026-05-02 18:00:00'),(39,7,'En cours de livraison','2026-05-11 15:00:00'),(40,7,'Commande livrée','2026-05-11 15:57:00'),(41,7,'En attente du retour de matériel','2026-05-12 14:57:40'),(42,7,'Terminer','2026-05-12 18:40:00'),(43,8,'Votre commande a été prise en compte','2026-05-03 14:00:00'),(44,8,'Votre commande est en préparation','2026-05-03 14:40:00'),(45,8,'En cours de livraison','2026-05-14 15:10:20'),(46,8,'En attente du retour de matériel','2026-05-14 18:58:00'),(47,8,'Terminer','2026-05-15 17:09:00'),(48,9,'Votre commande a été prise en compte','2026-05-04 17:30:00'),(49,9,'Votre commande est en préparation','2026-05-05 11:30:00'),(50,9,'En cours de livraison','2026-05-15 12:30:00'),(51,9,'Commande livrée','2026-05-15 13:15:00'),(52,9,'En attente du retour de matériel','2026-05-16 13:40:00'),(53,9,'Terminer','2026-05-16 17:30:00'),(54,10,'Votre commande a été prise en compte','2026-05-04 17:39:00'),(55,10,'Annuler','2026-05-05 12:45:00'),(56,11,'Votre commande a été prise en compte','2026-05-10 17:46:30'),(57,11,'Votre commande est en préparation','2026-05-11 12:46:00'),(58,12,'Votre commande est en préparation','2026-05-17 17:00:00');
 /*!40000 ALTER TABLE `commande_historique` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +187,7 @@ CREATE TABLE `menu` (
   KEY `IDX_7D053A9359027487` (`theme_id`),
   CONSTRAINT `FK_menu_regime` FOREIGN KEY (`regime_id`) REFERENCES `regime` (`id`),
   CONSTRAINT `FK_menu_theme` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,6 +196,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+INSERT INTO `menu` VALUES (1,'Tradition Bordelais',20,24.9,'Un menu généreux composé d’un avocat frais en entrée, d’un bœuf bourguignon traditionnel mijoté avec soin et d’un duo gourmand bordelais pour terminer sur une touche sucrée et régionale.',210,'2026-05-17',NULL,2,1),(2,'Menu Gourmand',10,26.9,'Un menu convivial composé d’un houmous gourmand en entrée, d’un bœuf bourguignon accompagné de sa purée maison, puis d’un authentique canelé bordelais en dessert.',165,'2026-05-17',NULL,2,3),(3,'Saveurs Gourmandes',8,28.9,'Un menu généreux avec des bruschettas gourmandes en entrée, un bœuf grenade aux saveurs raffinées accompagné de sa garniture, puis une tarte fondante au chocolat pour finir sur une note intense et sucrée.',115,'2026-05-17',NULL,2,3),(4,'Élégance Gourmande',6,27.9,'Un menu raffiné composé d’une assiette de foie gras en entrée, de lentilles au riz parfumé aux saveurs délicates, puis d’un carré de gourmandise au chocolat pour une touche finale intense et fondante.',70,'2026-05-17',NULL,2,2),(5,'Vegan Fraîcheur',8,23.9,'Un menu végétal et coloré composé d’une salade Caprese revisitée, d’un Buddha Bowl Vegan équilibré et gourmand, puis d’un cheesecake aux fruits rouges pour une touche sucrée et fruitée.',260,'2026-05-17',NULL,1,3),(6,'Saveur Maison',6,22.9,'Un menu convivial composé d’une quiche lorraine maison en entrée, de tagliatelles crémeuses aux saveurs réconfortantes, puis d’un fraisier délicat et fruité en dessert.',100,'2026-05-17',NULL,2,1),(7,'Fraicheur Marine',10,29.9,'Un menu léger et raffiné composé d’une salade colorée fraîcheur, d’un cabillaud fondant délicatement préparé, puis d’une tarte au citron aux notes fraîches et acidulées.',70,'2026-05-17',NULL,2,2),(8,'Tradition du chef',8,25.5,'Un menu authentique composé d’une roquette fraîche aux pignons, d’un poulet rôti du chef préparé avec soin, puis d’une tarte au flan vanillé onctueuse et réconfortante.',210,'2026-05-17',NULL,2,1),(9,'Escale Estivale',6,24.9,'Un menu frais et équilibré composé d’une salade estivale, d’un risotto au poulet aux saveurs délicates, puis d’une douceur aux pommes pour terminer sur une note légère et fruitée.',70,'2026-05-17',NULL,2,3),(10,'Héritage Bordelais',10,27.9,'Un menu de caractère composé d’une soupe crémeuse du chef, de tripes à la bordelaise préparées selon la tradition, puis d’une tarte Tatin délicatement caramélisée.',45,'2026-05-17',NULL,2,3);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,6 +223,7 @@ CREATE TABLE `menu_plat` (
 
 LOCK TABLES `menu_plat` WRITE;
 /*!40000 ALTER TABLE `menu_plat` DISABLE KEYS */;
+INSERT INTO `menu_plat` VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(1,11),(2,12),(3,13),(4,14),(6,15),(5,16),(7,17),(8,18),(9,19),(10,20),(1,21),(2,22),(3,23),(4,24),(5,25),(6,26),(7,27),(8,28),(9,29),(10,30);
 /*!40000 ALTER TABLE `menu_plat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,7 +241,7 @@ CREATE TABLE `plat` (
   `deleted_at` date DEFAULT NULL,
   `created_at` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +250,7 @@ CREATE TABLE `plat` (
 
 LOCK TABLES `plat` WRITE;
 /*!40000 ALTER TABLE `plat` DISABLE KEYS */;
-INSERT INTO `plat` VALUES (1,'Boeuf bourguignon traditionnel','Boeuf-Bourguignon-2-6a07542f3def6.png',NULL,'2026-05-15');
+INSERT INTO `plat` VALUES (1,'Boeuf bourguignon traditionnel','Boeuf-Bourguignon-2-6a07542f3def6.png',NULL,'2026-05-15'),(2,'Boeuf bourguignon Purée','Boeuf-Bourguignon-6a07676929781.png',NULL,'2026-05-15'),(3,'Boeuf grenade','Boeuf-Salade-6a07680ab3076.jpg',NULL,'2026-05-15'),(4,'Lentilles au riz parfumé','Bol-de-Lentilles-6a0768e1aaa97.png',NULL,'2026-05-15'),(5,'Buddha Bowl Vegan','Bol-Vegetarien-6a0769437309e.png',NULL,'2026-05-15'),(6,'Tagliatelles crémeuses','Pates-Creme-6a0769cc12dd1.png',NULL,'2026-05-15'),(7,'Cabillaud fondant','Poisson-6a076a3009177.png',NULL,'2026-05-15'),(8,'Poulet rôti du chef','Poulet-Patate-6a076a6998291.png',NULL,'2026-05-15'),(9,'Risotto au poulet','Poulet-Riz-6a076aad24ef3.png',NULL,'2026-05-15'),(10,'Tripes à la Bordelaise','Tripes-a-la-Bordelaise-6a076affd232f.jpg',NULL,'2026-05-15'),(11,'Avocat frais','Avocat-frais-6a076b3e25f5c.png',NULL,'2026-05-15'),(12,'Houmous gourmand','Bol-de-Houmous-6a0888884d22d.png',NULL,'2026-05-16'),(13,'Bruschettas','Bruschetta-6a088b2952ae8.png',NULL,'2026-05-16'),(14,'Assiete de foie gras','Foie-gras-6a088b7235f0a.png',NULL,'2026-05-16'),(15,'Quiche Lorraine maison','Quiche-Lorraine-6a088bcc749a7.jpg',NULL,'2026-05-16'),(16,'Salade Caprese','Salade-Caprese-6a088c18dd28e.png',NULL,'2026-05-16'),(17,'Salade colorée fraîcheur','Salade-Coloree-6a088ccdc515e.png',NULL,'2026-05-16'),(18,'Roquette fraiche aux pignons','Salade-de-roquette-6a088d28b2759.png',NULL,'2026-05-16'),(19,'Salade estivale','Salade-fraiche-6a088d67e1a02.png',NULL,'2026-05-16'),(20,'Soupe crémeuse du chef','Soupe-Cremeuse-6a088d9ae3c1c.png',NULL,'2026-05-16'),(21,'Duo gourmand bordelais','Ambiance-Rustique-6a089e10ebdac.png',NULL,'2026-05-16'),(22,'Canelé bordelais','Canele-et-fruits-6a089e4560076.png',NULL,'2026-05-16'),(23,'Tarte fondante au chocolat','Dessert-au-Chocolat-6a089e7cf06a6.png',NULL,'2026-05-16'),(24,'Carré de gourmandise','Dessert-Gourmand-6a089eb530008.png',NULL,'2026-05-16'),(25,'Cheesecake fruits rouges','Dome-Cheesecake-6a089ef428476.png',NULL,'2026-05-16'),(26,'Fraisier gourmand','Fraise-6a089f229a87f.png',NULL,'2026-05-16'),(27,'Tarte au citron','Tarte-Citron-6a089f4d49b0e.png',NULL,'2026-05-16'),(28,'Tarte au flan vanillé','Tarte-Flan-6a089f84f3e3b.png',NULL,'2026-05-16'),(29,'Douceur aux pomme','Tarte-Pomme-6a089fb976621.png',NULL,'2026-05-16'),(30,'Tarte Tatin caramélisée','Tarte-Tatin-6a089fe5e736d.png',NULL,'2026-05-16');
 /*!40000 ALTER TABLE `plat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +277,7 @@ CREATE TABLE `plat_allergene` (
 
 LOCK TABLES `plat_allergene` WRITE;
 /*!40000 ALTER TABLE `plat_allergene` DISABLE KEYS */;
-INSERT INTO `plat_allergene` VALUES (1,2),(1,9);
+INSERT INTO `plat_allergene` VALUES (6,1),(14,1),(15,1),(17,1),(21,1),(22,1),(23,1),(24,1),(25,1),(26,1),(27,1),(28,1),(29,1),(30,1),(1,2),(4,2),(6,2),(7,2),(8,2),(9,2),(10,2),(13,2),(14,2),(15,2),(16,2),(18,2),(20,2),(21,2),(22,2),(23,2),(24,2),(25,2),(26,2),(27,2),(28,2),(29,2),(30,2),(4,3),(10,3),(11,3),(17,3),(19,3),(7,6),(5,7),(12,7),(17,7),(4,8),(5,8),(12,8),(23,8),(1,9),(6,9),(7,9),(8,9),(9,9),(10,9),(11,9),(13,9),(14,9),(15,9),(16,9),(17,9),(18,9),(19,9),(30,11);
 /*!40000 ALTER TABLE `plat_allergene` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,4 +429,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-15 19:19:44
+-- Dump completed on 2026-05-17 19:59:02
