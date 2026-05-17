@@ -54,11 +54,11 @@
                 
                 <div class="divMenu">
                     
-                    <p>{{ menu.titre }}</p>
+                    <p class="MenuTitre">{{ menu.titre }}</p>
                     {% set plat = menu.plats|first %}
                     <img src="/uploads/plats/{{plat.photo}}" alt="{{ plat.nomPlat }}" width="100%">
-                    <p>► {{ menu.prixPersonne }}€ par personne</p>
-                    <p>► À partir de {{ menu.personneMini }} boîtes à repas</p>
+                    <p>► <span class="color">{{ menu.prixPersonne }}€</span> par personne</p>
+                    <p>► À partir de <span class="color">{{ menu.personneMini }}</span> boîtes à repas</p>
                     
                 </div>
             </a>

@@ -19,6 +19,10 @@ main h3 {
     font-family: cursive;
 }
 
+.color {
+    color: saddlebrown;
+}
+
 /* Filtres */
 .filtres {
     text-align: center;
@@ -78,14 +82,22 @@ select {
     background-color: azure;
     width: 300px;
     height: 300px;
+    padding: 15px;
     border: 2px solid saddlebrown;
+    box-shadow: 0 0 10px gray;
     border-radius: 50%;
     text-align: center;
 }
 
+.MenuTitre {
+    color: saddlebrown;
+    font-size: x-large;
+    font-family: fantasy;
+}
+
 .divMenu:hover {
     transition-duration: 500ms;
-    box-shadow: 0 0 20px black;
+    box-shadow: 0 0 20px saddlebrown;
     background-color: rgb(210, 249, 249)
 }
 
@@ -106,6 +118,7 @@ select {
 .sectionMenus button:hover {
     transition-duration: 300ms;
     background-color: rgb(210, 249, 249);
+    border-color: rgb(97, 97, 97);
 }
 
 .sectionMenus button:active {

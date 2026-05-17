@@ -81,6 +81,11 @@ main {
     padding: 10px;
     margin: 20px auto 0;
     font-family: Songti TC;
+    text-align: center;
+}
+
+.materiel {
+    font-family: Songti TC;
 }
 
 .allergeneTitre {
