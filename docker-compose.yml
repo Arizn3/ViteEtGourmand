@@ -44,8 +44,11 @@ services:
             - .env.docker
         volumes:
             - mysql_data:/var/lib/mysql
-            # Database crée automatiquement lors du build du conteneur MySQL
-            - ./database/vitegourmandDB.sql:/docker-entrypoint-initdb.d/init.sql
+            # Base de données créée automatiquement lors du build du conteneur MySQL
+            # vitegourmandDBTest pour un démarrage avec des données de test déjà intégrées dans l'application
+            # ou vitegourmandDBClear pour un démarrage avec une base vide prête à l'emploi
+            - ./database/vitegourmandDBTest.sql:/docker-entrypoint-initdb.d/init.sql
+            # - ./database/vitegourmandDBClear.sql:/docker-entrypoint-initdb.d/init.sql
     # Service MongoDB
     mongodb:
         image: mongo:7.0

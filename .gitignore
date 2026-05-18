@@ -22,7 +22,8 @@
 ######################
 *.log
 *.sql
-!database/vitegourmandDB.dsl
+!database/vitegourmandDBTest.sql
+!database/vitegourmandDBClear.sql
 *.sqlite
 
 # OS generated files #
