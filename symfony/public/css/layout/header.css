@@ -24,13 +24,15 @@ header {
     color: white;
     font-size: 5rem;
     font-family: Didot;
+    margin-bottom: 20px;
 }
 
 .divTitreHeader p {
     color: white;
     font-family: Copperplate, Comic Sans MS, Verdana;
-    width: max-content;
     font-size: x-large;
+    text-align: center;
+    margin-top: 0;
 }
 
 .et {

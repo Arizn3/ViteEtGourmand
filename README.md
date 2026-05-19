@@ -70,7 +70,7 @@ Ce compte Administrateur est configurable par la suite, les identifiants sont di
 ### Installation Demo *(Par défaut)*
 
 > [!TIP]
-> L’installation Demo est utilisée par défaut afin de faciliter les tests et la démonstration du projet.
+> L’installation Demo est utilisée par défaut afin de faciliter les tests et la démonstration du projet grâce à des données factices intégrées.
 
 Après avoir cloné le dépôt, lancer la construction des conteneurs :
 
@@ -95,13 +95,13 @@ Une fois les conteneurs démarrés, l’application sera accessible à l’adres
 http://localhost:8080
 ```
 
-### Installation Clear
+### Installation Clean
 
 Pour démarrer l’application avec une base de données vide, modifier la ligne 50 et 51 du fichier `docker-compose.yml` :
 
 ```yaml
 # ./database/vitegourmandDBTest.sql:/docker-entrypoint-initdb.d/init.sql
-./database/vitegourmandDBClear.sql:/docker-entrypoint-initdb.d/init.sql
+./database/vitegourmandDBClean.sql:/docker-entrypoint-initdb.d/init.sql
 ```
 
 Si les conteneurs n'ont pas encore été démarrés :
@@ -116,6 +116,8 @@ Sinon, supprimer les volumes Docker existants avant de redémarrer :
 docker compose down -v
 docker compose up -d
 ```
+
+Plus de détail dans le manuel d'utilisation, notamment pour les identifiants.
 
 ## Documentation
 

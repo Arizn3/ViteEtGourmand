@@ -15,9 +15,15 @@ main {
     margin: 100px auto;
     gap: 20px;
     border: 1px solid black;
-    box-shadow: 0 0 15px blue;
+    box-shadow: 0 0 15px saddlebrown;
     background-color: beige;
     padding: 20px;
+    transition: 500ms;
+}
+
+.divAvisUtilisateur:hover {
+    transition: 500ms;
+    box-shadow: 0 0 25px saddlebrown;
 }
 
 #avis_note {
@@ -37,33 +43,35 @@ main {
 /* Bouton */
 
 .divAvisUtilisateur a {
-    border: 1px solid blue;
+    border: 1px solid saddlebrown;
     background-color: azure;
     text-decoration: none;
     width: 100px;
+    height: 21px;
+    padding-top: 3px;
     text-align: center;
-    color: blue;
+    color: brown;
     font-family: American Typewriter;
-    box-shadow: 0 0 3px blue;
+    box-shadow: 0 0 3px saddlebrown;
 }
 
 .divAvisUtilisateur button {
-    border: 1px solid blue;
+    border: 1px solid saddlebrown;
     background-color: azure;
     width: 100px;
     font-size: inherit;
     text-align: center;
-    color: blue;
+    color: brown;
     font-family: American Typewriter;
-    box-shadow: 0 0 3px blue;
+    box-shadow: 0 0 3px saddlebrown;
 }
 
 .divAvisUtilisateur a:hover {
-    box-shadow: 0 0 5px blue;
+    box-shadow: 0 0 5px saddlebrown;
     background-color: rgb(214, 228, 228);
 }
 
 .divAvisUtilisateur button:hover {
-    box-shadow: 0 0 5px blue;
+    box-shadow: 0 0 5px saddlebrown;
     background-color: rgb(214, 228, 228);
 }
