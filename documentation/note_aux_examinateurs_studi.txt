@@ -1,5 +1,14 @@
 Bonjour,
 
+    --- --- --- --- --- --- --- --- --- --- --- 
+
+        ⚠️ Durant les deux derniers jours, j'ai tenté de déployer l'application sur la plateforme Fly.io, malheureusement, je n'ai pas réussi,
+
+        j'ai tenté plusieurs modifications entre absences d'une donnée, d'une variable d'environment, restructuration du Dockerfile,
+        du serveur Nginx, etc. Pour au final comprendre trop tard que j'aurais peut-être dû séparer l'application de ces services MySQL
+        et MongoDB pour les faire tourner à part sur Fly.io.
+
+        Je suis désolé de ne pas avoir pu finaliser cette étape dans les temps impartis.
 
     --- --- --- --- --- --- --- --- --- --- --- 
 
