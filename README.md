@@ -124,8 +124,6 @@ Plus de détail dans le manuel d'utilisation, notamment pour les identifiants.
 Retrouvez l’ensemble de la documentation du projet dans le dossier `documentation` situé à la racine du dépôt.
 
 - La charte graphique de l’application
-- Les diagrammes Merise (MCD, MLD et MPD)
-- Un diagramme EER WorkBench
 - Le manuel d’utilisation avec les identifiants de démonstration (`Demo` et `Clear`)
 - Une documentation sur la gestion du projet
 - Une documentation technique
