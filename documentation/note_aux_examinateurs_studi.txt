@@ -6,7 +6,7 @@ Bonjour,
 
         j'ai tenté plusieurs modifications entre absences d'une donnée, d'une variable d'environment, restructuration du Dockerfile,
         du serveur Nginx, etc. Pour au final comprendre trop tard que j'aurais peut-être dû séparer l'application de ces services MySQL
-        et MongoDB pour les faire tourner à part sur Fly.io.
+        et MongoDB pour les faire tourner à part sur Fly.io. Des traces sont visible dans la parti Deployments du Repository.
 
         Je suis désolé de ne pas avoir pu finaliser cette étape dans les temps impartis.
 
