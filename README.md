@@ -22,7 +22,7 @@ L’application intègre différents rôles du simple utilisateur au rôle emplo
 ## Technologies utilisées
 ### Backend
 - PHP 8.3-fpm-alpine
-- Symfony 7.4.7
+- Symfony 7.4.7 (LTS)
 
 ### Frontend
 - HTML
@@ -75,15 +75,19 @@ Ce compte Administrateur est configurable par la suite, les identifiants sont di
 Après avoir cloné le dépôt, lancer la construction des conteneurs :
 
 ```bash
-docker compose up -d
+docker compose up --build -d
 ```
 
 Récupérer les données démo MongoDB pour le graphique administrateur :<br>
 
+```Bash
+docker cp ./database/mongodb-dump app-mongodb-1:/mongodb-dump
+```
+Puis :
 ```bash
 docker exec -i app-mongodb-1 mongorestore \
 -u symfony \
--p secret \
+-p change_me_mongo \
 --authenticationDatabase admin \
 --db vitegourmand \
 /dump/vitegourmand
@@ -107,7 +111,7 @@ Pour démarrer l’application avec une base de données vide, modifier la ligne
 Si les conteneurs n'ont pas encore été démarrés :
 
 ```bash
-docker compose up -d
+docker compose up --build -d
 ```
 
 Sinon, supprimer les volumes Docker existants avant de redémarrer :
@@ -119,13 +123,16 @@ docker compose up -d
 
 Plus de détail dans le manuel d'utilisation, notamment pour les identifiants.
 
+## Variables d'environnement
+
+Se référer au fichier doc-technique.pdf dans le dossier documentation.
+
 ## Documentation
 
 Retrouvez l’ensemble de la documentation du projet dans le dossier `documentation` situé à la racine du dépôt.
 
 - La charte graphique de l’application
 - Le manuel d’utilisation avec les identifiants de démonstration (`Demo` et `Clear`)
-- Une documentation sur la gestion du projet
 - Une documentation technique
 
 ## Version
@@ -140,4 +147,4 @@ Version 1.0 — 17/05/2026.
 
 ## Auteur
 
-Lucas Cappello — Projet ECF Studi
+Lucas Cappello

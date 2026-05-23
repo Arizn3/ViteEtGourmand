@@ -27,7 +27,7 @@ services:
         volumes: 
             - ./:/var/www/html
         environment:
-            MONGODB_URI: mongodb://symfony:secret@mongodb:27017/?authSource=admin
+            MONGODB_URI: mongodb://symfony:change_me_mongo@mongodb:27017/?authSource=admin
             MONGODB_DB: vitegourmand
     # Service Mysql
     mysql:

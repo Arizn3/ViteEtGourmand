@@ -126,7 +126,10 @@ final class CommandeController extends AbstractController
 
             // Email de confirmation à l'utilisateur
             $email = (new Email())
-                ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                ->from(
+                    $this->getParameter('mailer_from_name')
+                        . ' <' . $this->getParameter('mailer_from_address') . '>'
+                )
                 ->to($commande->getUtilisateur()->getEmail())
                 ->subject('Réception de votre commande')
                 ->text('Bonjour,

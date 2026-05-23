@@ -25,7 +25,7 @@ final class ContactController extends AbstractController
 
             $emailMessage = (new Email())
                 ->from($email)
-                ->to('33vitegourmand@gmail.com')
+                ->to($this->getParameter('mailer_from_address'))
                 ->replyTo($email)
                 ->subject('Message Contact')
                 ->text($message);
@@ -33,7 +33,10 @@ final class ContactController extends AbstractController
             $mailer->send($emailMessage);
 
             $emailConfirmation = (new Email())
-                ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                ->from(
+                    $this->getParameter('mailer_from_name')
+                        . ' <' . $this->getParameter('mailer_from_address') . '>'
+                )
                 ->to($email)
                 ->subject('Votre message')
                 ->text('Bonjour,

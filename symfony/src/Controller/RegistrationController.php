@@ -46,7 +46,10 @@ class RegistrationController extends AbstractController
             $user->setCreatedAt(new \DateTime());
 
             $email = (new Email())
-                ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                ->from(
+                    $this->getParameter('mailer_from_name')
+                        . ' <' . $this->getParameter('mailer_from_address') . '>'
+                )
                 ->to($user->getEmail())
                 ->subject('Bienvenue chez nous !')
                 ->text('Bonjour,

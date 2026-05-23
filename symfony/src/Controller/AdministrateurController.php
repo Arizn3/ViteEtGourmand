@@ -72,7 +72,7 @@ final class AdministrateurController extends AbstractController
         $compte = $em->getRepository(Utilisateur::class)->findBy([
             'role' => 2,
             'deletedAt' => null
-            ]);
+        ]);
 
         // Creation d'un nouveau compte employé
         // Nouvelle instance de l'Entity Utilisateur
@@ -117,7 +117,10 @@ final class AdministrateurController extends AbstractController
 
             // Email
             $emailEmploye = (new Email())
-                ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                ->from(
+                    $this->getParameter('mailer_from_name')
+                        . ' <' . $this->getParameter('mailer_from_address') . '>'
+                )
                 ->to($email)
                 ->subject('Création de votre compte employé')
                 ->text("Bonjour,
@@ -142,14 +145,14 @@ L'équipe Vite & Gourmand
     }
 
     // Suppression (soft delete) d'un compte employé
-    #[Route('/administrateur/employe/supprimer/{id}', name:'app_suppression_employe')]
+    #[Route('/administrateur/employe/supprimer/{id}', name: 'app_suppression_employe')]
     public function supprimerEmploye(Utilisateur $utilisateur, EntityManagerInterface $em): Response
     {
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $utilisateur->setEmail('deleted_' . $utilisateur->getEmail());
-        $utilisateur->setDeletedAt(New \DateTime());
+        $utilisateur->setDeletedAt(new \DateTime());
 
         $em->flush();
 

@@ -172,7 +172,10 @@ final class EmployeController extends AbstractController
             if ($statut === 'En attente du retour de matériel') {
 
                 $email = (new Email())
-                    ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                    ->from(
+                        $this->getParameter('mailer_from_name')
+                            . ' <' . $this->getParameter('mailer_from_address') . '>'
+                    )
                     ->to($commande->getUtilisateur()->getEmail())
                     ->subject('Retour matériel')
                     ->text('Bonjour,
@@ -204,7 +207,10 @@ L\'équipe Vite & Gourmand
                     throw new BadRequestHttpException('Motif d\'annulation obligatoire');
                 } else {
                     $email = (new Email())
-                        ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                        ->from(
+                            $this->getParameter('mailer_from_name')
+                                . ' <' . $this->getParameter('mailer_from_address') . '>'
+                        )
                         ->to($commande->getUtilisateur()->getEmail())
                         ->subject('Annulation de votre commmande')
                         ->text('Bonjour,
@@ -263,7 +269,10 @@ L\'équipe Vite & Gourmand
                 // Envoie de l'email de fin de commande a l'utilisateur
                 $url = $this->generateUrl('app_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
                 $email = (new Email())
-                    ->from('Vite & Gourmand <33vitegourmand@gmail.com>')
+                    ->from(
+                        $this->getParameter('mailer_from_name')
+                            . ' <' . $this->getParameter('mailer_from_address') . '>'
+                    )
                     ->to($commande->getUtilisateur()->getEmail())
                     ->subject('Commmande terminée')
                     ->html("

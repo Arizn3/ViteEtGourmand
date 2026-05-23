@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
@@ -27,8 +26,7 @@ class ResetPasswordController extends AbstractController
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
         private EntityManagerInterface $entityManager,
-    ) {
-    }
+    ) {}
 
 
     // Formulaire de demande de réinitialisation du mot de passe.
@@ -42,7 +40,9 @@ class ResetPasswordController extends AbstractController
             /** @var string $email */
             $email = $form->get('email')->getData();
 
-            return $this->processSendingPasswordResetEmail($email, $mailer
+            return $this->processSendingPasswordResetEmail(
+                $email,
+                $mailer
             );
         }
 
@@ -51,7 +51,7 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-     // Page de confirmation après qu'un utilisateur a demandé une réinitialisation de mot de passe.
+    // Page de confirmation après qu'un utilisateur a demandé une réinitialisation de mot de passe.
     #[Route('/check-email', name: 'app_check_email')]
     public function checkEmail(): Response
     {
@@ -154,14 +154,16 @@ class ResetPasswordController extends AbstractController
 
         // Email défini depuis une template Twig
         $email = (new TemplatedEmail())
-            ->from(new Address('33vitegourmand@gmail.com', 'Vite & Gourmand'))
+            ->from(
+                $this->getParameter('mailer_from_name')
+                    . ' <' . $this->getParameter('mailer_from_address') . '>'
+            )
             ->to((string) $utilisateur->getEmail())
             ->subject('Réinitialiser votre mot de passe')
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
-            ])
-        ;
+            ]);
 
         $mailer->send($email);
 
