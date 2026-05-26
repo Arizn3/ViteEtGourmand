@@ -36,9 +36,10 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-// Controller pour l'espace employé
+// Contrôleur pour l'espace employé
 final class EmployeController extends AbstractController
 {
+
     // Affichage des commandes
     #[Route('/employe/commandes', name: 'app_employe_commande')]
     public function index(CommandeRepository $CommandeRepo, Request $request): Response
@@ -46,12 +47,12 @@ final class EmployeController extends AbstractController
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        // Variable en cas de filtre (commande active)
+        // Variables en cas de filtre (commandes actives)
         $idFilter = $request->query->get('idFilter');
         $emailFilter = $request->query->get('email');
         $statutFilter = $request->query->get('statut');
 
-        // Filtre et affichage des commandes actives
+        // Filtres et affichage des commandes actives
         $query = $CommandeRepo->createQueryBuilder('c')
             ->join('c.utilisateur', 'u');
 
@@ -68,17 +69,17 @@ final class EmployeController extends AbstractController
                 ->setParameter('statut', $statutFilter);
         };
 
-        // Récupération des commandes terminée ou annulée grâce au paramètre ->setParameter()
+        // Récupération des commandes terminées ou annulées grâce au paramètre ->setParameter()
         $commandesTerminees = $CommandeRepo->createQueryBuilder('c')
             ->where('c.statut IN (:statuts)')
             ->setParameter('statuts', ['Terminer', 'Annuler']);
 
-        // Variable récupérer en cas de filtre (commande terminer ou annuler)
+        // Variables en cas de filtre (commandes terminées ou annulées)
         $idTerminer = $request->query->get('idTerminer');
         $emailTerminer = $request->query->get('emailTerminer');
         $statutTerminer = $request->query->get('statutTerminer');
 
-        // Filtre pour les commandes Terminer ou Annuler
+        // Filtres pour les commandes Terminées ou Annulées
         $queryTerminer = $CommandeRepo->createQueryBuilder('c')
             ->join('c.utilisateur', 'u')
             ->where('c.statut IN (:statuts)')
@@ -116,10 +117,8 @@ final class EmployeController extends AbstractController
     #[Route('/employe/adresse/{id}', name: 'app_adresse_livraison')]
     public function adresseLivraison(Commande $commande): Response
     {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        // Récupération de l'adresse de la livraison
         return $this->render('employe/adresse.html.twig', [
             'commande' => $commande
         ]);
@@ -129,10 +128,8 @@ final class EmployeController extends AbstractController
     #[Route('/employe/utilisateur/{id}', name: 'app_utilisateur')]
     public function detailUtilisateur(Utilisateur $utilisateur): Response
     {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        // Récupération des informations sur le client
         return $this->render('employe/utilisateur.html.twig', [
             'utilisateur' => $utilisateur,
         ]);
@@ -147,7 +144,6 @@ final class EmployeController extends AbstractController
         MailerInterface $mailer,
         DocumentManager $dm,
     ): Response {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         // Récupération du statut choisi par l'employé
@@ -169,6 +165,7 @@ final class EmployeController extends AbstractController
                 throw new \Exception('Statut Invalide');
             };
 
+            // Code en cas d'un changement de statut en 'En attente du retour de matériel'
             if ($statut === 'En attente du retour de matériel') {
 
                 $email = (new Email())
@@ -194,7 +191,7 @@ L\'équipe Vite & Gourmand
                 $mailer->send($email);
             }
 
-            // Système de mail en cas d'annulation d'une commande
+            // Code en cas d'un changement de statut en 'Annuler'
             if ($statut === 'Annuler') {
 
                 $commande->setDeletedAt(new \DateTime());
@@ -232,8 +229,8 @@ L\'équipe Vite & Gourmand
                 };
             };
 
+            // Code en cas d'un changement de statut en 'Terminer'
             // Enregistrement des données d'une commande dans MongoDB
-            // avec un système de mail pour l'utilisateur
             if ($statut === 'Terminer') {
 
                 $commande->setDeletedAt(new \DateTime());
@@ -266,7 +263,6 @@ L\'équipe Vite & Gourmand
                 $dm->persist($stat);
                 $dm->flush();
 
-                // Envoie de l'email de fin de commande a l'utilisateur
                 $url = $this->generateUrl('app_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
                 $email = (new Email())
                     ->from(
@@ -312,7 +308,6 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/avis', name: 'app_employe_avis')]
     public function avisUtilisateur(AvisRepository $avisRepo): Response
     {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         $avis = $avisRepo->findBy(['statut' => 'EN_ATTENTE']);
@@ -358,7 +353,6 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/avis/{id}/{action}', name: 'app_avis_action')]
     public function actionAvis(Avis $avis, string $action, EntityManagerInterface $em): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         if ($action === 'VALIDE') {
@@ -369,7 +363,6 @@ L\'équipe Vite & Gourmand
             throw $this->createNotFoundException();
         };
 
-        // Persistance des donnnées en base
         $em->flush();
 
         return $this->redirectToRoute('app_employe_avis');
@@ -379,10 +372,8 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/avis/historique', name: 'app_historique_avis')]
     public function avisHistorique(AvisRepository $avisRepo): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        // On récupère tous les avis validés ou refuser
         $avis = $avisRepo->findBy(['statut' => ['VALIDE', 'REFUSER']]);
 
         return $this->render('employe/historique.html.twig', [
@@ -394,10 +385,9 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/gestion-menu', name: 'app_employe_gestion_menu')]
     public function gestionMenu(MenuRepository $menuRepo): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        // Commande encore actif récupérer
+        // Commandes qui n'ont pas de valeur dans 'deletedAt'
         $menus = $menuRepo->findBy([
             'deletedAt' => null
         ]);
@@ -411,7 +401,6 @@ L\'équipe Vite & Gourmand
     #[Route('employe/nouveau-menu', name: 'app_nouveau_menu')]
     public function nouveauMenu(Request $request, EntityManagerInterface $em): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         $menu = new Menu();
@@ -423,7 +412,6 @@ L\'équipe Vite & Gourmand
         if ($form->isSubmitted() && $form->isValid()) {
             $menu->setCreatedAt(new \DateTime());
 
-            // Persistance des données
             $em->persist($menu);
             $em->flush();
 
@@ -441,7 +429,6 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/gestion-menu/previsualisation/{id}', name: 'app_previsualisation_menu')]
     public function detailMenu(Menu $menu): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         return $this->render('employe/previsualisation.html.twig', [
@@ -453,10 +440,8 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/gestion-menu/modification/{id}', name: 'app_menu_modifier')]
     public function modifierMenu(Menu $menu, Request $request, EntityManagerInterface $em): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        // Préparation du formulaire et de la requête
         $form = $this->createForm(MenuType::class, $menu);
         $form->handleRequest($request);
 
@@ -475,7 +460,6 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/gestion-menu/desactiver/{id}', name: 'app_menu_desactiver')]
     public function desactiveMenu(Menu $menu, EntityManagerInterface $em): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         // Empêche une double désactivation
@@ -483,7 +467,6 @@ L\'équipe Vite & Gourmand
             return $this->redirectToRoute('app_employe_gestion_menu');
         };
 
-        // Désactivation du menu
         $menu->setDeletedAt(new \DateTime());
         $em->flush();
 
@@ -498,17 +481,14 @@ L\'équipe Vite & Gourmand
         SluggerInterface $slugger,
         PlatRepository $platRepo,
     ): Response {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         $plats = $platRepo->findBy([
             'deletedAt' => null
         ]);
 
-        // Nouvelle instance de l'Entité Plat
         $plat = new Plat();
 
-        // Création d'un nouveau formulaire et d'une requête
         $form = $this->createForm(PlatType::class, $plat);
         $form->handleRequest($request);
 
@@ -550,14 +530,13 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/gestion-menu/plat/supprime/{id}', 'app_supprime_plat')]
     public function supprimerPlat(Plat $plat, EntityManagerInterface $em): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        // Vérification relation
         $menusActifs = $plat->getMenus()->filter(function ($menu) {
             return $menu->getDeletedAt() === null;
         });
 
+        // Condition pour la vérification d'une relation entre un plat et un menu
         if (!$menusActifs->isEmpty()) {
             $this->addFlash('error',  $plat->getNomPlat() . ' est impossible à supprimer, ce plat est utilisé dans un menu.');
             return $this->redirectToRoute('app_menu_nouveau_plat');
@@ -588,7 +567,6 @@ L\'équipe Vite & Gourmand
         EntityManagerInterface $em,
         Request $request
     ): Response {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         $themes = $themeRepo->findBy([
@@ -618,13 +596,13 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/gestion-menu/theme/supprime/{id}', name: 'app_supprime_theme')]
     public function supprimerTheme(Theme $theme, EntityManagerInterface $em): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         $menusActifs = $theme->getMenus()->filter(function ($menu) {
             return $menu->getDeletedAt() === null;
         });
 
+        // Condition pour la vérification d'une relation entre un theme et un menu
         if (!$menusActifs->isEmpty()) {
             $this->addFlash('error',  $theme->getDescription() . ' est impossible à supprimer, ce thème est utilisé dans un menu.');
             return $this->redirectToRoute('app_nouveau_theme');
@@ -638,11 +616,10 @@ L\'équipe Vite & Gourmand
         return $this->redirectToRoute('app_nouveau_theme');
     }
 
-    // Ajouter un régime et affichage
+    // Ajouter un régime
     #[Route('/employe/gestion-menu/regime', name: 'app_nouveau_regime')]
     public function nouveauRegime(RegimeRepository $regimeRepo, EntityManagerInterface $em, Request $request): response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         $regimes = $regimeRepo->findBy([
@@ -672,13 +649,13 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/gestion-menu/regime/supprimer/{id}', name: 'app_supprime_regime')]
     public function supprimerRegime(Regime $regime, EntityManagerInterface $em): response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         $menusActifs = $regime->getMenus()->filter(function ($menu) {
             return $menu->getDeletedAt() === null;
         });
 
+        // Condition pour la vérification d'une relation entre un régime et un menu
         if (!$menusActifs->isEmpty()) {
             $this->addFlash('error',  $regime->getDescription() . ' est impossible à supprimer, ce régime est utilisé dans un menu.');
             return $this->redirectToRoute('app_nouveau_regime');
@@ -696,7 +673,6 @@ L\'équipe Vite & Gourmand
     #[Route('/employe/horaire', name: 'app_employe_horaire')]
     public function horaire(HoraireRepository $horaire): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         return $this->render('employe/horaire.html.twig', [
@@ -711,7 +687,6 @@ L\'équipe Vite & Gourmand
         Request $request,
         EntityManagerInterface $em
     ): response {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
         $form = $this->createForm(HoraireType::class, $horaire);
@@ -728,4 +703,5 @@ L\'équipe Vite & Gourmand
             'horaire' => $horaire,
         ]);
     }
+    
 }

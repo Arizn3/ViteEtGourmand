@@ -21,6 +21,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 // Contrôleur pour l'espace utilisateur
 final class UtilisateurController extends AbstractController
 {
+
     // historique des commandes
     #[Route('/utilisateur/mes-commmandes', name: 'app_utilisateur_commandes')]
     public function commandes(CommandeRepository $commandeRepo): Response
@@ -33,7 +34,7 @@ final class UtilisateurController extends AbstractController
         // Récupération des commandes en cours grâce à une requête personnaliser provenant de CommandeRepository
         $commandesEnCours = $commandeRepo->commandeEnCours($utilisateur);
 
-        // Récupération des commandes passées de l'utilisateur connecté, avec un filtre descendant.
+        // Récupération des commandes passées par l'utilisateur connecté, avec un filtre descendant.
         $commandes = $commandeRepo->findBy(
             [
                 'utilisateur' => $utilisateur,
@@ -52,12 +53,12 @@ final class UtilisateurController extends AbstractController
     #[Route('/utilisateur/commande-en-cours/{id}', name: 'app_utilisateur_commandes_en_cours')]
     public function detailCommande(Commande $commande): Response
     {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
 
+        // Récupération des historiques du statut d'une commande avec un tri
         $historiques = $commande->getHistoriques()->toArray();
         usort($historiques, function ($a, $b) {
             return $a->getDate() <=> $b->getDate();
@@ -73,7 +74,6 @@ final class UtilisateurController extends AbstractController
     #[Route('/utilisateur/{id}/annuler', name: 'app_utilisateur_annuler_commande')]
     public function FunctionName(Commande $commande, EntityManagerInterface $em)
     {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
@@ -104,7 +104,6 @@ final class UtilisateurController extends AbstractController
         Request $request,
         EntityManagerInterface $em,
     ): Response {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
@@ -116,9 +115,9 @@ final class UtilisateurController extends AbstractController
         ]);
         $form->handleRequest($request);
 
+        // Condition pour la date de livraison
         $today = new \DateTime();
         $minDate = (clone $today)->modify('+ 7 days');
-
         if ($commande->getDatePrestation() < $minDate) {
             $this->addFlash('error', '⚠️ La date de livraison doit être au minimum 7 jours après la date de commande');
             return $this->redirectToRoute('app_utilisateur_modifier_commande', [
@@ -139,7 +138,7 @@ final class UtilisateurController extends AbstractController
         ]);
     }
 
-    // Affichage des informations personnelle, Modification du mot de passe, Avis
+    // Affichage des informations personnelle - Modification du mot de passe - Avis
     #[Route('/utilisateur/information-personnelle', name: 'app_utilisateur_information_personnelle')]
     public function informationPersonnelle(
         Request $request,
@@ -148,11 +147,9 @@ final class UtilisateurController extends AbstractController
         AvisRepository $avisRepo,
         CommandeRepository $commandeRepo
     ): Response {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
-
         /** @var \App\Entity\Utilisateur $utilisateur */
 
         // Récupération de l'avis de l'utilisateur
@@ -191,7 +188,6 @@ final class UtilisateurController extends AbstractController
     #[Route('/utilisateur/supprimer-mon-compte', name: 'app_utilisateur_supprimer_compte')]
     public function supprimerCompte(EntityManagerInterface $em, TokenStorageInterface $tokenStorage): Response
     {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
@@ -206,14 +202,13 @@ final class UtilisateurController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-    // Ajouter ou modifier un avis
+    // Ajout ou modification d'un avis
     #[Route('/utilisateur/avis', name: 'app_utilisateur_avis')]
     public function avis(
         Request $request,
         EntityManagerInterface $em,
         AvisRepository $avisRepo,
     ): Response {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
@@ -249,7 +244,6 @@ final class UtilisateurController extends AbstractController
     #[Route('/utilisateur/avis/{id}', name: 'app_utilisateur_supprimer_avis')]
     public function supprimerAvis(Avis $avis, EntityManagerInterface $em): Response
     {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $em->remove($avis);
@@ -264,12 +258,11 @@ final class UtilisateurController extends AbstractController
     #[Route('/utilisateur/information-personnelle/modifier', name: 'app_utilisateur_modifier_information_personnelle')]
     public function modifierInformation(Request $request, EntityManagerInterface $em): Response
     {
-        // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
+        /** @var \App\Entity\Utilisateur $utilisateur */
 
-        // Création d'un formulaire de puis UtilisateurType
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
 
@@ -282,4 +275,5 @@ final class UtilisateurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 }

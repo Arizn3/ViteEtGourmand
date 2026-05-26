@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 // Contrôleur pour les commandes
 final class CommandeController extends AbstractController
 {
+    
+    // Méthode pour la persistance d'une commande
     #[Route('/commande/{id}', name: 'app_commande')]
     public function index(
         Request $request,
@@ -53,6 +55,7 @@ final class CommandeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Condition pour le nombre minimum de boîte à repas
             if ($commande->getNbPersonne() < $menu->getPersonneMini()) {
                 $this->addFlash('error', '⚠️ ' . $menu->getPersonneMini() . ' boîte à repas minimum');
                 return $this->redirectToRoute('app_commande', [
@@ -60,6 +63,7 @@ final class CommandeController extends AbstractController
                 ]);
             }
 
+            // Condition pour le nombre de personne minimum
             if ($commande->getNbPersonne() > $menu->getQttRestante()) {
                 $this->addFlash('error', '⚠️ ' . $menu->getQttRestante() . ' boîte à repas maximum disponible');
                 return $this->redirectToRoute('app_commande', [
@@ -67,6 +71,7 @@ final class CommandeController extends AbstractController
                 ]);
             }
 
+            // Condition pour une date de livraison valide
             $today = new \DateTime();
             $minDate = (clone $today)->modify('+ 7 days');
 
@@ -83,7 +88,9 @@ final class CommandeController extends AbstractController
                 $prixTotal *= 0.9;
             }
 
+            // Condition pour une heure de livraison valide
             $heure = $commande->getHeureLivraison()->format('H:i');
+
             if ($heure < '11:00' || $heure > '19:00') {
                 $this->addFlash('error', '⚠️ Les livraisons sont disponibles entre 11h et 19h.');
                 return $this->redirectToRoute('app_commande', [
@@ -154,6 +161,7 @@ L\'équipe Vite & Gourmand
         ]);
     }
 
+    // Méthode qui utilise Service/DistanceService
     #[Route('/calcul-livraison', name: 'app_calcul_livraison')]
     public function calculeLivraison(Request $request, DistanceService $distanceService): JsonResponse
     {
@@ -180,4 +188,5 @@ L\'équipe Vite & Gourmand
             ]);
         }
     }
+
 }

@@ -18,6 +18,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 // Contrôleur pour l'administrateur
 final class AdministrateurController extends AbstractController
 {
+
     // Données pour les statistiques
     #[Route('/administrateur/statistiques', name: 'app_administrateur_stat')]
     public function index(DocumentManager $dm, Request $request): Response
@@ -25,7 +26,7 @@ final class AdministrateurController extends AbstractController
         // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // Valeur filtre
+        // Récupération de la valeur du flitre
         $periode = $request->query->get('periode') ?? date('Y-m');
 
 
@@ -65,23 +66,21 @@ final class AdministrateurController extends AbstractController
         RoleRepository $roleRepository,
         UserPasswordHasherInterface $passwordHasher
     ): Response {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // Donnée employé
+        // Récupération des comptes employés actifs
         $compte = $em->getRepository(Utilisateur::class)->findBy([
             'role' => 2,
             'deletedAt' => null
         ]);
 
         // Creation d'un nouveau compte employé
-        // Nouvelle instance de l'Entity Utilisateur
         $user = new Utilisateur();
         $plainPassword = null;
 
         if ($request->isMethod('POST')) {
 
-            // Récuération des données depuis le fichier Twig
+            // Récuération des données depuis l'UI
             $email = $request->request->get('email');
             $prenom = $request->request->get('prenom');
             $nom = $request->request->get('nom');
@@ -148,7 +147,6 @@ L'équipe Vite & Gourmand
     #[Route('/administrateur/employe/supprimer/{id}', name: 'app_suppression_employe')]
     public function supprimerEmploye(Utilisateur $utilisateur, EntityManagerInterface $em): Response
     {
-        // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $utilisateur->setEmail('deleted_' . $utilisateur->getEmail());

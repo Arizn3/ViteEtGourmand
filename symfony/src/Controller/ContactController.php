@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
+// Contrôleur pour l'onglet Contact
 final class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
@@ -54,4 +55,5 @@ L\'équipe Vite & Gourmand
 
         return $this->render('contact/index.html.twig');
     }
+    
 }

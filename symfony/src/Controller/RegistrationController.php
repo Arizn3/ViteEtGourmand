@@ -16,9 +16,10 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
-// Controller pour l'inscription
+// Contrôleur pour l'inscription d'un utilisateur
 class RegistrationController extends AbstractController
 {
+
     #[Route('/register', name: 'app_register')]
     public function register(
         Request $request,
@@ -75,4 +76,5 @@ L\'équipe Vite & Gourmand
             'registrationForm' => $form,
         ]);
     }
+
 }

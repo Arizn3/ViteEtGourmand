@@ -8,7 +8,7 @@ use Doctrine\ODM\MongoDB\Mapping\Attribute as MongoDB;
 class Stat
 {
     #[MongoDB\Id]
-    private $id;
+    private ?string $id;
 
     #[MongoDB\Field(type: "string")]
     private string $menu;

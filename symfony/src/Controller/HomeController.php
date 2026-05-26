@@ -10,11 +10,13 @@ use App\Repository\AvisRepository;
 // Contrôleur pour la page d'accueil
 final class HomeController extends AbstractController
 {
+
     // Page d'accueil
     #[Route('/home', name: 'app_home')]
     public function index(AvisRepository $avisRepo): Response
     {
         
+        // Récupération des données d'Avis
         $avis = $avisRepo->findBy(['statut' => 'VALIDE']);
 
         return $this->render('home/index.html.twig', [
@@ -22,7 +24,7 @@ final class HomeController extends AbstractController
         ]);
     }
 
-    // Conditions Générale de Vente (CVG) et Mention Légales
+    // Onglet Conditions Générale de Vente (CVG) et Mention Légales
     #[Route('/home/conditions-générale-et-mention-légales', name: 'app_home_conditions_mention')]
     public function condition(): Response
     {
@@ -35,4 +37,5 @@ final class HomeController extends AbstractController
     {
         return $this->render('/home/notre-histoire.html.twig');
     }
+
 }
