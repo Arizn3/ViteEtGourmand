@@ -21,6 +21,11 @@ class Menu
 
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 30)]
+    #[Assert\Regex(
+        pattern: "/<script>/i",
+        match: false,
+        message: "Caractères invalides."
+    )]
     #[ORM\Column(length: 50)]
     private ?string $titre = null;
 
@@ -37,8 +42,14 @@ class Menu
 
     #[Assert\NotBlank()]
     #[Assert\Length(
+        min: 1,
         max: 1000,
         maxMessage: 'La description ne peut pas dépasser 1000 caractères.'
+    )]
+    #[Assert\Regex(
+        pattern: "/<script>/i",
+        match: false,
+        message: "Caractères invalides."
     )]
     #[ORM\Column(type: 'text')]
     private ?string $description = null;

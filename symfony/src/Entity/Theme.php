@@ -19,6 +19,11 @@ class Theme
 
     #[Assert\NotBlank()]
     #[Assert\Length(min: 1, max: 30)]
+    #[Assert\Regex(
+        pattern: "/<script>/i",
+        match: false,
+        message: "Caractères invalides."
+    )]
     #[ORM\Column(length: 50)]
     private ?string $description = null;
 

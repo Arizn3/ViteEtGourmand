@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AvisRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AvisRepository::class)]
@@ -16,6 +17,15 @@ class Avis
     #[ORM\Column]
     private ?int $note = null;
 
+    #[Assert\Length(
+        min: 2,
+        max: 50
+    )]
+    #[Assert\Regex(
+        pattern: "/<script>/i",
+        match: false,
+        message: "Caractères invalides."
+    )]
     #[ORM\Column(length: 50)]
     private ?string $libelle = null;
 

@@ -64,7 +64,8 @@ class Commande
     )]
     #[Assert\Regex(
         pattern: "/<script>/i",
-        message: "Invalid characters."
+        match: false,
+        message: "Caractères invalides."
     )]
     #[ORM\Column(length: 255)]
     private ?string $adresseLivraison = null;
@@ -76,7 +77,8 @@ class Commande
     )]
     #[Assert\Regex(
         pattern: "/<script>/i",
-        message: "Invalid characters."
+        match: false,
+        message: "Caractères invalides."
     )]
     #[ORM\Column(length: 50)]
     private ?string $villeLivraison = null;
