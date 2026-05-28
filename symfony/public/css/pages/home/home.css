@@ -1,5 +1,5 @@
 body {
-    background-color: aliceblue;
+    background-image: url(/uploads/images/bg.png);
 }
 
 main {
@@ -47,7 +47,7 @@ main {
 
 .presentation:hover img {
     transition-duration: 1s;
-    box-shadow: 0 0 25px saddlebrown;
+    box-shadow: 0 0 33px saddlebrown;
 }
 
 /* Savoir faire */
@@ -86,7 +86,7 @@ main {
 
 .savoirFaire:hover img {
     transition-duration: 1s;
-    box-shadow: 0 0 25px saddlebrown;
+    box-shadow: 0 0 33px saddlebrown;
 }
 
 /* Avis client */

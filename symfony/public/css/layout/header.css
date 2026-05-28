@@ -59,8 +59,10 @@ header {
     border-radius: 10% 35%;
     background-image: url("/uploads/images/img_navbar.png");
     color: white;
+    transition: 500ms;
 }
 
 .deconnexion:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 500ms;
 }

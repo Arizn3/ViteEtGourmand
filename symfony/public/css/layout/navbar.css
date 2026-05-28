@@ -2,9 +2,17 @@
 nav {
     background-image: url("/uploads/images/img_navbar.png");
     text-align: center;
-    box-shadow: 0px 5px 10px gray;
+    box-shadow: 0px 10px 20px saddlebrown;
+    border: 1px solid navajowhite;
+    border-radius: 15px;
     margin: 0 20%;
     padding: 1%;
+    transition: 500ms;
+}
+
+nav:hover {
+    box-shadow: 0px 10px 10px saddlebrown;
+    transition: 500ms;
 }
 
 nav a {
@@ -18,10 +26,12 @@ nav a {
     position: relative;
     display: inline-block;
     margin: 0 2%;
+    transition: 500ms;
 }
 
 .navAccueil:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 500ms;
 }
 
 /* Menus */
@@ -29,10 +39,12 @@ nav a {
     position: relative;
     display: inline-block;
     margin: 0 2%;
+    transition: 500ms;
 }
 
 .navMenus:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 500ms;
 }
 
 /* Histoire */
@@ -40,10 +52,12 @@ nav a {
     position: relative;
     display: inline-block;
     margin: 0 2%;
+    transition: 500ms;
 }
 
 .navHistoire:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 500ms;
 }
 
 /* Connexion / Inscription */
@@ -51,10 +65,12 @@ nav a {
     position: relative;
     display: inline-block;
     margin: 0 2%;
+    transition: 500ms;
 }
 
 .navLogin:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 500ms;
 }
 
 /* Menu utilisateur */
@@ -70,10 +86,12 @@ nav a {
     cursor: pointer;
     font-size: 16px;
     color: white;
+    transition: 500ms;
 }
 
 .btnNavUtilisateur:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 500ms;
 }
 
 .lienUtilisateur {
@@ -81,17 +99,20 @@ nav a {
     position: absolute;
     background-image: url("/uploads/images/img_navbar.png");
     min-width: 110px;
-    box-shadow: 0px 4px 8px gray;
+    box-shadow: 0 0 10px saddlebrown;
     z-index: 1;
+    border-radius: 10px;
 }
 
 .lienUtilisateur a {
     display: block;
     padding: 10px 0;
+    transition: 300ms;
 }
 
 .lienUtilisateur a:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 300ms;
 }
 
 /* Menu employé */
@@ -107,10 +128,12 @@ nav a {
     cursor: pointer;
     font-size: 16px;
     color: white;
+    transition: 500ms;
 }
 
 .btnNavEmploye:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 500ms;
 }
 
 .lienEmploye {
@@ -118,17 +141,20 @@ nav a {
     position: absolute;
     background-image: url("/uploads/images/img_navbar.png");
     min-width: 130px;
-    box-shadow: 0px 4px 8px gray;
+    box-shadow: 0 0 10px saddlebrown;
+    border-radius: 10px;
     z-index: 1;
 }
 
 .lienEmploye a {
     display: block;
     padding: 10px 0;
+    transition: 300ms;
 }
 
 .lienEmploye a:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 300ms;
 }
 
 /* Menu Administrateur */
@@ -144,10 +170,12 @@ nav a {
     cursor: pointer;
     font-size: 16px;
     color: white;
+    transition: 500ms;
 }
 
 .btnNavAdmin:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 500ms;
 }
 
 .lienAdmin {
@@ -155,17 +183,20 @@ nav a {
     position: absolute;
     background-image: url("/uploads/images/img_navbar.png");
     min-width: 177px;
-    box-shadow: 0px 4px 8px gray;
+    box-shadow: 0 0 10px saddlebrown;
+    border-radius: 10px;
     z-index: 1;
 }
 
 .lienAdmin a {
     display: block;
     padding: 10px 0;
+    transition: 300ms;
 }
 
 .lienAdmin a:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 300ms;
 }
 
 /* Constact */
@@ -175,8 +206,10 @@ nav a {
     text-decoration: none;
     color: white;
     margin: 0 2%;
+    transition: 500ms;
 }
 
 .navContact:hover {
     text-shadow: #ffffff 1px 0 10px;
+    transition: 500ms;
 }
