@@ -67,6 +67,8 @@ Une base de données MySQL préconfigurée est automatiquement importée lors du
 Celle-ci contient un compte administrateur de démonstration permettant un accès immédiat à l’application.<br>
 Ce compte Administrateur est configurable par la suite, les identifiants sont disponibles dans la documentation.
 
+Avant de lancer l’installation, renommez les fichiers `.env.docker.exemple` et `.env.exemple` en supprimant le suffixe `.exemple`.
+
 ### Installation Demo *(Par défaut)*
 
 > [!TIP]
