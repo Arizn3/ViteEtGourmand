@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 final class CommandeController extends AbstractController
 {
     
-    // Méthode pour la persistance d'une commande
+    // Méthode pour la persistance d'une nouvelle commande
     #[Route('/commande/{id}', name: 'app_commande')]
     public function index(
         Request $request,

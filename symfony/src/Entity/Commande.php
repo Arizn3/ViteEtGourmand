@@ -58,10 +58,26 @@ class Commande
     private ?Menu $menu = null;
 
     #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255
+    )]
+    #[Assert\Regex(
+        pattern: "/<script>/i",
+        message: "Invalid characters."
+    )]
     #[ORM\Column(length: 255)]
     private ?string $adresseLivraison = null;
 
     #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 50
+    )]
+    #[Assert\Regex(
+        pattern: "/<script>/i",
+        message: "Invalid characters."
+    )]
     #[ORM\Column(length: 50)]
     private ?string $villeLivraison = null;
 
