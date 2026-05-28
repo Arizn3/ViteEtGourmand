@@ -18,15 +18,17 @@ class Avis
     private ?int $note = null;
 
     #[Assert\Length(
-        min: 2,
-        max: 50
+        min: 5,
+        max: 255,
+        minMessage: "Votre avis doit contenir au moins 5 caractères.",
+        maxMessage: "Votre avis ne peut pas dépasser 255 caractères."
     )]
     #[Assert\Regex(
         pattern: "/<script>/i",
         match: false,
         message: "Caractères invalides."
     )]
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
     #[ORM\Column(length: 50)]

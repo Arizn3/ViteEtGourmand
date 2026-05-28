@@ -92,7 +92,7 @@ docker exec -i app-mongodb-1 mongorestore \
 -p change_me_mongo \
 --authenticationDatabase admin \
 --db vitegourmand \
-/dump/vitegourmand
+/mongodb-dump/vitegourmand
 ```
 
 Une fois les conteneurs démarrés, l’application sera accessible à l’adresse suivante :

@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `avis`;
 CREATE TABLE `avis` (
   `id` int NOT NULL AUTO_INCREMENT,
   `note` int NOT NULL,
-  `libelle` varchar(50) NOT NULL,
+  `libelle` varchar(255) NOT NULL,
   `statut` varchar(50) NOT NULL,
   `utilisateur_id` int NOT NULL,
   PRIMARY KEY (`id`),
