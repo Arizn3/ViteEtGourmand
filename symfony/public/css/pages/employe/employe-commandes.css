@@ -3,7 +3,7 @@ body {
 }
 
 main {
-    height: auto;
+    height: 900px;
     padding: 20px;
 }
 
@@ -11,7 +11,8 @@ main {
 .sectionActif {
     background-color: darkseagreen;
     width: auto;
-    height: auto;
+    max-height: 800px;
+    overflow-y: auto;
     border: 1px solid black;
     padding-left: 20px;
 }
@@ -88,7 +89,8 @@ main {
 .sectionTerminer {
     background-color: lightsteelblue;
     width: 870px;
-    height: auto;
+    max-height: 600px;
+    overflow-y: auto;
     border: 1px solid black;
     padding-left: 20px;
     margin-top: 20px;

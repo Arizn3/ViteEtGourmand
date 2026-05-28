@@ -54,7 +54,8 @@ final class EmployeController extends AbstractController
 
         // Filtres et affichage des commandes actives
         $query = $CommandeRepo->createQueryBuilder('c')
-            ->join('c.utilisateur', 'u');
+            ->join('c.utilisateur', 'u')
+            ->orderBy('c.id', 'ASC');
 
         if ($idFilter) {
             $query->andWhere('c.id = :id')
@@ -83,7 +84,8 @@ final class EmployeController extends AbstractController
         $queryTerminer = $CommandeRepo->createQueryBuilder('c')
             ->join('c.utilisateur', 'u')
             ->where('c.statut IN (:statuts)')
-            ->setParameter('statuts', ['Terminer', 'Annuler']);
+            ->setParameter('statuts', ['Terminer', 'Annuler'])
+            ->orderBy('c.id', 'DESC');
 
         if ($idTerminer) {
             $queryTerminer->andWhere('c.id = :id')

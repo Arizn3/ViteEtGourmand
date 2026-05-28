@@ -3,7 +3,7 @@ body {
 }
 
 main {
-    height: 700px;
+    min-height: 900px;
 }
 
 .DivDetailCommande {
