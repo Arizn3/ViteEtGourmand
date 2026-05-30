@@ -197,6 +197,7 @@ L\'équipe Vite & Gourmand
             if ($statut === 'Annuler') {
 
                 $commande->setDeletedAt(new \DateTime());
+                $commande->setRestitutionMateriel(true);
                 $commande->getMenu()->getQttRestante() + $commande->getNbPersonne();
 
                 // Récupération du message de l'input (Twig)
@@ -236,6 +237,7 @@ L\'équipe Vite & Gourmand
             if ($statut === 'Terminer') {
 
                 $commande->setDeletedAt(new \DateTime());
+                $commande->setRestitutionMateriel(true);
 
                 // Information sur la commande terminée
                 $menuNom = $commande->getMenu()->getTitre();
