@@ -8,12 +8,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let index = 0;
 
     function afficherAvis(i) {
+
         avis.forEach(div => {
-            div.style.display = 'none';
+            div.style.opacity = '0';
+            setTimeout(() => {
+                div.style.display = 'none';
+            }, 300);
         });
 
-        avis[i].style.display = 'block'
+        setTimeout(() => {
+            avis[i].style.display = 'block';
+            setTimeout(() => {
+                avis[i].style.opacity = '1';
+            }, 10);
+        }, 300);
     }
+
+    afficherAvis(0);
 
     btnSuivant.addEventListener('click', () => {
         index++;
@@ -29,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         index--;
 
         if (index < 0) {
-            index = avis.length -1;
+            index = avis.length - 1;
         }
 
         afficherAvis(index);

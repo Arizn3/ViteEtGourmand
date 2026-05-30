@@ -91,12 +91,13 @@ main {
 
 /* Avis client */
 .titreAvis {
-    font-size: x-large;
+    font-size: xx-large;
     text-align: center;
+    font-family: Apple Chancery;
 }
 
 .etoile {
-    text-align: center;
+    margin-bottom: 50px;
 }
 
 .sectionAvis {
@@ -107,40 +108,52 @@ main {
 }
 
 .divAvis {
-    margin: 1%;
-    padding: 5%;
-    width: 300px;
-    height: 200px;
+    padding: 25px;
+    width: 400px;
+    height: 250px;
+    text-align: center;
     background-image: url("/uploads/images/img_navbar.png");
-    border: 2px solid cornflowerblue;
-    border-radius: 5%;
-}
-
-.divAvis:hover {
-    transition-duration: 1s;
-    text-shadow: #ffffff 1px 0 10px;
+    border: 1px solid saddlebrown;
+    border-radius: 30px;
+    box-shadow: 0 0 15px saddlebrown;
+    opacity: 0;
+    display: none;
+    transition: opacity 0.5s ease;
 }
 
 .sectionAvis button {
-    margin: 25% 3%;
-    background-color: cornflowerblue;
-    height: 30px;
+    margin: auto 30px;
+    background-color: antiquewhite;
+    height: 50px;
     width: 30px;
-    border: 1px solid black;
-    border-radius: 50%;
+    border: 1px solid gray;
+    border-radius: 40%;
     cursor: pointer;
+    box-shadow: 0 0 10px saddlebrown;
+    transition-duration: 200ms;
 }
 
 .sectionAvis button:hover {
-    background-color: rgb(86, 125, 199);
+    transition: 200ms;
+    box-shadow: 0 0 10px gray;
+    box-shadow: 0 0 7px saddlebrown;
+    background-color: rgb(250, 210, 190);
+}
+
+.sectionAvis button:active {
+    transition: 100ms;
+    box-shadow: 0 0 20px gray;
+    box-shadow: 0 0 5px saddlebrown;
+    background-color: rgb(250, 190, 160);
 }
 
 .avis {
-    color: white;
+    font-family: Tamil MN;
+    color: antiquewhite;
 }
 
 .utilisateur {
-    color: aliceblue;
+    color: antiquewhite;
     font-size: large;
-    font-style: oblique;
+    font-family: Kokonor;
 }

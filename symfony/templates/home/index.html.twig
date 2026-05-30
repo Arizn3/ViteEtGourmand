@@ -52,9 +52,10 @@
 
     {% for a in avis %}
 
-    <div class="divAvis" {% if not loop.first %} style="display:none" {% endif %}>
+    <div class="divAvis">
 
         <p class="etoile">
+            
             {% for i in 1..5 %}
             {% if i <= a.note %} ⭐️ {% else %} ☆ {% endif %} {% endfor %} </p>
                 <p class="avis"> {{ a.libelle }} </p>
