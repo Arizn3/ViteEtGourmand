@@ -26,7 +26,7 @@ final class AdministrateurController extends AbstractController
         // Contôle d'accès
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // Récupération de la valeur du flitre
+        // Récupération de la valeur du filtre
         $periode = $request->query->get('periode') ?? date('Y-m');
 
 
