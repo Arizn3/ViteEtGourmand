@@ -1,0 +1,40 @@
+# Construction et personnalisation de l'image PHP
+FROM php:8.3-fpm-alpine
+
+# Librairies d'éxtension pour PHP
+RUN apk add --no-cache icu-dev libzip-dev $PHPIZE_DEPS
+
+# Éxtension PHP
+RUN docker-php-ext-install \
+    pdo_mysql \
+    intl \
+    zip
+
+# Éxtension MongoDB
+RUN apk add --no-cache openssl-dev \
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb
+
+# Taille pour les fichiers upload
+RUN echo "upload_max_filesize=10M" > /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size=10M" >> /usr/local/etc/php/conf.d/uploads.ini
+
+# Installation de Composer [source, image Composer] [destination, image PHP]
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Environnement Symfony
+WORKDIR /var/www/html
+
+# Copy et fige le projet dans le conteneur
+COPY symfony/ .
+
+# Installation de Symfony en mode production sans les dépendances nécessaire pour le développement
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Optimisation du cache Symfony
+RUN php bin/console cache:clear --env=prod
+RUN php bin/console cache:warmup --env=prod
+
+# Permission au serveur PHP pour la modification de certain fichiers
+RUN chown -R www-data:www-data var/cache \
+    && chmod -R 775 var/cache
