@@ -23,7 +23,7 @@ class UserChangePasswordFormType extends AbstractType
                 'label' => 'Mot de passe actuel',
                 'invalid_message' => 'Le mot de passe actuel est incorrect',
                 'constraints' => [
-                    new Assert\Notblank(),
+                    new Notblank(),
                     new UserPassword([ // Vérifie le mot de passe actuel
                         'message' => 'Le mot de passe actuel est incorrect'
                     ])
@@ -42,7 +42,7 @@ class UserChangePasswordFormType extends AbstractType
                     'label' => 'Confirmer le mot de passe',
                 ],
                 'constraints' => [
-                    new Assert\Notblank([
+                    new Notblank([
                         'message' => 'Saisir un nouveau mot de passe',
                     ]),
                     new Assert\Length([
