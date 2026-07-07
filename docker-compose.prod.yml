@@ -24,7 +24,6 @@ services:
             APP_DEBUG: 0
             MONGODB_URI: mongodb://symfony:change_me_mongo@mongodb:27017/?authSource=admin
             MONGODB_DB: vitegourmand
-            MAILER_DSN: ${MAILER_DSN}
     mysql:
         image: mysql:8.0
         restart: always
