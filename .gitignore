@@ -43,7 +43,6 @@ vendor/
 .env.local
 .env.auth
 *.log
-.env
 .env.docker
 
 # Symfony #
