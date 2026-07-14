@@ -11,11 +11,17 @@ use App\Repository\AvisRepository;
 final class HomeController extends AbstractController
 {
 
+    #[Route('/', name: 'app_root')]
+    public function root(): Response
+    {
+        return $this->redirectToRoute('app_home');
+    }
+
     // Page d'accueil
-    #[Route('/home', name: 'app_home')]
+    #[Route('/accueil', name: 'app_home')]
     public function index(AvisRepository $avisRepo): Response
     {
-        
+
         // Récupération des données d'Avis
         $avis = $avisRepo->findBy(['statut' => 'VALIDE']);
 
@@ -37,5 +43,5 @@ final class HomeController extends AbstractController
     {
         return $this->render('/home/notre-histoire.html.twig');
     }
-
+    
 }
