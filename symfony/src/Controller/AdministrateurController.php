@@ -2,18 +2,15 @@
 
 namespace App\Controller;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Document\Stat;
-use App\Entity\Utilisateur;
-use App\Repository\RoleRepository;
-use Symfony\Component\Mime\Email;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Service\AdminEmployeService;
+use App\Entity\Utilisateur;
+use App\Document\Stat;
 
 // Contrôleur pour l'administrateur
 final class AdministrateurController extends AbstractController
@@ -60,11 +57,9 @@ final class AdministrateurController extends AbstractController
     // Création d'un compte employé et affichage de la liste
     #[Route('/administrateur/employe/nouveau', name: 'app_admin_nouveau_employe')]
     public function compteEmploye(
+        AdminEmployeService $AdminEmployeService,
         EntityManagerInterface $em,
         Request $request,
-        MailerInterface $mailer,
-        RoleRepository $roleRepository,
-        UserPasswordHasherInterface $passwordHasher
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -74,67 +69,26 @@ final class AdministrateurController extends AbstractController
             'deletedAt' => null
         ]);
 
-        // Creation d'un nouveau compte employé
-        $user = new Utilisateur();
-        $plainPassword = null;
-
         if ($request->isMethod('POST')) {
-
-            // Récuération des données depuis l'UI
-            $email = $request->request->get('email');
-            $prenom = $request->request->get('prenom');
-            $nom = $request->request->get('nom');
-
-            // Erreur en cas de doublon d'email en base
-            $existeEmail = $em->getRepository(Utilisateur::class)->findOneBy(['email' => $email]);
-            if ($existeEmail) {
-                $this->addFlash('error', 'Email déjà utilisé');
-                return $this->redirectToRoute('app_admin_nouveau_employe');
-            };
-
-            // Création d'un mot de passe aléatoire
-            $plainPassword = bin2hex(random_bytes(4));
-            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-
-            $user->setEmail($email);
-            $user->setPassword($hashedPassword);
-            $user->setPrenom($prenom);
-            $user->setNom($nom);
-            // Un compte employé ne contient pas d'adresse, ni de téléphone mais
-            // ces données ne peuvent pas être vide en base.
-            $user->setAdresse('UserEmp');
-            $user->setTelephone('0000000000');
-            $user->setCreatedAt(new \DateTime());
-
-            // ROLE_EMPLOYE définit
-            $roleUser = $roleRepository->findOneBy(['description' => 'ROLE_EMPLOYE']);
-            $user->setRole($roleUser);
-
-            // Persistance des données
-            $em->persist($user);
-            $em->flush();
-
-            // Email
-            $emailEmploye = (new Email())
-                ->from(
-                    $this->getParameter('mailer_from_name')
-                        . ' <' . $this->getParameter('mailer_from_address') . '>'
-                )
-                ->to($email)
-                ->subject('Création de votre compte employé')
-                ->text("Bonjour,
-
-Un compte empoyé a été créé pour vous.
-
-Merci de contacter l'administrateur pour récupérer votre mot de passe.
-
-L'équipe Vite & Gourmand
-                ");
-
-            $mailer->send($emailEmploye);
-
-            $this->addFlash('success', 'Compte employé crée, veuillez noter le mot de passe avant de quitter la page : ' . $plainPassword);
-
+            try {
+                $plainPassword = $AdminEmployeService->creerCompteEmploye(
+                    $request->request->get('email'),
+                    $request->request->get('prenom'),
+                    $request->request->get('nom'),
+                );
+                $this->addFlash(
+                    'success',
+                    'Compte employé crée, veuillez noter le mot de passe avant de quitter la page : ' . $plainPassword
+                );
+                return $this->redirectToRoute(
+                    'app_admin_nouveau_employe'
+                );
+            } catch (\RuntimeException $e) {
+                $this->addFlash(
+                    'error',
+                    $e->getMessage()
+                );
+            }
             return $this->redirectToRoute('app_admin_nouveau_employe');
         };
 
