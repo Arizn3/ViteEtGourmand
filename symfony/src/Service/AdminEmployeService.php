@@ -2,13 +2,13 @@
 
 namespace App\Service;
 
-use App\Entity\Utilisateur;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RoleRepository;
 use Symfony\Component\Mime\Email;
+use App\Entity\Utilisateur;
 
 class AdminEmployeService
 {
@@ -82,6 +82,5 @@ L'équipe Vite & Gourmand"
         $this->mailer->send($mail);
 
         return $plainPassword;
-        
     }
 }

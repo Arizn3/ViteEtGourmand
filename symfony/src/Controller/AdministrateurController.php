@@ -54,7 +54,7 @@ final class AdministrateurController extends AbstractController
         ]);
     }
 
-    // Création d'un compte employé et affichage de la liste
+    // Création d'un compte employé et affichage de la liste (Service/AdminEmployeService)
     #[Route('/administrateur/employe/nouveau', name: 'app_admin_nouveau_employe')]
     public function compteEmploye(
         AdminEmployeService $AdminEmployeService,
