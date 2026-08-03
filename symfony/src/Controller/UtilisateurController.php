@@ -2,21 +2,23 @@
 
 namespace App\Controller;
 
-use App\Entity\Avis;
-use App\Entity\Commande;
-use App\Form\AvisType;
-use App\Form\UserChangePasswordFormType;
-use App\Form\CommandeType;
-use App\Form\UtilisateurType;
-use App\Repository\AvisRepository;
-use App\Repository\CommandeRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Service\CommandeModificationService;
+use App\Form\UserChangePasswordFormType;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CommandeRepository;
+use App\Repository\AvisRepository;
+use App\Form\UtilisateurType;
+use App\Form\CommandeType;
+use App\Entity\Commande;
+use App\Form\AvisType;
+use App\Entity\Avis;
+
 
 // Contrôleur pour l'espace utilisateur
 final class UtilisateurController extends AbstractController
@@ -100,10 +102,13 @@ final class UtilisateurController extends AbstractController
     // Modification d'une commande
     #[Route('/utilisateur/modifier-ma-commande/{id}', name: 'app_utilisateur_modifier_commande')]
     public function modifierCommande(
+        CommandeModificationService $commandeModification,
+        EntityManagerInterface $em,
         Commande $commande,
         Request $request,
-        EntityManagerInterface $em,
     ): Response {
+
+        // Contrôle d'utilisateur
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
@@ -113,23 +118,22 @@ final class UtilisateurController extends AbstractController
         $form = $this->createForm(CommandeType::class, $commande, [
             'modification' => true
         ]);
+
         $form->handleRequest($request);
 
-        // Condition pour la date de livraison
-        $today = new \DateTime();
-        $minDate = (clone $today)->modify('+ 7 days');
-        if ($commande->getDatePrestation() < $minDate) {
-            $this->addFlash('error', '⚠️ La date de livraison doit être au minimum 7 jours après la date de commande');
-            return $this->redirectToRoute('app_utilisateur_modifier_commande', [
-                'id' => $commande->getId()
-            ]);
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            return $this->redirectToRoute('app_utilisateur_commandes', [
-                'id' => $commande->getId()
-            ]);
+            try {
+                $commandeModification->verifierDateModification($commande);
+                $em->flush();
+                return $this->redirectToRoute('app_utilisateur_commandes_en_cours', [
+                    'id' => $commande->getId()
+                ]);
+            } catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
+                return $this->redirectToRoute('app_utilisateur_modifier_commande', [
+                    'id' => $commande->getId()
+                ]);
+            }
         }
 
         return $this->render('utilisateur/modifier-commande.html.twig', [
@@ -275,5 +279,4 @@ final class UtilisateurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 }
