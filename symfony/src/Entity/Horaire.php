@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\HoraireRepository;
-use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\HoraireRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[Assert\Expression(
     "this.getHeureFermeture() > this.getHeureOuverture()",

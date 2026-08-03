@@ -2,39 +2,39 @@
 
 namespace App\Controller;
 
-use App\Entity\Avis;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeRepository;
-use App\Repository\AvisRepository;
-use App\Repository\MenuRepository;
-use App\Form\MenuType;
-use App\Entity\Commande;
-use App\Entity\Horaire;
-use App\Entity\Menu;
-use App\Entity\Plat;
-use App\Entity\Regime;
-use App\Entity\Theme;
-use App\Entity\Utilisateur;
-use App\Form\HoraireType;
-use App\Form\PlatType;
-use App\Form\RegimeType;
-use App\Form\ThemeType;
 use App\Repository\HoraireRepository;
-use App\Repository\PlatRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
-use App\Document\Stat;
+use App\Repository\AvisRepository;
+use App\Repository\MenuRepository;
+use App\Repository\PlatRepository;
 use App\Entity\CommandeHistorique;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use App\Entity\Utilisateur;
+use App\Form\HoraireType;
+use App\Entity\Commande;
+use App\Form\RegimeType;
+use App\Form\ThemeType;
+use App\Entity\Horaire;
+use App\Form\MenuType;
+use App\Entity\Regime;
+use App\Document\Stat;
+use App\Form\PlatType;
+use App\Entity\Theme;
+use App\Entity\Menu;
+use App\Entity\Plat;
+use App\Entity\Avis;
 
 // Contrôleur pour l'espace employé
 final class EmployeController extends AbstractController

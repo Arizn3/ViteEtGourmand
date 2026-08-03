@@ -2,19 +2,19 @@
 
 namespace App\Form;
 
-use App\Entity\Menu;
-use App\Entity\Plat;
-use App\Entity\Regime;
-use App\Entity\Theme;
-use App\Repository\PlatRepository;
-use App\Repository\RegimeRepository;
-use App\Repository\ThemeRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Count;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\AbstractType;
+use App\Repository\RegimeRepository;
+use App\Repository\ThemeRepository;
+use App\Repository\PlatRepository;
+use App\Entity\Regime;
+use App\Entity\Theme;
+use App\Entity\Menu;
+use App\Entity\Plat;
 
 class MenuType extends AbstractType
 {

@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use App\Service\RegistrationService;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Security\LoginFormAuthenticator;
+use App\Service\RegistrationService;
 use App\Form\RegistrationFormType;
 use App\Entity\Utilisateur;
 
