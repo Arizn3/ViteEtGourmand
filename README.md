@@ -78,6 +78,7 @@ Après avoir cloné le dépôt, lancer la construction des conteneurs :
 
 ```bash
 docker compose up --build -d
+docker compose exec php composer install
 ```
 
 Récupérer les données démo MongoDB pour le graphique administrateur :<br>
