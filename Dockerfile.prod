@@ -26,7 +26,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Copy et fige le projet dans le conteneur
-COPY symfony/ .
+COPY app/ .
 
 # Installation de Symfony en mode production sans les dépendances nécessaire pour le développement
 RUN composer install --no-dev --optimize-autoloader --no-scripts
