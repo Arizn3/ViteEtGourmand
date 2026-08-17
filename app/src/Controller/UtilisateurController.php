@@ -13,6 +13,7 @@ use App\Form\UserChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeRepository;
 use App\Repository\AvisRepository;
+use App\Service\UtilisateurAvis;
 use App\Form\UtilisateurType;
 use App\Form\CommandeType;
 use App\Entity\Commande;
@@ -209,33 +210,20 @@ final class UtilisateurController extends AbstractController
     // Ajout ou modification d'un avis
     #[Route('/utilisateur/avis', name: 'app_utilisateur_avis')]
     public function avis(
+        UtilisateurAvis $utilisateurAvis,
         Request $request,
-        EntityManagerInterface $em,
-        AvisRepository $avisRepo,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
         /** @var \App\Entity\Utilisateur $utilisateur */
 
-        $avis = $avisRepo->findOneBy([
-            'utilisateur' => $utilisateur
-        ]);
-
-        if (!$avis) {
-            $avis = new Avis();
-            $avis->setUtilisateur($utilisateur);
-        }
-
+        $avis = $utilisateurAvis->recupererAvis($utilisateur);
         $form = $this->createForm(AvisType::class, $avis);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $avis->setUtilisateur($utilisateur);
-            $avis->setStatut('EN_ATTENTE');
-            $em->persist($avis);
-            $em->flush();
-
+            $utilisateurAvis->ajouterModifierAvis($utilisateur);
             return $this->redirectToRoute('app_utilisateur_information_personnelle');
         }
 
