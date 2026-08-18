@@ -223,7 +223,7 @@ final class UtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $utilisateurAvis->ajouterModifierAvis($utilisateur);
+            $utilisateurAvis->ajouterModifierAvis($avis);
             return $this->redirectToRoute('app_utilisateur_information_personnelle');
         }
 
@@ -234,15 +234,11 @@ final class UtilisateurController extends AbstractController
 
     // Suppression d'un avis
     #[Route('/utilisateur/avis/{id}', name: 'app_utilisateur_supprimer_avis')]
-    public function supprimerAvis(Avis $avis, EntityManagerInterface $em): Response
+    public function supprimerAvis(UtilisateurAvis $utilisateurAvis, Avis $avis): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-
-        $em->remove($avis);
-        $em->flush();
-
+        $utilisateurAvis->supprimerAvis($avis);
         $this->addFlash('success', 'Votre avis a été supprimé');
-
         return $this->redirectToRoute('app_utilisateur_information_personnelle');
     }
 

@@ -16,34 +16,32 @@ class UtilisateurAvis
         private AvisRepository $avisRepo,
     ) {}
 
-    public function recupererAvis(Utilisateur $utilisateur): ?Avis
+    public function recupererAvis(Utilisateur $utilisateur): Avis
     {
-        return $this->avisRepo->findOneBy([
-            'utilisateur' => $utilisateur
-        ]);
-    }
-
-    public function ajouterModifierAvis(Utilisateur $utilisateur)
-    {
-
         $avis = $this->avisRepo->findOneBy([
             'utilisateur' => $utilisateur
         ]);
 
         if (!$avis) {
             $avis = new Avis();
+            $avis->setUtilisateur($utilisateur);
         }
 
-        $avis->setUtilisateur($utilisateur);
+        return $avis;
+
+    }
+
+    public function ajouterModifierAvis(Avis $avis): void 
+    {
+
         $avis->setStatut('EN_ATTENTE');
         $this->em->persist($avis);
         $this->em->flush();
     }
 
-    public function supprimerAvis($utilisateur)
+    public function supprimerAvis(Avis $avis): void
     {
-
-        
-
+        $this->em->remove($avis);
+        $this->em->flush();
     }
 }
