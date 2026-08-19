@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Service\UtilisateurPasswordModification;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +11,7 @@ use App\Service\CommandeModificationService;
 use App\Form\UserChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeRepository;
+use App\Service\UtilisateurSupprimer;
 use App\Repository\AvisRepository;
 use App\Service\UtilisateurAvis;
 use App\Form\UtilisateurType;
@@ -19,7 +19,6 @@ use App\Form\CommandeType;
 use App\Entity\Commande;
 use App\Form\AvisType;
 use App\Entity\Avis;
-use App\Service\UtilisateurPasswordModification as ServiceUtilisateurPasswordModification;
 
 // Contrôleur pour l'espace utilisateur
 final class UtilisateurController extends AbstractController
@@ -185,19 +184,13 @@ final class UtilisateurController extends AbstractController
 
     // Suppression du compte (soft delete)
     #[Route('/utilisateur/supprimer-mon-compte', name: 'app_utilisateur_supprimer_compte')]
-    public function supprimerCompte(EntityManagerInterface $em, TokenStorageInterface $tokenStorage): Response
+    public function supprimerCompte(UtilisateurSupprimer $UtilisateurSupprimer): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
         /** @var \App\Entity\Utilisateur $utilisateur */
-
-        $tokenStorage->setToken(null);
-
-        $utilisateur->setEmail('deleted_' . $utilisateur->getEmail());
-        $utilisateur->setDeletedAt(new \DateTime());
-        $em->flush();
-
+        $UtilisateurSupprimer->supprimerCompte($utilisateur);
         return $this->redirectToRoute('app_home');
     }
 
