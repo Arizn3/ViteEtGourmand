@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\UtilisateurPasswordModification;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ use App\Form\CommandeType;
 use App\Entity\Commande;
 use App\Form\AvisType;
 use App\Entity\Avis;
-
+use App\Service\UtilisateurPasswordModification as ServiceUtilisateurPasswordModification;
 
 // Contrôleur pour l'espace utilisateur
 final class UtilisateurController extends AbstractController
@@ -146,18 +146,16 @@ final class UtilisateurController extends AbstractController
     // Affichage des informations personnelle - Modification du mot de passe - Avis
     #[Route('/utilisateur/information-personnelle', name: 'app_utilisateur_information_personnelle')]
     public function informationPersonnelle(
-        Request $request,
-        UserPasswordHasherInterface $passwordHasher,
-        EntityManagerInterface $em,
+        UtilisateurPasswordModification $UtilisateurPasswordModification,
+        CommandeRepository $commandeRepo,
         AvisRepository $avisRepo,
-        CommandeRepository $commandeRepo
+        Request $request,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
         /** @var \App\Entity\Utilisateur $utilisateur */
 
-        // Récupération de l'avis de l'utilisateur
         $avis = $avisRepo->findOneBy([
             'utilisateur' => $utilisateur,
         ]);
@@ -173,11 +171,7 @@ final class UtilisateurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newPassword = $form->get('newPassword')->getData();
-            $hashedPassword = $passwordHasher->hashPassword($utilisateur, $newPassword);
-            $utilisateur->setPassword($hashedPassword);
-
-            $em->flush();
-
+            $UtilisateurPasswordModification->changementMotDePasse($utilisateur, $newPassword);
             return $this->redirectToRoute('app_utilisateur_information_personnelle');
         }
 
