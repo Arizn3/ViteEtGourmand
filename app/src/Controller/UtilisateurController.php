@@ -12,6 +12,7 @@ use App\Form\UserChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeRepository;
 use App\Service\UtilisateurSupprimer;
+use App\Service\AnnulationCommande;
 use App\Repository\AvisRepository;
 use App\Service\UtilisateurAvis;
 use App\Form\UtilisateurType;
@@ -19,6 +20,7 @@ use App\Form\CommandeType;
 use App\Entity\Commande;
 use App\Form\AvisType;
 use App\Entity\Avis;
+// use App\
 
 // Contrôleur pour l'espace utilisateur
 final class UtilisateurController extends AbstractController
@@ -59,13 +61,11 @@ final class UtilisateurController extends AbstractController
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-
         // Récupération des historiques du statut d'une commande avec un tri
         $historiques = $commande->getHistoriques()->toArray();
         usort($historiques, function ($a, $b) {
             return $a->getDate() <=> $b->getDate();
         });
-
         return $this->render('utilisateur/detail-commande.html.twig', [
             'commande' => $commande,
             'historiques' => $historiques
@@ -74,28 +74,18 @@ final class UtilisateurController extends AbstractController
 
     // Annulation d'une commande (sous condition)
     #[Route('/utilisateur/{id}/annuler', name: 'app_utilisateur_annuler_commande')]
-    public function FunctionName(Commande $commande, EntityManagerInterface $em)
+    public function FunctionName(Commande $commande, AnnulationCommande $annulationCommande)
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-
-        // La commande peut être annulée uniquement si elle n'a pas été prise en compte
-        if ($commande->getStatut() === 'Votre commande va être prise en compte') {
-
-            $menu = $commande->getMenu();
-            $menu->setQttRestante(
-                $menu->getQttRestante() + $commande->getNbPersonne()
-            );
-
-            $commande->setStatut('Annuler');
-            $em->flush();
-        } else {
-            $this->addFlash('error', 'Cette commande a déjà été prise en compte, elle ne peut plus être annulée.');
-            return $this->redirectToRoute('app_utilisateur_commandes');
+        try {
+            $annulationCommande->AnnulationCommande($commande);
+            $this->addFlash('success', 'Votre commande a été annulée.');
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
         }
-
         return $this->redirectToRoute('app_utilisateur_commandes');
     }
 
