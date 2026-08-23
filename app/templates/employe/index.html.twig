@@ -68,7 +68,7 @@
             </tr>
             <tr>
                 {% for commande in commandes %}
-                {% if commande.statut != 'Terminer' and commande.statut != 'Annuler' %}
+                {% if commande.statut %}
                 <td class="idCommande">{{ commande.id }}</td>
                 <td class="dateCmd">{{ commande.dateCmd|date("d/m/Y") }}</td>
                 <td class="client">{{ commande.utilisateur.email }} <a

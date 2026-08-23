@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use App\Service\AffichageCommandeService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommandeRepository;
 use App\Repository\HoraireRepository;
@@ -39,11 +40,12 @@ use App\Entity\Avis;
 // Contrôleur pour l'espace employé
 final class EmployeController extends AbstractController
 {
-
-    // Affichage des commandes
+    // Affichage des commandes pour la gestion des commandes
     #[Route('/employe/commandes', name: 'app_employe_commande')]
-    public function index(CommandeRepository $CommandeRepo, Request $request): Response
-    {
+    public function index(
+        AffichageCommandeService $affichageCommandeService,
+        Request $request
+    ): Response {
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
@@ -51,67 +53,26 @@ final class EmployeController extends AbstractController
         $idFilter = $request->query->get('idFilter');
         $emailFilter = $request->query->get('email');
         $statutFilter = $request->query->get('statut');
-
-        // Filtres et affichage des commandes actives
-        $query = $CommandeRepo->createQueryBuilder('c')
-            ->join('c.utilisateur', 'u')
-            ->orderBy('c.id', 'ASC');
-
-        if ($idFilter) {
-            $query->andWhere('c.id = :id')
-                ->setParameter('id', $idFilter);
-        };
-        if ($emailFilter) {
-            $query->andWhere('u.email LIKE :email')
-                ->setParameter('email', '%' . $emailFilter . '%');
-        };
-        if ($statutFilter) {
-            $query->andWhere('c.statut = :statut')
-                ->setParameter('statut', $statutFilter);
-        };
-
-        // Récupération des commandes terminées ou annulées grâce au paramètre ->setParameter()
-        $commandesTerminees = $CommandeRepo->createQueryBuilder('c')
-            ->where('c.statut IN (:statuts)')
-            ->setParameter('statuts', ['Terminer', 'Annuler']);
+        $commandes = $affichageCommandeService->getFiltreCommandesActives(
+            $idFilter,
+            $emailFilter,
+            $statutFilter
+        );
 
         // Variables en cas de filtre (commandes terminées ou annulées)
         $idTerminer = $request->query->get('idTerminer');
         $emailTerminer = $request->query->get('emailTerminer');
         $statutTerminer = $request->query->get('statutTerminer');
-
-        // Filtres pour les commandes Terminées ou Annulées
-        $queryTerminer = $CommandeRepo->createQueryBuilder('c')
-            ->join('c.utilisateur', 'u')
-            ->where('c.statut IN (:statuts)')
-            ->setParameter('statuts', ['Terminer', 'Annuler'])
-            ->orderBy('c.id', 'DESC');
-
-        if ($idTerminer) {
-            $queryTerminer->andWhere('c.id = :id')
-                ->setParameter('id', $idTerminer);
-        };
-        if ($emailTerminer) {
-            $queryTerminer->andWhere('u.email LIKE :email')
-                ->setParameter('email', '%' . $emailTerminer . '%');
-        };
-        if ($statutTerminer) {
-            $queryTerminer->andWhere('c.statut LIKE :statut')
-                ->setParameter('statut', '%' . $statutTerminer . '%');
-        };
-
-        $commandes = $query->getQuery()->getResult();
-        $commandesTerminees = $queryTerminer->getQuery()->getResult();
-
-        // Nombre des commandes actives pour Twig
-        $commandeActives = array_filter($commandes, function ($c) {
-            return !in_array($c->getStatut(), ['Terminer', 'Annuler']);
-        });
+        $commandesTerminees = $affichageCommandeService->getFiltreCommandesTerminer(
+            $idTerminer,
+            $emailTerminer,
+            $statutTerminer,
+        );
 
         return $this->render('employe/index.html.twig', [
             'commandes' => $commandes,
             'commandesTerminees' => $commandesTerminees,
-            'commandesActives' => $commandeActives
+            'commandesActives' => $commandes
         ]);
     }
 
@@ -140,11 +101,11 @@ final class EmployeController extends AbstractController
     // Page de changement du statut d'une commande
     #[Route('/employe/statut/{id}', name: 'app_commande_statut')]
     public function changementStatut(
-        Commande $commande,
-        Request $request,
         EntityManagerInterface $em,
         MailerInterface $mailer,
         DocumentManager $dm,
+        Commande $commande,
+        Request $request,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
@@ -707,5 +668,4 @@ L\'équipe Vite & Gourmand
             'horaire' => $horaire,
         ]);
     }
-    
 }
