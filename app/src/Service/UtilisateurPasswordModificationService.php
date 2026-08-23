@@ -6,7 +6,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Utilisateur;
 
-class UtilisateurPasswordModification
+class UtilisateurPasswordModificationService
 {
 
     public function __construct(

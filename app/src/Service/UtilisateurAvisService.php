@@ -8,7 +8,7 @@ use App\Entity\Utilisateur;
 use App\Entity\Avis;
 
 
-class UtilisateurAvis
+class UtilisateurAvisService
 {
 
     public function __construct(

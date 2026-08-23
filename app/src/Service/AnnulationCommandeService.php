@@ -5,7 +5,7 @@ namespace App\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Commande;
 
-class AnnulationCommande
+class AnnulationCommandeService
 {
 
     public function __construct(

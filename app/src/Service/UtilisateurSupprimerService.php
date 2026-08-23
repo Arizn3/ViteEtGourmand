@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Utilisateur;
 
-class UtilisateurSupprimer {
+class UtilisateurSupprimerService {
 
     public function __construct(
         private EntityManagerInterface $em,

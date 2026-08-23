@@ -3,24 +3,23 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\UtilisateurPasswordModification;
+use App\Service\UtilisateurPasswordModificationService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\CommandeModificationService;
+use App\Service\UtilisateurSupprimerService;
+use App\Service\AnnulationCommandeService;
 use App\Form\UserChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Service\UtilisateurAvisService;
 use App\Repository\CommandeRepository;
-use App\Service\UtilisateurSupprimer;
-use App\Service\AnnulationCommande;
 use App\Repository\AvisRepository;
-use App\Service\UtilisateurAvis;
 use App\Form\UtilisateurType;
 use App\Form\CommandeType;
 use App\Entity\Commande;
 use App\Form\AvisType;
 use App\Entity\Avis;
-// use App\
 
 // Contrôleur pour l'espace utilisateur
 final class UtilisateurController extends AbstractController
@@ -74,14 +73,14 @@ final class UtilisateurController extends AbstractController
 
     // Annulation d'une commande (sous condition)
     #[Route('/utilisateur/{id}/annuler', name: 'app_utilisateur_annuler_commande')]
-    public function FunctionName(Commande $commande, AnnulationCommande $annulationCommande)
+    public function FunctionName(Commande $commande, AnnulationCommandeService $AnnulationCommandeService)
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
         try {
-            $annulationCommande->AnnulationCommande($commande);
+            $AnnulationCommandeService->AnnulationCommande($commande);
             $this->addFlash('success', 'Votre commande a été annulée.');
         } catch (\Exception $e) {
             $this->addFlash('error', $e->getMessage());
@@ -135,7 +134,7 @@ final class UtilisateurController extends AbstractController
     // Affichage des informations personnelle - Modification du mot de passe - Avis
     #[Route('/utilisateur/information-personnelle', name: 'app_utilisateur_information_personnelle')]
     public function informationPersonnelle(
-        UtilisateurPasswordModification $UtilisateurPasswordModification,
+        UtilisateurPasswordModificationService $UtilisateurPasswordModificationService,
         CommandeRepository $commandeRepo,
         AvisRepository $avisRepo,
         Request $request,
@@ -160,7 +159,7 @@ final class UtilisateurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newPassword = $form->get('newPassword')->getData();
-            $UtilisateurPasswordModification->changementMotDePasse($utilisateur, $newPassword);
+            $UtilisateurPasswordModificationService->changementMotDePasse($utilisateur, $newPassword);
             return $this->redirectToRoute('app_utilisateur_information_personnelle');
         }
 
@@ -174,20 +173,20 @@ final class UtilisateurController extends AbstractController
 
     // Suppression du compte (soft delete)
     #[Route('/utilisateur/supprimer-mon-compte', name: 'app_utilisateur_supprimer_compte')]
-    public function supprimerCompte(UtilisateurSupprimer $UtilisateurSupprimer): Response
+    public function supprimerCompte(UtilisateurSupprimerService $UtilisateurSupprimerService): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
         /** @var \App\Entity\Utilisateur $utilisateur */
-        $UtilisateurSupprimer->supprimerCompte($utilisateur);
+        $UtilisateurSupprimerService->supprimerCompte($utilisateur);
         return $this->redirectToRoute('app_home');
     }
 
     // Ajout ou modification d'un avis
     #[Route('/utilisateur/avis', name: 'app_utilisateur_avis')]
     public function avis(
-        UtilisateurAvis $utilisateurAvis,
+        UtilisateurAvisService $UtilisateurAvisService,
         Request $request,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -195,12 +194,12 @@ final class UtilisateurController extends AbstractController
         $utilisateur = $this->getUser();
         /** @var \App\Entity\Utilisateur $utilisateur */
 
-        $avis = $utilisateurAvis->recupererAvis($utilisateur);
+        $avis = $UtilisateurAvisService->recupererAvis($utilisateur);
         $form = $this->createForm(AvisType::class, $avis);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $utilisateurAvis->ajouterModifierAvis($avis);
+            $UtilisateurAvisService->ajouterModifierAvis($avis);
             return $this->redirectToRoute('app_utilisateur_information_personnelle');
         }
 
@@ -211,10 +210,10 @@ final class UtilisateurController extends AbstractController
 
     // Suppression d'un avis
     #[Route('/utilisateur/avis/{id}', name: 'app_utilisateur_supprimer_avis')]
-    public function supprimerAvis(UtilisateurAvis $utilisateurAvis, Avis $avis): Response
+    public function supprimerAvis(UtilisateurAvisService $UtilisateurAvisService, Avis $avis): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        $utilisateurAvis->supprimerAvis($avis);
+        $UtilisateurAvisService->supprimerAvis($avis);
         $this->addFlash('success', 'Votre avis a été supprimé');
         return $this->redirectToRoute('app_utilisateur_information_personnelle');
     }
