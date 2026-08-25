@@ -2,26 +2,20 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use App\Service\AffichageCommandeService;
+use App\Service\ChangementStatutService;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\CommandeRepository;
 use App\Repository\HoraireRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
 use App\Repository\AvisRepository;
 use App\Repository\MenuRepository;
 use App\Repository\PlatRepository;
-use App\Entity\CommandeHistorique;
-use Symfony\Component\Mime\Email;
 use App\Entity\Utilisateur;
 use App\Form\HoraireType;
 use App\Entity\Commande;
@@ -30,7 +24,6 @@ use App\Form\ThemeType;
 use App\Entity\Horaire;
 use App\Form\MenuType;
 use App\Entity\Regime;
-use App\Document\Stat;
 use App\Form\PlatType;
 use App\Entity\Theme;
 use App\Entity\Menu;
@@ -81,7 +74,6 @@ final class EmployeController extends AbstractController
     public function adresseLivraison(Commande $commande): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         return $this->render('employe/adresse.html.twig', [
             'commande' => $commande
         ]);
@@ -92,7 +84,6 @@ final class EmployeController extends AbstractController
     public function detailUtilisateur(Utilisateur $utilisateur): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         return $this->render('employe/utilisateur.html.twig', [
             'utilisateur' => $utilisateur,
         ]);
@@ -101,166 +92,16 @@ final class EmployeController extends AbstractController
     // Page de changement du statut d'une commande
     #[Route('/employe/statut/{id}', name: 'app_commande_statut')]
     public function changementStatut(
-        EntityManagerInterface $em,
-        MailerInterface $mailer,
-        DocumentManager $dm,
+        ChangementStatutService $changementStatutService,
         Commande $commande,
         Request $request,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
 
-        // Récupération du statut choisi par l'employé
-        // La base de données est ensuite mise à jour
         if ($request->isMethod('POST')) {
             $statut = $request->request->get('statut');
-
-            // Sécurité des statuts possible
-            $statutPossible = [
-                'Votre commande a été prise en compte',
-                'Votre commande est en préparation',
-                'En cours de livraison',
-                'Commande livrée',
-                'En attente du retour de matériel',
-                'Terminer',
-                'Annuler'
-            ];
-            if (!in_array($statut, $statutPossible)) {
-                throw new \Exception('Statut Invalide');
-            };
-
-            // Code en cas d'un changement de statut en 'En attente du retour de matériel'
-            if ($statut === 'En attente du retour de matériel') {
-
-                $email = (new Email())
-                    ->from(
-                        $this->getParameter('mailer_from_name')
-                            . ' <' . $this->getParameter('mailer_from_address') . '>'
-                    )
-                    ->to($commande->getUtilisateur()->getEmail())
-                    ->subject('Retour matériel')
-                    ->text('Bonjour,
-
-Nous vous remercions de nous avoir fait confiance, et espérons que votre événement s\'est bien déroulé.
-Nous vous rendons attentif au fait que le matériel loué doit être restitué sous 10 jours ouvrés.
-
-Les conditions générales prévoient 600 euros de frais que nous serions bien désolés de devoir vous facturer.
-Pour rendre le matériel dans de bonnes conditions, veuillez prendre contact avec nous dans les plus brefs délais,
-en passant par l\'onglet contact du site.
-
-Nous restons à votre disposition, cordialement.
-L\'équipe Vite & Gourmand
-                    ');
-
-                $mailer->send($email);
-            }
-
-            // Code en cas d'un changement de statut en 'Annuler'
-            if ($statut === 'Annuler') {
-
-                $commande->setDeletedAt(new \DateTime());
-                $commande->setRestitutionMateriel(true);
-                $commande->getMenu()->getQttRestante() + $commande->getNbPersonne();
-
-                // Récupération du message de l'input (Twig)
-                $messageEmail = $request->request->get('message_email');
-
-                if (empty($messageEmail)) {
-                    throw new BadRequestHttpException('Motif d\'annulation obligatoire');
-                } else {
-                    $email = (new Email())
-                        ->from(
-                            $this->getParameter('mailer_from_name')
-                                . ' <' . $this->getParameter('mailer_from_address') . '>'
-                        )
-                        ->to($commande->getUtilisateur()->getEmail())
-                        ->subject('Annulation de votre commmande')
-                        ->text('Bonjour,
-                    
-Votre commande a été annulée pour les raisons suivantes :
-                    
-' . $messageEmail . '
-                    
-Nous restons à votre disposition, cordialement.
-L\'équipe Vite & Gourmand
-                    ');
-
-                    $menu = $commande->getMenu();
-                    $menu->setQttRestante(
-                        $menu->getQttRestante() + $commande->getNbPersonne()
-                    );
-
-                    $mailer->send($email);
-                };
-            };
-
-            // Code en cas d'un changement de statut en 'Terminer'
-            // Enregistrement des données d'une commande dans MongoDB
-            if ($statut === 'Terminer') {
-
-                $commande->setDeletedAt(new \DateTime());
-                $commande->setRestitutionMateriel(true);
-
-                // Information sur la commande terminée
-                $menuNom = $commande->getMenu()->getTitre();
-                $prix = $commande->getPrixMenu();
-                $periode = (new \DateTime())->format('Y-m');
-
-                // Chercher si le docmuent menu existe déjà
-                // ainsi que sa période
-                $stat = $dm->getRepository(Stat::class)->findOneBy([
-                    'menu' => $menuNom,
-                    'periode' => $periode
-                ]);
-
-                // Sinon création d'un nouveau document dans MongoDB
-                if (!$stat) {
-                    $stat = new Stat();
-                    $stat->setMenu($menuNom);
-                    $stat->setPeriode($periode);
-                    $stat->setTotalCommandes(0);
-                    $stat->setChiffreAffaire(0);
-                };
-
-                // Incrémentation dans MongoDB
-                $stat->setTotalCommandes($stat->getTotalCommandes() + 1);
-                $stat->setChiffreAffaire($stat->getChiffreAffaire() + $prix);
-
-                $dm->persist($stat);
-                $dm->flush();
-
-                $url = $this->generateUrl('app_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
-                $email = (new Email())
-                    ->from(
-                        $this->getParameter('mailer_from_name')
-                            . ' <' . $this->getParameter('mailer_from_address') . '>'
-                    )
-                    ->to($commande->getUtilisateur()->getEmail())
-                    ->subject('Commmande terminée')
-                    ->html("
-                    <p>Bonjour,</p>
-                    
-                    <p>Votre commande est à présent terminée, nous espérons que vous vous êtes régalé.</p>
-
-                    <p>Vous pouvez dès à présent vous rendre dans votre <a href='$url'>espace personnel</a> pour nous laisser un avis.</p>
-                    
-                    <p>Nous restons à votre disposition, cordialement.</p>
-                    <p>L\'équipe Vite & Gourmand</p>
-                    ");
-
-                $mailer->send($email);
-            };
-
-            $commande->setStatut($statut);
-
-            $historique = new CommandeHistorique();
-            $historique->setStatut($statut);
-            $historique->setDate(new \DateTime());
-
-            $commande->addHistorique($historique);
-
-            $em->persist($historique);
-            $em->flush();
-
+            $messageEmail = $request->request->get('message_email');
+            $changementStatutService->changementStatut($commande, $messageEmail, $statut);
             return $this->redirectToRoute('app_employe_commande', $request->query->all());
         };
 
@@ -274,9 +115,7 @@ L\'équipe Vite & Gourmand
     public function avisUtilisateur(AvisRepository $avisRepo): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         $avis = $avisRepo->findBy(['statut' => 'EN_ATTENTE']);
-
         return $this->render('employe/avis.html.twig', [
             'avis' => $avis,
         ]);

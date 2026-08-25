@@ -10,7 +10,10 @@ class CommandeModificationService
     public function verifierDateModification(Commande $commande): void
     {
         $minDate = (clone $commande->getCreatedAt())->modify('7 days');
-        if ($commande->getDatePrestation() < $minDate) {
+        $today = new \DateTime();
+        if ($commande->getDatePrestation() < $today) {
+            throw new \Exception('⚠️ La date de livraison n\'est pas valide');
+        } elseif ($commande->getDatePrestation() < $minDate) {
             throw new \Exception('⚠️ La date de livraison doit être au minimum 7 jours après la date de commande');
         };
 

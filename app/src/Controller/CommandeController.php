@@ -68,8 +68,8 @@ final class CommandeController extends AbstractController
             }
 
             // Condition pour une date de livraison valide
-
-            $minDate = (clone $commande->getCreatedAt())->modify('7 days');
+            $minDate = new \DateTime();
+            $minDate->modify('+7 days');
             if ($commande->getDatePrestation() < $minDate) {
                 $this->addFlash('error', '⚠️ La date de livraison doit être au minimum dans 7 jours');
                 return $this->redirectToRoute('app_commande', [

@@ -16,8 +16,7 @@ class NouvelleCommandeService
         private MailerInterface $mailer,
         private ParameterBagInterface $parameterBag,
         private DistanceService $distanceService
-    ) {
-    }
+    ) {}
 
     public function nouvelleCommande(Commande $commande, Menu $menu): void
     {
@@ -56,19 +55,19 @@ class NouvelleCommandeService
         $email = (new Email())
             ->from(
                 $this->parameterBag->get('mailer_from_name')
-                . ' <'
-                . $this->parameterBag->get('mailer_from_address')
-                . '>'
+                    . ' <'
+                    . $this->parameterBag->get('mailer_from_address')
+                    . '>'
             )
             ->to($commande->getUtilisateur()->getEmail())
             ->subject('Réception de votre commande')
             ->text(
                 "Bonjour,\n\n" .
-                "Votre commande va être prise en compte par notre service.\n" .
-                "Accédez à votre espace personnel pour suivre l'avancement de votre commande.\n\n" .
-                "Merci d'avoir choisi Vite & Gourmand !\n\n" .
-                "Nous restons à votre disposition, cordialement.\n" .
-                "L'équipe Vite & Gourmand"
+                    "Votre commande va être prise en compte par notre service.\n" .
+                    "Accédez à votre espace personnel pour suivre l'avancement de votre commande.\n\n" .
+                    "Merci d'avoir choisi Vite & Gourmand !\n\n" .
+                    "Nous restons à votre disposition, cordialement.\n" .
+                    "L'équipe Vite & Gourmand"
             );
 
         $this->mailer->send($email);
