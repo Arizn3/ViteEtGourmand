@@ -121,38 +121,6 @@ final class EmployeController extends AbstractController
         ]);
     }
 
-    ## Les deux fonctions suivantes sépare la validation et l'annulation des avis, pour les utiliser,
-    ## il faut d'abord enlever le paramètre dynamique dans le fichier Twig au niveau des liens 'action: '***''
-    ## et changer l'URL du lien en 'app_avis_action' pour ensuite commenter la fonction actionAvis.
-
-    # // Function de validation d'un avis
-    # #[Route('/employe/avis/valider/{id}', name: 'app_avis_valider')]
-    # public function validerAvis(Avis $avis, EntityManagerInterface $em): Response
-    # {
-    #     // Contrôle d'accès
-    #     $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-    #     // Appel du Setter de Avis
-    #     $avis->setStatut('REFUSER');
-    #     $em->flush();
-
-    #     return $this->redirectToRoute('app_employe_avis');
-    # }
-
-    # // Function d'annuation d'un avis
-    # #[Route('/employe/avis/refuser/{id}', name: 'app_avis_refuser')]
-    # public function refuserAvis(Avis $avis, EntityManagerInterface $em): Response
-    # {
-    #     // Contrôle d'accès
-    #     $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-    #     // Appel du Setter de Avis
-    #     $avis->setStatut('VALIDE');
-    #     $em->flush();
-
-    #     return $this->redirectToRoute('app_employe_avis');
-    # }
-
     // Function gestion des avis
     #[Route('/employe/avis/{id}/{action}', name: 'app_avis_action')]
     public function actionAvis(Avis $avis, string $action, EntityManagerInterface $em): Response

@@ -2,7 +2,10 @@
 FROM php:8.3-fpm-alpine
 
 # Dépendances système
-RUN apk add --no-cache icu-dev libzip-dev $PHPIZE_DEPS
+RUN apk add --no-cache icu-dev libzip-dev tzdata $PHPIZE_DEPS
+
+# Configuration du fuseau horaire
+RUN echo "date.timezone=Europe/Paris" > /usr/local/etc/php/conf.d/timezone.ini
 
 # Éxtensions PHP
 RUN docker-php-ext-install \
