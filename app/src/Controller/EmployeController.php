@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\HoraireRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
+use App\Service\GestionAvisService;
 use App\Repository\AvisRepository;
 use App\Repository\MenuRepository;
 use App\Repository\PlatRepository;
@@ -123,20 +124,17 @@ final class EmployeController extends AbstractController
 
     // Function gestion des avis
     #[Route('/employe/avis/{id}/{action}', name: 'app_avis_action')]
-    public function actionAvis(Avis $avis, string $action, EntityManagerInterface $em): Response
-    {
+    public function actionAvis(
+        GestionAvisService $gestionAvis,
+        String $action,
+        Avis $avis,
+    ): Response {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-        if ($action === 'VALIDE') {
-            $avis->setStatut('VALIDE');
-        } elseif ($action === 'REFUSER') {
-            $avis->setStatut('REFUSER');
-        } else {
+        try {
+            $gestionAvis->gestionAvis($avis, $action);
+        } catch (\InvalidArgumentException $e) {
             throw $this->createNotFoundException();
-        };
-
-        $em->flush();
-
+        }
         return $this->redirectToRoute('app_employe_avis');
     }
 
