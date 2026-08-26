@@ -10,9 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Service\AffichageCommandeService;
 use App\Service\ChangementStatutService;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Service\ModificationMenuService;
 use App\Repository\HoraireRepository;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
+use App\Service\NouveauMenuService;
 use App\Service\GestionAvisService;
 use App\Repository\AvisRepository;
 use App\Repository\MenuRepository;
@@ -143,9 +145,7 @@ final class EmployeController extends AbstractController
     public function avisHistorique(AvisRepository $avisRepo): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         $avis = $avisRepo->findBy(['statut' => ['VALIDE', 'REFUSER']]);
-
         return $this->render('employe/historique.html.twig', [
             'avis' => $avis,
         ]);
@@ -156,12 +156,9 @@ final class EmployeController extends AbstractController
     public function gestionMenu(MenuRepository $menuRepo): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-        // Commandes qui n'ont pas de valeur dans 'deletedAt'
         $menus = $menuRepo->findBy([
             'deletedAt' => null
         ]);
-
         return $this->render('employe/gestion-menu.html.twig', [
             'menus' => $menus,
         ]);
@@ -169,25 +166,16 @@ final class EmployeController extends AbstractController
 
     // Création d'un nouveau menu
     #[Route('employe/nouveau-menu', name: 'app_nouveau_menu')]
-    public function nouveauMenu(Request $request, EntityManagerInterface $em): Response
+    public function nouveauMenu(Request $request, NouveauMenuService $nouveauMenu): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         $menu = new Menu();
-
-        // Préparation du formulaire et de la requête
         $form = $this->createForm(MenuType::class, $menu);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $menu->setCreatedAt(new \DateTime());
-
-            $em->persist($menu);
-            $em->flush();
-
+            $nouveauMenu->nouveauMenu($menu);
             return $this->redirectToRoute('app_employe_gestion_menu');
         };
-
         // createView() convertit le formulaire en version affichable pour Twig
         return $this->render('employe/nouveau-menu.html.twig', [
             'form' => $form->createView(),
@@ -200,7 +188,6 @@ final class EmployeController extends AbstractController
     public function detailMenu(Menu $menu): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         return $this->render('employe/previsualisation.html.twig', [
             'menu' => $menu,
         ]);
@@ -208,18 +195,15 @@ final class EmployeController extends AbstractController
 
     // Modification d'un menu
     #[Route('/employe/gestion-menu/modification/{id}', name: 'app_menu_modifier')]
-    public function modifierMenu(Menu $menu, Request $request, EntityManagerInterface $em): Response
+    public function modifierMenu(Menu $menu, Request $request, ModificationMenuService $modificationMenu): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         $form = $this->createForm(MenuType::class, $menu);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+            $modificationMenu->modifierMenu($menu);
             return $this->redirectToRoute('app_employe_gestion_menu');
         };
-
         return $this->render('employe/modification-menu.html.twig', [
             'form' => $form->createView(),
             'menu' => $menu
@@ -228,18 +212,14 @@ final class EmployeController extends AbstractController
 
     // Désactiver un menu
     #[Route('/employe/gestion-menu/desactiver/{id}', name: 'app_menu_desactiver')]
-    public function desactiveMenu(Menu $menu, EntityManagerInterface $em): Response
+    public function desactiveMenu(Menu $menu, ModificationMenuService $modificationMenu): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-        // Empêche une double désactivation
-        if ($menu->getDeletedAt() !== null) {
+        try {
+            $modificationMenu->desactiverMenu($menu);
+        } catch (\InvalidArgumentException) {
             return $this->redirectToRoute('app_employe_gestion_menu');
-        };
-
-        $menu->setDeletedAt(new \DateTime());
-        $em->flush();
-
+        }
         return $this->redirectToRoute('app_employe_gestion_menu');
     }
 
