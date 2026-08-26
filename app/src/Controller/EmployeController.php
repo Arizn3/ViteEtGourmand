@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Service\ModificationMenuService;
 use App\Repository\HoraireRepository;
 use App\Repository\RegimeRepository;
+use App\Service\GestionPlatService;
 use App\Repository\ThemeRepository;
 use App\Service\NouveauMenuService;
 use App\Service\GestionAvisService;
@@ -223,53 +224,24 @@ final class EmployeController extends AbstractController
         return $this->redirectToRoute('app_employe_gestion_menu');
     }
 
-    // Ajouter un plat et afficahge
+    // Gestion des plats
     #[Route('/employe/gestion-menu/plat', name: 'app_menu_nouveau_plat')]
     public function nouveauPlat(
+        GestionPlatService $gestionPlat,
         Request $request,
-        EntityManagerInterface $em,
-        SluggerInterface $slugger,
-        PlatRepository $platRepo,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-        $plats = $platRepo->findBy([
-            'deletedAt' => null
-        ]);
-
+        $plats = $gestionPlat->affichagePlat();
         $plat = new Plat();
-
         $form = $this->createForm(PlatType::class, $plat);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $photo = $form->get('photo')->getData();
-
             if ($photo) {
-
-                $nomOriginal = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-
-                $safeNom = $slugger->slug($nomOriginal);
-
-                $nouveauNom = $safeNom . '-' . uniqid() . '.' . $photo->guessExtension();
-
-                $photo->move(
-                    $this->getParameter('image_directory'),
-                    $nouveauNom
-                );
-
-                $plat->setPhoto($nouveauNom);
+                $gestionPlat->nouveauPlat($photo, $plat);
             }
-
-            $plat->setCreatedAt(new \DateTime());
-
-            $em->persist($plat);
-            $em->flush();
-
             return $this->redirectToRoute('app_menu_nouveau_plat');
         }
-
         return $this->render('employe/nouveau-plat.html.twig', [
             'form' => $form->createView(),
             'plat' => $plats,
@@ -278,35 +250,15 @@ final class EmployeController extends AbstractController
 
     // Désactivation d'un plat
     #[Route('/employe/gestion-menu/plat/supprime/{id}', 'app_supprime_plat')]
-    public function supprimerPlat(Plat $plat, EntityManagerInterface $em): Response
+    public function supprimerPlat(Plat $plat, GestionPlatService $gestionPlat): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-        $menusActifs = $plat->getMenus()->filter(function ($menu) {
-            return $menu->getDeletedAt() === null;
-        });
-
-        // Condition pour la vérification d'une relation entre un plat et un menu
-        if (!$menusActifs->isEmpty()) {
-            $this->addFlash('error',  $plat->getNomPlat() . ' est impossible à supprimer, ce plat est utilisé dans un menu.');
-            return $this->redirectToRoute('app_menu_nouveau_plat');
-        };
-
-        $photo = $plat->getPhoto();
-
-        if ($photo) {
-            $pathPhoto = $this->getParameter('image_directory') . '/' . $photo;
-            if (file_exists($pathPhoto)) {
-                // Supprime la photo du fichier uploads/plat
-                unlink($pathPhoto);
-            };
-        };
-
-        $plat->setDeletedAt(new \DateTime());
-        $em->flush();
-
-        $this->addFlash('success', $plat->getNomPlat() . ' a été supprimé');
-
+        try {
+            $gestionPlat->desactiverPlat($plat);
+            $this->addFlash('success', $plat->getNomPlat() . ' a été supprimé');
+        } catch (\RuntimeException $e) {
+            $this->addFlash('error', $e->getMessage());
+        }   
         return $this->redirectToRoute('app_menu_nouveau_plat');
     }
 
