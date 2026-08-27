@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,13 +12,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Service\ModificationMenuService;
 use App\Repository\HoraireRepository;
 use App\Repository\RegimeRepository;
+use App\Service\GestionThemeService;
 use App\Service\GestionPlatService;
-use App\Repository\ThemeRepository;
 use App\Service\NouveauMenuService;
 use App\Service\GestionAvisService;
 use App\Repository\AvisRepository;
 use App\Repository\MenuRepository;
-use App\Repository\PlatRepository;
 use App\Entity\Utilisateur;
 use App\Form\HoraireType;
 use App\Entity\Commande;
@@ -45,7 +43,6 @@ final class EmployeController extends AbstractController
     ): Response {
         // Contrôle d'accès
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         // Variables en cas de filtre (commandes actives)
         $idFilter = $request->query->get('idFilter');
         $emailFilter = $request->query->get('email');
@@ -55,7 +52,6 @@ final class EmployeController extends AbstractController
             $emailFilter,
             $statutFilter
         );
-
         // Variables en cas de filtre (commandes terminées ou annulées)
         $idTerminer = $request->query->get('idTerminer');
         $emailTerminer = $request->query->get('emailTerminer');
@@ -65,7 +61,6 @@ final class EmployeController extends AbstractController
             $emailTerminer,
             $statutTerminer,
         );
-
         return $this->render('employe/index.html.twig', [
             'commandes' => $commandes,
             'commandesTerminees' => $commandesTerminees,
@@ -101,14 +96,12 @@ final class EmployeController extends AbstractController
         Request $request,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         if ($request->isMethod('POST')) {
             $statut = $request->request->get('statut');
             $messageEmail = $request->request->get('message_email');
             $changementStatutService->changementStatut($commande, $messageEmail, $statut);
             return $this->redirectToRoute('app_employe_commande', $request->query->all());
         };
-
         return $this->render('employe/statut.html.twig', [
             'commande' => $commande,
         ]);
@@ -258,36 +251,25 @@ final class EmployeController extends AbstractController
             $this->addFlash('success', $plat->getNomPlat() . ' a été supprimé');
         } catch (\RuntimeException $e) {
             $this->addFlash('error', $e->getMessage());
-        }   
+        }
         return $this->redirectToRoute('app_menu_nouveau_plat');
     }
 
     // Ajouter un thème et affichage
     #[Route('/employe/gestion-menu/theme', name: 'app_nouveau_theme')]
     public function nouveauTheme(
-        ThemeRepository $themeRepo,
-        EntityManagerInterface $em,
-        Request $request
+        GestionThemeService $gestionTheme,
+        Request $request,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-        $themes = $themeRepo->findBy([
-            'deletedAt' => null
-        ]);
-
+        $themes = $gestionTheme->afficherThemes();
         $theme = new Theme();
-
         $form = $this->createForm(ThemeType::class, $theme);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $theme->setCreatedAt(new \DateTime());
-            $em->persist($theme);
-            $em->flush();
-
+            $gestionTheme->ajoutTheme($theme);
             return $this->redirectToRoute('app_nouveau_theme');
         };
-
         return $this->render('employe/nouveau-theme.html.twig', [
             'theme' => $themes,
             'form' => $form->createView(),
@@ -296,25 +278,15 @@ final class EmployeController extends AbstractController
 
     // Supprimer un theme
     #[Route('/employe/gestion-menu/theme/supprime/{id}', name: 'app_supprime_theme')]
-    public function supprimerTheme(Theme $theme, EntityManagerInterface $em): Response
+    public function supprimerTheme(Theme $theme, GestionThemeService $gestionTheme): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-        $menusActifs = $theme->getMenus()->filter(function ($menu) {
-            return $menu->getDeletedAt() === null;
-        });
-
-        // Condition pour la vérification d'une relation entre un theme et un menu
-        if (!$menusActifs->isEmpty()) {
-            $this->addFlash('error',  $theme->getDescription() . ' est impossible à supprimer, ce thème est utilisé dans un menu.');
-            return $this->redirectToRoute('app_nouveau_theme');
+        try {
+            $gestionTheme->desactiverTheme($theme);
+            $this->addFlash('success', $theme->getDescription() . ' a été supprimé');
+        } catch (\RuntimeException $e) {
+            $this->addFlash('error', $e->getMessage());
         }
-
-        $theme->setDeletedAt(new \DateTime());
-        $em->flush();
-
-        $this->addFlash('success', $theme->getDescription() . ' a été supprimé');
-
         return $this->redirectToRoute('app_nouveau_theme');
     }
 
@@ -376,7 +348,6 @@ final class EmployeController extends AbstractController
     public function horaire(HoraireRepository $horaire): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         return $this->render('employe/horaire.html.twig', [
             'horaires' => $horaire->findAll(),
         ]);
@@ -390,16 +361,12 @@ final class EmployeController extends AbstractController
         EntityManagerInterface $em
     ): response {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
         $form = $this->createForm(HoraireType::class, $horaire);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-
             return $this->redirectToRoute('app_employe_horaire');
         };
-
         return $this->render('employe/horaire-form.html.twig', [
             'form' => $form->createView(),
             'horaire' => $horaire,

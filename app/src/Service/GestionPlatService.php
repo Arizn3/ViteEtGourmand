@@ -46,10 +46,10 @@ class GestionPlatService
 
     public function desactiverPlat(Plat $plat)
     {
+        // Condition pour la vérification d'une relation entre un plat et un menu
         $menusActifs = $plat->getMenus()->filter(function ($menu) {
             return $menu->getDeletedAt() === null;
         });
-        // Condition pour la vérification d'une relation entre un plat et un menu
         if (!$menusActifs->isEmpty()) {
             throw new \RuntimeException(
                 $plat->getNomPlat() . ' est impossible à supprimer, ce plat est utilisé dans un menu.'
