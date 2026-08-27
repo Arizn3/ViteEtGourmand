@@ -37,7 +37,7 @@ class GestionThemeService
             throw new \RuntimeException(
                 $theme->getDescription() . ' est impossible à supprimer, ce thème est utilisé dans un menu.'
             );
-        }
+        };
         $theme->setDeletedAt(new \DateTime());
         $this->em->flush();
     }

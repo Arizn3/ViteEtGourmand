@@ -11,7 +11,7 @@ use App\Service\ChangementStatutService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\ModificationMenuService;
 use App\Repository\HoraireRepository;
-use App\Repository\RegimeRepository;
+use App\Service\GestionRegimeService;
 use App\Service\GestionThemeService;
 use App\Service\GestionPlatService;
 use App\Service\NouveauMenuService;
@@ -290,29 +290,21 @@ final class EmployeController extends AbstractController
         return $this->redirectToRoute('app_nouveau_theme');
     }
 
-    // Ajouter un régime
+    // Ajouter un régime et affichage
     #[Route('/employe/gestion-menu/regime', name: 'app_nouveau_regime')]
-    public function nouveauRegime(RegimeRepository $regimeRepo, EntityManagerInterface $em, Request $request): response
-    {
+    public function nouveauRegime(
+        GestionRegimeService $gestionRegime,
+        Request $request
+    ): response {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-        $regimes = $regimeRepo->findBy([
-            'deletedAt' => null
-        ]);
-
+        $regimes = $gestionRegime->afficherRegime();
         $regime = new Regime();
-
         $form = $this->createForm(RegimeType::class, $regime);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $regime->setCreatedAt(new \DateTime());
-            $em->persist($regime);
-            $em->flush();
-
+            $gestionRegime->ajouterRegime($regime);
             return $this->redirectToRoute('app_nouveau_regime');
         };
-
         return $this->render('employe/nouveau-regime.html.twig', [
             'regime' => $regimes,
             'form' => $form->createView(),
@@ -321,25 +313,15 @@ final class EmployeController extends AbstractController
 
     // Suppression d'un régime
     #[Route('/employe/gestion-menu/regime/supprimer/{id}', name: 'app_supprime_regime')]
-    public function supprimerRegime(Regime $regime, EntityManagerInterface $em): response
+    public function supprimerRegime(Regime $regime, GestionRegimeService $gestionRegime): response
     {
         $this->denyAccessUnlessGranted('ROLE_EMPLOYE');
-
-        $menusActifs = $regime->getMenus()->filter(function ($menu) {
-            return $menu->getDeletedAt() === null;
-        });
-
-        // Condition pour la vérification d'une relation entre un régime et un menu
-        if (!$menusActifs->isEmpty()) {
-            $this->addFlash('error',  $regime->getDescription() . ' est impossible à supprimer, ce régime est utilisé dans un menu.');
-            return $this->redirectToRoute('app_nouveau_regime');
+        try {
+            $gestionRegime->desactiverRegime($regime);
+            $this->addFlash('success', $regime->getDescription() . ' a été supprimé');
+        } catch (\RuntimeException $e) {
+            $this->addFlash('error', $e->getMessage());
         }
-
-        $regime->setDeletedAt(new \DateTime());
-        $em->flush();
-
-        $this->addFlash('success', $regime->getDescription() . ' a été supprimé');
-
         return $this->redirectToRoute('app_nouveau_regime');
     }
 
