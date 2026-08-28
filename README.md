@@ -140,8 +140,8 @@ Retrouvez l’ensemble de la documentation du projet dans le dossier `documentat
 
 ## Version
 
-Version 1.0 — 17/05/2026.
-Version 1.1 — 28/08/2026.
+Version 1.0 — 17/05/2026  
+Version 1.1 — 28/08/2026  
 
 ## Mise à jour à venir :
 
