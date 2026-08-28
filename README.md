@@ -78,7 +78,7 @@ Après avoir cloné le dépôt, lancer la construction des conteneurs :
 
 ```bash
 docker compose up --build -d
-docker compose exec php composer install
+docker compose exec php composer install --working-dir=app
 ```
 
 Récupérer les données démo MongoDB pour le graphique administrateur :<br>
@@ -141,10 +141,12 @@ Retrouvez l’ensemble de la documentation du projet dans le dossier `documentat
 ## Version
 
 Version 1.0 — 17/05/2026.
+Version 1.1 — 28/08/2026.
 
 ## Mise à jour à venir :
 
-- [ ] Amélioration du style globale
+- [x] Amélioration générale du code
+- [ ] Amélioration globale du style
 - [ ] Ajout d'une fonctionnalité pour la création ou la suppression des allergènes
 - [ ] Ajout d'un nouveau graphique pour l'administrateur
 
