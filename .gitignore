@@ -49,3 +49,8 @@ vendor/
 ############
 symfony/.env*.local
 symfony/.env.dev
+symfony/.env
+
+# Test #
+############
+.phpunit.cache
