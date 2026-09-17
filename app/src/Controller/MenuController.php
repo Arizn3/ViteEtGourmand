@@ -5,10 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\MenuRepository;
+use Symfony\Component\HttpFoundation\Request;
 use App\Repository\RegimeRepository;
 use App\Repository\ThemeRepository;
-use Symfony\Component\HttpFoundation\Request;
+use App\Repository\MenuRepository;
 
 // Contrôleur pour les menus
 final class MenuController extends AbstractController
@@ -31,10 +31,10 @@ final class MenuController extends AbstractController
     // Filtres des menus
     #[Route('/menu/filtre', name: 'app_menu_filtre')]
     public function filtre(
-        Request $request,
-        MenuRepository $menuRepo,
+        RegimeRepository $regimeRepo,
         ThemeRepository $themeRepo,
-        RegimeRepository $regimeRepo
+        MenuRepository $menuRepo,
+        Request $request,
     ): Response {
         $prixMax = $request->query->get('prixMax');
         $theme = $request->query->get('theme');

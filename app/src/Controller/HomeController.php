@@ -18,7 +18,7 @@ final class HomeController extends AbstractController
     }
 
     // Page d'accueil
-    #[Route('/home', name: 'app_home')]
+    #[Route('/accueil', name: 'app_home')]
     public function index(AvisRepository $avisRepo): Response
     {
 
@@ -42,5 +42,5 @@ final class HomeController extends AbstractController
     public function histoire(): Response
     {
         return $this->render('/home/notre-histoire.html.twig');
-    }
+    }   
 }

@@ -2,10 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Utilisateur;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\AbstractType;
+use App\Entity\Utilisateur;
 
 class UtilisateurType extends AbstractType
 {

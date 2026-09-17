@@ -2,21 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\Avis;
-use App\Entity\Commande;
-use App\Form\AvisType;
-use App\Form\UserChangePasswordFormType;
-use App\Form\CommandeType;
-use App\Form\UtilisateurType;
-use App\Repository\AvisRepository;
-use App\Repository\CommandeRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use App\Service\UtilisateurPasswordModificationService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Service\CommandeModificationService;
+use App\Service\UtilisateurSupprimerService;
+use App\Service\AnnulationCommandeService;
+use App\Form\UserChangePasswordFormType;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Service\UtilisateurAvisService;
+use App\Repository\CommandeRepository;
+use App\Repository\AvisRepository;
+use App\Form\UtilisateurType;
+use App\Form\CommandeType;
+use App\Entity\Commande;
+use App\Form\AvisType;
+use App\Entity\Avis;
 
 // Contrôleur pour l'espace utilisateur
 final class UtilisateurController extends AbstractController
@@ -57,13 +60,11 @@ final class UtilisateurController extends AbstractController
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-
         // Récupération des historiques du statut d'une commande avec un tri
         $historiques = $commande->getHistoriques()->toArray();
         usort($historiques, function ($a, $b) {
             return $a->getDate() <=> $b->getDate();
         });
-
         return $this->render('utilisateur/detail-commande.html.twig', [
             'commande' => $commande,
             'historiques' => $historiques
@@ -72,38 +73,31 @@ final class UtilisateurController extends AbstractController
 
     // Annulation d'une commande (sous condition)
     #[Route('/utilisateur/{id}/annuler', name: 'app_utilisateur_annuler_commande')]
-    public function FunctionName(Commande $commande, EntityManagerInterface $em)
+    public function FunctionName(Commande $commande, AnnulationCommandeService $AnnulationCommandeService)
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-
-        // La commande peut être annulée uniquement si elle n'a pas été prise en compte
-        if ($commande->getStatut() === 'Votre commande va être prise en compte') {
-
-            $menu = $commande->getMenu();
-            $menu->setQttRestante(
-                $menu->getQttRestante() + $commande->getNbPersonne()
-            );
-
-            $commande->setStatut('Annuler');
-            $em->flush();
-        } else {
-            $this->addFlash('error', 'Cette commande a déjà été prise en compte, elle ne peut plus être annulée.');
-            return $this->redirectToRoute('app_utilisateur_commandes');
+        try {
+            $AnnulationCommandeService->AnnulationCommande($commande);
+            $this->addFlash('success', 'Votre commande a été annulée.');
+        } catch (\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
         }
-
         return $this->redirectToRoute('app_utilisateur_commandes');
     }
 
     // Modification d'une commande
     #[Route('/utilisateur/modifier-ma-commande/{id}', name: 'app_utilisateur_modifier_commande')]
     public function modifierCommande(
+        CommandeModificationService $commandeModification,
+        EntityManagerInterface $em,
         Commande $commande,
         Request $request,
-        EntityManagerInterface $em,
     ): Response {
+
+        // Contrôle d'utilisateur
         $this->denyAccessUnlessGranted('ROLE_USER');
         if ($commande->getUtilisateur() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
@@ -113,23 +107,22 @@ final class UtilisateurController extends AbstractController
         $form = $this->createForm(CommandeType::class, $commande, [
             'modification' => true
         ]);
+
         $form->handleRequest($request);
 
-        // Condition pour la date de livraison
-        $today = new \DateTime();
-        $minDate = (clone $today)->modify('+ 7 days');
-        if ($commande->getDatePrestation() < $minDate) {
-            $this->addFlash('error', '⚠️ La date de livraison doit être au minimum 7 jours après la date de commande');
-            return $this->redirectToRoute('app_utilisateur_modifier_commande', [
-                'id' => $commande->getId()
-            ]);
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            return $this->redirectToRoute('app_utilisateur_commandes', [
-                'id' => $commande->getId()
-            ]);
+            try {
+                $commandeModification->verifierDateModification($commande);
+                $em->flush();
+                return $this->redirectToRoute('app_utilisateur_commandes_en_cours', [
+                    'id' => $commande->getId()
+                ]);
+            } catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
+                return $this->redirectToRoute('app_utilisateur_modifier_commande', [
+                    'id' => $commande->getId()
+                ]);
+            }
         }
 
         return $this->render('utilisateur/modifier-commande.html.twig', [
@@ -141,18 +134,16 @@ final class UtilisateurController extends AbstractController
     // Affichage des informations personnelle - Modification du mot de passe - Avis
     #[Route('/utilisateur/information-personnelle', name: 'app_utilisateur_information_personnelle')]
     public function informationPersonnelle(
-        Request $request,
-        UserPasswordHasherInterface $passwordHasher,
-        EntityManagerInterface $em,
+        UtilisateurPasswordModificationService $UtilisateurPasswordModificationService,
+        CommandeRepository $commandeRepo,
         AvisRepository $avisRepo,
-        CommandeRepository $commandeRepo
+        Request $request,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
         /** @var \App\Entity\Utilisateur $utilisateur */
 
-        // Récupération de l'avis de l'utilisateur
         $avis = $avisRepo->findOneBy([
             'utilisateur' => $utilisateur,
         ]);
@@ -168,11 +159,7 @@ final class UtilisateurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $newPassword = $form->get('newPassword')->getData();
-            $hashedPassword = $passwordHasher->hashPassword($utilisateur, $newPassword);
-            $utilisateur->setPassword($hashedPassword);
-
-            $em->flush();
-
+            $UtilisateurPasswordModificationService->changementMotDePasse($utilisateur, $newPassword);
             return $this->redirectToRoute('app_utilisateur_information_personnelle');
         }
 
@@ -186,52 +173,33 @@ final class UtilisateurController extends AbstractController
 
     // Suppression du compte (soft delete)
     #[Route('/utilisateur/supprimer-mon-compte', name: 'app_utilisateur_supprimer_compte')]
-    public function supprimerCompte(EntityManagerInterface $em, TokenStorageInterface $tokenStorage): Response
+    public function supprimerCompte(UtilisateurSupprimerService $UtilisateurSupprimerService): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
         /** @var \App\Entity\Utilisateur $utilisateur */
-
-        $tokenStorage->setToken(null);
-
-        $utilisateur->setEmail('deleted_' . $utilisateur->getEmail());
-        $utilisateur->setDeletedAt(new \DateTime());
-        $em->flush();
-
+        $UtilisateurSupprimerService->supprimerCompte($utilisateur);
         return $this->redirectToRoute('app_home');
     }
 
     // Ajout ou modification d'un avis
     #[Route('/utilisateur/avis', name: 'app_utilisateur_avis')]
     public function avis(
+        UtilisateurAvisService $UtilisateurAvisService,
         Request $request,
-        EntityManagerInterface $em,
-        AvisRepository $avisRepo,
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         $utilisateur = $this->getUser();
         /** @var \App\Entity\Utilisateur $utilisateur */
 
-        $avis = $avisRepo->findOneBy([
-            'utilisateur' => $utilisateur
-        ]);
-
-        if (!$avis) {
-            $avis = new Avis();
-            $avis->setUtilisateur($utilisateur);
-        }
-
+        $avis = $UtilisateurAvisService->recupererAvis($utilisateur);
         $form = $this->createForm(AvisType::class, $avis);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $avis->setUtilisateur($utilisateur);
-            $avis->setStatut('EN_ATTENTE');
-            $em->persist($avis);
-            $em->flush();
-
+            $UtilisateurAvisService->ajouterModifierAvis($avis);
             return $this->redirectToRoute('app_utilisateur_information_personnelle');
         }
 
@@ -242,15 +210,11 @@ final class UtilisateurController extends AbstractController
 
     // Suppression d'un avis
     #[Route('/utilisateur/avis/{id}', name: 'app_utilisateur_supprimer_avis')]
-    public function supprimerAvis(Avis $avis, EntityManagerInterface $em): Response
+    public function supprimerAvis(UtilisateurAvisService $UtilisateurAvisService, Avis $avis): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-
-        $em->remove($avis);
-        $em->flush();
-
+        $UtilisateurAvisService->supprimerAvis($avis);
         $this->addFlash('success', 'Votre avis a été supprimé');
-
         return $this->redirectToRoute('app_utilisateur_information_personnelle');
     }
 
@@ -275,5 +239,4 @@ final class UtilisateurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 }

@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\AvisRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\AvisRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AvisRepository::class)]
