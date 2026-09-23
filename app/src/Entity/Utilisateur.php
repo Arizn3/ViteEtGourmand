@@ -29,7 +29,11 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     // MOT DE PASSE
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(
+        type: 'string',
+        length: 60,
+        columnDefinition: 'CHAR(60) NOT NULL'
+    )]
     private ?string $password = null;
 
     // PRENOM
@@ -206,15 +210,15 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function setAvis(?Avis $avis): self
-{
-    $this->avis = $avis;
+    {
+        $this->avis = $avis;
 
-    if ($avis && $avis->getUtilisateur() !== $this) {
-        $avis->setUtilisateur($this);
+        if ($avis && $avis->getUtilisateur() !== $this) {
+            $avis->setUtilisateur($this);
+        }
+
+        return $this;
     }
-
-    return $this;
-}
 
     /**
      * @return Collection<int, Commande>
