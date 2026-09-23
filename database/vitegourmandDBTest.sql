@@ -396,7 +396,7 @@ DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE `utilisateur` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` char(60) NOT NULL,
   `prenom` varchar(50) NOT NULL,
   `nom` varchar(50) NOT NULL,
   `telephone` varchar(50) NOT NULL,
