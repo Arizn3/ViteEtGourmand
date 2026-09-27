@@ -27,11 +27,14 @@ main {
     box-shadow: 0 0 20px gray;
     margin: 10px auto;
     width: 500px;
-    height: 160px;
+    max-width: 100%;
+    height: auto;
+    min-height: 160px;
     border: 1px solid blue;
     background-color: whitesmoke;
     border-radius: 20px;
     padding: 20px;
+    box-sizing: border-box;
     text-align: center;
 }
 
@@ -55,4 +58,31 @@ main {
 
 .horaireModifier label {
     margin-right: 10px;
+}
+
+@media (max-width: 1024px) {
+
+    main {
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .horaireModifier {
+        width: 500px;
+        max-width: 100%;
+        margin: 30px auto;
+        padding: 15px;
+    }
+
+    .horaireModifier h3 {
+        margin: 15px 0;
+    }
+
+    .horaireModifier label {
+        margin-right: 5px;
+    }
+
+    .horaireModifier button {
+        margin: 15px 5px 5px;
+    }
 }

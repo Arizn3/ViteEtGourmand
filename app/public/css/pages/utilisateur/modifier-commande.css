@@ -112,3 +112,100 @@ main {
 .modifierCommandeFormulaire a:active {
     background-color: rgb(1, 54, 147);
 }
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    .modifierCommandeFormulaire {
+        width: 80%;
+        max-width: 700px;
+        box-sizing: border-box;
+    }
+
+    .modifierCommandeFormulaire p {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    main {
+        height: auto;
+        min-height: 750px;
+    }
+
+    .modifierCommandeFormulaire {
+        width: calc(100% - 30px);
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 20px 15px;
+        margin: 40px auto;
+    }
+
+    .modifierCommandeFormulaire h3 {
+        font-size: 20px;
+    }
+
+    .modifierCommandeFormulaire p {
+        margin: 15px 0 20px;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+
+    .modifierCommandeFormulaire form {
+        width: 100%;
+        margin-top: 25px;
+    }
+
+    #commande_datePrestation {
+        width: 110px;
+    }
+
+    #commande_heureLivraison {
+        width: 60px;
+    }
+
+    .modifierCommandeFormulaire button {
+        margin-top: 15px;
+    }
+}
+
+
+/* =========================
+   PETIT MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    .modifierCommandeFormulaire {
+        width: calc(100% - 20px);
+        padding: 15px 10px;
+        margin: 30px auto;
+    }
+
+    .modifierCommandeFormulaire h3 {
+        font-size: 18px;
+    }
+
+    .modifierCommandeFormulaire p {
+        font-size: 14px;
+        margin: 12px 0 18px;
+    }
+
+    #commande_datePrestation {
+        width: 100px;
+    }
+
+    #commande_heureLivraison {
+        width: 55px;
+    }
+}

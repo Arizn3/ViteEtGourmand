@@ -4,16 +4,17 @@
 <head>
     {% block head %}
 
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        {% block stylesheets %}
-            <link rel="stylesheet" href="/css/layout/navbar.css">
-            <link rel="stylesheet" href="/css/layout/header.css">
-            <link rel="stylesheet" href="/css/layout/footer.css">
-            <link rel="icon" href="/uploads/images/logo.png">
-        {% endblock stylesheets %}
+    {% block stylesheets %}
+    <link rel="stylesheet" href="/css/layout/navbar.css">
+    <link rel="stylesheet" href="/css/layout/header.css">
+    <link rel="stylesheet" href="/css/layout/footer.css">
+    <link rel="icon" href="/uploads/images/logo.png">
+    {% endblock stylesheets %}
 
-        <title>V&G - {% block title %}{% endblock title %}</title>
+    <title>V&G - {% block title %}{% endblock title %}</title>
 
     {% endblock head %}
 </head>
@@ -29,7 +30,7 @@
 
     <main>
         {% block content %}
-            {# Contenu des autres pages de l'application #} 
+        {# Contenu des autres pages de l'application #}
         {% endblock content %}
     </main>
 
@@ -38,7 +39,7 @@
     </footer>
 
     {% block javascripts %}
-        <script src="/javascript/layout/navbar.js" defer></script>
+    <script src="/javascript/layout/navbar.js" defer></script>
     {% endblock javascripts %}
 
 </body>

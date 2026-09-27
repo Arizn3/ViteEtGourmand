@@ -4,6 +4,7 @@ body {
 
 main {
     height: 500px;
+    height: auto;
 }
 
 /* Information client */
@@ -13,10 +14,12 @@ main {
     border: 3px solid black;
     border-radius: 20px;
     width: 300px;
+    max-width: 100%;
     text-align: center;
     padding: 20px;
     background-color: floralwhite;
     margin: 130px auto;
+    box-sizing: border-box;
 }
 
 .retour {
@@ -38,4 +41,20 @@ main {
 
 .retour:active {
     background-color: rgb(3, 3, 178);
+}
+
+@media (max-width: 1024px) {
+
+    main {
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .informationClient {
+        width: 300px;
+        max-width: 100%;
+        margin: 80px auto;
+        padding: 15px;
+    }
+
 }

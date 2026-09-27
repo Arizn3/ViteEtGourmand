@@ -70,8 +70,34 @@ main {
     margin: auto;
     width: 200px;
     height: 100px;
-    max-width: 200px;
-    max-height: 100px;
-    min-width: 200px;
-    min-height: 100px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+
+    main {
+        min-height: 400px;
+        height: auto;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .employeStatut {
+        width: 300px;
+        max-width: 100%;
+        margin: 80px auto;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .employeStatut select {
+        max-width: 100%;
+    }
+
+    .motif {
+        width: 200px;
+        max-width: 100%;
+    }
+
 }

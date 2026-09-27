@@ -27,7 +27,9 @@ main {
     box-shadow: 0 0 20px saddlebrown;
 }
 
+
 /* CGV */
+
 .cgv {
     align-self: center;
     width: 1000px;
@@ -43,7 +45,9 @@ main {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+
 /* Mentions légales */
+
 .mention {
     border: 1px solid black;
     border-radius: 5px;
@@ -67,11 +71,119 @@ main {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-/* FAQ (Bootstrap) */
+
+/* FAQ */
+
 .faq {
     text-align: center;
     margin: 0 30%;
     border: 1px solid black;
     border-radius: 5px;
     background-color: antiquewhite;
+}
+
+
+/* =========================
+   TABLETTE
+   ========================= */
+
+@media screen and (max-width: 1024px) {
+
+    .cgv {
+        width: 90%;
+    }
+
+    .mention {
+        width: 80%;
+    }
+
+    .faq {
+        margin: 0 10%;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media screen and (max-width: 768px) {
+
+    .retour {
+        width: 180px;
+        margin: 30px 0;
+    }
+
+    .cgv {
+        width: 90%;
+    }
+
+    .cgv p {
+        margin-left: 0;
+        line-height: 1.6;
+        text-align: justify;
+    }
+
+    .mention {
+        width: 85%;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .mention p {
+        line-height: 1.6;
+        text-align: justify;
+    }
+
+    .faq {
+        margin: 0 5%;
+    }
+
+    .faq h2 {
+        font-size: x-large;
+    }
+
+}
+
+
+/* =========================
+   PETITS MOBILES
+   ========================= */
+
+@media screen and (max-width: 480px) {
+
+    .retour {
+        width: 170px;
+        height: 40px;
+        padding-left: 15px;
+        font-size: 14px;
+    }
+
+    .cgv {
+        width: 92%;
+    }
+
+    .cgv p,
+    .mention p {
+        font-size: 14px;
+    }
+
+    .mention {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .faq {
+        margin: 0 3%;
+    }
+
+    .faq .accordion-button {
+        font-size: 14px;
+    }
+
+    .faq .accordion-body {
+        font-size: 14px;
+    }
+
 }

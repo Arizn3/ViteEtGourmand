@@ -46,3 +46,84 @@ body {
     margin: 10px 0 0;
     color: darkslategray;
 }
+
+
+/* =========================
+   TABLETTE
+   ========================= */
+
+@media screen and (max-width: 1024px) {
+
+    .mainFormulaireConnexion {
+        margin: 120px auto;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media screen and (max-width: 768px) {
+
+    body {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .mainFormulaireConnexion {
+        width: calc(100% - 40px);
+        max-width: 400px;
+        box-sizing: border-box;
+        margin: 60px auto;
+        padding: 20px;
+    }
+
+    .mainFormulaireConnexion form h1 {
+        font-size: xx-large;
+    }
+
+    .emailFormulaire {
+        margin-left: 46px;
+        margin-bottom: 2px;
+    }
+
+    .mainFormulaireConnexion input[type="email"],
+    .mainFormulaireConnexion input[type="password"] {
+        width: 100%;
+        max-width: 250px;
+        box-sizing: border-box;
+    }
+
+    .btnConnexion {
+        margin: 15px auto 0;
+    }
+
+    .mainFormulaireConnexion a {
+        text-align: center;
+    }
+}
+
+
+/* =========================
+   PETITS MOBILES
+   ========================= */
+
+@media screen and (max-width: 480px) {
+
+    .mainFormulaireConnexion {
+        width: calc(100% - 30px);
+        margin: 40px auto;
+        padding: 15px;
+    }
+
+    .mainFormulaireConnexion form h1 {
+        font-size: x-large;
+    }
+
+    .mainFormulaireConnexion a {
+        font-size: 14px;
+    }
+
+}

@@ -3,19 +3,23 @@ body {
 }
 
 main {
-    height: 900px;
+    min-height: 900px;
+    height: auto;
 }
 
 /* Graphique fromage */
 .chartContainer {
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
 }
 
 .chartContainer .chartDiv {
     width: 400px;
     height: 400px;
-    margin: 3% 3% 0 20%;
+    margin: 30px 0;
 }
 
 #chart {
@@ -50,4 +54,46 @@ main {
 .ttCommande {
     color: green;
     font-weight: bolder;
+}
+
+@media (max-width: 1024px) {
+
+    main {
+        min-height: 900px;
+        height: auto;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .titrePeriode {
+        width: 350px;
+        max-width: 100%;
+        margin: 50px auto 40px;
+        box-sizing: border-box;
+    }
+
+    .chartContainer {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .chartContainer .chartDiv {
+        width: 350px;
+        height: 350px;
+        max-width: 100%;
+        margin: 20px auto;
+    }
+
+    #chart {
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .stats {
+        width: 90%;
+        max-width: 600px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
 }

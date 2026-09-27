@@ -13,6 +13,8 @@ main {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
     margin-bottom: 5%;
 }
 
@@ -25,7 +27,7 @@ main {
     font-size: 15px;
     padding: 1px 10px 2px;
     font-family: Euphemia UCAS;
-    width: 50px;
+    width: 80px;
     margin: 1% auto;
     text-align: center;
 }
@@ -69,4 +71,41 @@ main {
 
 .listeTheme table td {
     color: cornflowerblue;
+}
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    main {
+        min-height: 700px;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .formulaire {
+        margin-bottom: 40px;
+    }
+
+    .formulaire input {
+        max-width: 300px;
+        box-sizing: border-box;
+    }
+
+    .listeTheme {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .listeTheme table {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .listeTheme table td {
+        padding: 5px 10px;
+        text-align: center;
+    }
 }

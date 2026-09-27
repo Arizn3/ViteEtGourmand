@@ -75,3 +75,121 @@ main {
     box-shadow: 0 0 5px saddlebrown;
     background-color: rgb(214, 228, 228);
 }
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    .divAvisUtilisateur {
+        width: 80%;
+        max-width: 800px;
+        box-sizing: border-box;
+    }
+
+    #avis_libelle {
+        max-width: 500px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    main {
+        height: auto;
+        min-height: 800px;
+    }
+
+    .divAvisUtilisateur {
+        width: calc(100% - 30px);
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 40px auto;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    #avis_note {
+        display: grid;
+        grid-template-columns: 25px 1fr;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 5px auto 15px;
+        text-align: left;
+    }
+
+    /* Titre "Note" */
+    #avis_note>label:first-child {
+        grid-column: 1 / -1;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    #avis_note input {
+        margin: 4px auto;
+    }
+
+    #avis_note label {
+        margin-right: 0;
+        text-align: left;
+    }
+
+    #avis_libelle {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 0 0 15px;
+    }
+
+    .divAvisUtilisateur form {
+        width: 100%;
+    }
+
+    .divAvisUtilisateur button,
+    .divAvisUtilisateur a {
+        display: block;
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+/* =========================
+   PETIT MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    .divAvisUtilisateur {
+        width: calc(100% - 20px);
+        padding: 12px;
+        margin: 30px auto;
+    }
+
+    #avis_note {
+        grid-template-columns: 25px 1fr;
+    }
+
+    #avis_note label {
+        font-size: 14px;
+    }
+
+    #avis_libelle {
+        font-size: 13px;
+    }
+
+    .divAvisUtilisateur button,
+    .divAvisUtilisateur a {
+        display: block;
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

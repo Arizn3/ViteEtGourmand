@@ -2,7 +2,17 @@ body {
     margin: 0;
 }
 
-/* Header */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
 header {
     height: 20rem;
     background-image: url(/uploads/images/img_header.png);
@@ -15,7 +25,11 @@ header {
     display: flex;
 }
 
-/* divTitreHeader */
+
+/* =========================
+   TITRE
+   ========================= */
+
 .divTitreHeader {
     margin: auto;
 }
@@ -39,7 +53,11 @@ header {
     color: brown;
 }
 
-/* divLiensHeader */
+
+/* =========================
+   LIENS HEADER
+   ========================= */
+
 .divLogo {
     margin: 15px;
     display: flex;
@@ -48,8 +66,8 @@ header {
 
 .divLiensHeader {
     position: absolute;
-    margin-left: 90%;
-    margin-top: 30px;
+    right: 3%;
+    top: 30px;
 }
 
 .deconnexion {
@@ -65,4 +83,127 @@ header {
 .deconnexion:hover {
     text-shadow: #ffffff 1px 0 10px;
     transition: 500ms;
+}
+
+
+/* =====================================================
+   TABLETTE
+   ===================================================== */
+
+@media screen and (max-width: 1024px) {
+
+    header {
+        height: 17rem;
+        background-size: cover;
+    }
+
+    .divTitreHeader h1 {
+        font-size: 4rem;
+    }
+
+    .divTitreHeader p {
+        font-size: large;
+    }
+
+    .divLiensHeader {
+        right: 2%;
+        top: 20px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    header {
+        height: 15rem;
+        background-size: cover;
+        margin-bottom: 0;
+    }
+
+    .sectionHeader {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Titre */
+
+    .divTitreHeader {
+        width: 100%;
+        text-align: center;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .divTitreHeader h1 {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    .divTitreHeader p {
+        font-size: medium;
+        line-height: 1.4;
+    }
+
+
+    /* Réseaux + déconnexion */
+
+    .divLiensHeader {
+        right: 15px;
+        top: 15px;
+        margin: 0;
+    }
+
+    .divLogo {
+        margin: 0 0 15px;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
+    .deconnexion {
+        font-size: 14px;
+    }
+}
+
+
+/* =====================================================
+   PETIT MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 480px) {
+
+    header {
+        height: 13rem;
+    }
+
+    .divTitreHeader {
+        padding: 0 15px;
+    }
+
+    .divTitreHeader h1 {
+        font-size: 2.2rem;
+        margin-bottom: 10px;
+    }
+
+    .divTitreHeader p {
+        font-size: small;
+    }
+
+    .divLiensHeader {
+        right: 10px;
+        top: 10px;
+    }
+
+    .divLogo {
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+
+    .deconnexion {
+        font-size: 12px;
+        padding: 4px;
+    }
 }

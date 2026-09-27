@@ -38,3 +38,66 @@ main button:hover {
 main button:active {
     background-color: rgb(1, 54, 147);
 }
+
+
+/* =========================
+   TABLETTE
+   ========================= */
+
+@media screen and (max-width: 1024px) {
+
+    main {
+        margin: 120px auto;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media screen and (max-width: 768px) {
+
+    main {
+        width: calc(100% - 40px);
+        max-width: 350px;
+        box-sizing: border-box;
+        margin: 70px auto;
+        padding: 20px;
+    }
+
+    main h1 {
+        font-size: xx-large;
+        text-align: center;
+    }
+
+    main input {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+}
+
+
+/* =========================
+   PETITS MOBILES
+   ========================= */
+
+@media screen and (max-width: 480px) {
+
+    main {
+        width: calc(100% - 30px);
+        margin: 50px auto;
+        padding: 15px;
+    }
+
+    main h1 {
+        font-size: x-large;
+    }
+
+    main button {
+        font-size: 13px;
+    }
+
+}

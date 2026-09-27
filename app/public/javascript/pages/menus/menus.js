@@ -17,17 +17,18 @@ document.addEventListener('DOMContentLoaded', () => {
             regime: regime.value,
             nbPersonne: nbPersonne.value
         });
+
         // Appel AJAX qui envoie une requête au contrôleur sans recharger la page
         fetch('/menu/filtre?' + params.toString())
             // Vue Twig complète renvoyé par le contrôleur
             .then(response => response.text())
             .then(html => {
 
-                // Rend la Vue Twig manipulable 
+                // Rend la Vue Twig manipulable
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
 
-                // Extraction ciblé, sans ça toute la Vue Twig est renvoyé
+                // Extraction ciblée
                 const newMenuList = doc.querySelector('#menuList');
 
                 // Mise à jour du DOM
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     afficherMenu(index);
                 }
             });
-    };
+    }
 
     prixMax.addEventListener('input', fetchMenus);
     theme.addEventListener('change', fetchMenus);
@@ -52,32 +53,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let index = 0;
 
+
+    // Détermine le nombre de menus affichés selon la largeur de l'écran
+    function getNombreMenus() {
+
+        if (window.innerWidth <= 768) {
+            return 1;
+        }
+
+        if (window.innerWidth <= 1366) {
+            return 2;
+        }
+
+        return 3;
+    }
+
+
     function afficherMenu(i) {
+
+        const nombreMenus = getNombreMenus();
 
         menu.forEach(div => {
             div.classList.remove('active');
         });
 
-        for (let j = i; j < i + 3 && j < menu.length; j++) {
+        for (let j = i; j < i + nombreMenus && j < menu.length; j++) {
             menu[j].classList.add('active');
         }
     }
 
+
     btnSuivant.addEventListener('click', () => {
-        index += 3;
+
+        const nombreMenus = getNombreMenus();
+
+        index += nombreMenus;
+
         if (index >= menu.length) {
             index = 0;
         }
+
         afficherMenu(index);
     });
 
+
     btnPrecedent.addEventListener('click', () => {
-        index -= 3;
+
+        const nombreMenus = getNombreMenus();
+
+        index -= nombreMenus;
+
         if (index < 0) {
-            index = Math.floor((menu.length - 1) / 3) * 3;
+            index = Math.floor((menu.length - 1) / nombreMenus) * nombreMenus;
         }
+
         afficherMenu(index);
     });
+
+
+    // Recalcule l'affichage lorsque la largeur de la fenêtre change
+    window.addEventListener('resize', () => {
+        index = 0;
+        afficherMenu(index);
+    });
+
 
     afficherMenu(index);
 

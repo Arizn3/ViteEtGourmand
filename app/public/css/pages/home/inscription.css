@@ -1,7 +1,12 @@
 body {
     background-image: url(/uploads/images/fond-ab.png);
-    height: auto
+    height: auto;
 }
+
+
+/* =========================
+   FORMULAIRE
+   ========================= */
 
 .mainFormulaireConnexion {
     background-color: antiquewhite;
@@ -15,7 +20,7 @@ body {
     flex-direction: column;
     transition: 500ms;
     padding: 20px;
-}   
+}
 
 .mainFormulaireConnexion p {
     text-align: center;
@@ -33,6 +38,11 @@ body {
 .mainFormulaireConnexion h1 {
     text-align: center;
 }
+
+
+/* =========================
+   CHAMPS
+   ========================= */
 
 #registration_form_email {
     margin-left: 11px;
@@ -70,6 +80,11 @@ body {
     margin-bottom: 10px;
 }
 
+
+/* =========================
+   BOUTON
+   ========================= */
+
 .btnConnexion {
     text-align: center;
     margin: 15px auto 0;
@@ -84,4 +99,104 @@ body {
     text-decoration: none;
     margin: 10px 0 0;
     color: darkslategray;
+}
+
+
+/* =====================================================
+   TABLETTE
+   ===================================================== */
+
+@media screen and (max-width: 1024px) {
+
+    .mainFormulaireConnexion {
+        margin: 120px auto;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    .mainFormulaireConnexion {
+        width: calc(100% - 40px);
+        max-width: 400px;
+        box-sizing: border-box;
+        margin: 60px auto;
+        padding: 20px;
+    }
+
+    .mainFormulaireConnexion h1 {
+        font-size: x-large;
+    }
+
+    .mainFormulaireConnexion p {
+        line-height: 1.5;
+    }
+
+
+    /* Champs */
+
+    #registration_form_email,
+    #registration_form_prenom,
+    #registration_form_nom,
+    #registration_form_telephone,
+    #registration_form_adresse,
+    #registration_form_plainPassword_first,
+    #registration_form_plainPassword_second {
+        margin-left: 0;
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    #registration_form_email,
+    #registration_form_prenom,
+    #registration_form_nom,
+    #registration_form_telephone,
+    #registration_form_adresse,
+    #registration_form_plainPassword_first,
+    #registration_form_plainPassword_second {
+        width: 100%;
+    }
+
+    #registration_form_agreeTerms {
+        margin-bottom: 10px;
+    }
+
+    .mainFormulaireConnexion button {
+        max-width: 100%;
+    }
+}
+
+
+/* =====================================================
+   PETIT MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 480px) {
+
+    .mainFormulaireConnexion {
+        width: calc(100% - 30px);
+        margin: 40px auto;
+        padding: 15px;
+    }
+
+    .mainFormulaireConnexion h1 {
+        font-size: large;
+    }
+
+    .mainFormulaireConnexion p {
+        font-size: 14px;
+    }
+
+    .mainFormulaireConnexion form {
+        width: 100%;
+    }
+
+    .mainFormulaireConnexion button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
 }

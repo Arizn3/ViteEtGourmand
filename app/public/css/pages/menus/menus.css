@@ -23,7 +23,9 @@ main h3 {
     color: saddlebrown;
 }
 
+
 /* Filtres */
+
 .filtres {
     text-align: center;
     margin: 2% auto 1%;
@@ -44,7 +46,9 @@ select {
     color: blue;
 }
 
+
 /* Menus */
+
 .sectionMenus {
     display: flex;
     justify-content: center;
@@ -80,8 +84,8 @@ select {
 
 .divMenu {
     background-color: azure;
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     padding: 15px;
     border: 2px solid saddlebrown;
     box-shadow: 0 0 10px gray;
@@ -98,7 +102,7 @@ select {
 .divMenu:hover {
     transition-duration: 500ms;
     box-shadow: 0 0 20px saddlebrown;
-    background-color: rgb(210, 249, 249)
+    background-color: rgb(210, 249, 249);
 }
 
 .divMenu img {
@@ -108,7 +112,9 @@ select {
     border-radius: 30% / 50%;
 }
 
+
 /* Bouton */
+
 .sectionMenus button {
     width: 100px;
     height: 200px;
@@ -143,4 +149,245 @@ select {
     border-left: 10px solid rgb(172, 172, 172);
     border-top: 2px solid rgb(172, 172, 172);
     border-bottom: 2px solid rgb(172, 172, 172);
+}
+
+
+/* =========================
+   TABLETTE
+   ========================= */
+
+@media screen and (max-width: 1024px) {
+
+    main {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: auto;
+        min-height: 700px;
+        box-sizing: border-box;
+    }
+
+    .filtres {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 3% auto;
+    }
+
+    .filtres input,
+    .filtres select {
+        width: 10rem;
+        max-width: 22%;
+        box-sizing: border-box;
+    }
+
+
+    /* Section des menus */
+
+    .sectionMenus {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+
+        margin: 25px auto 0;
+        padding: 0 10px;
+
+        box-sizing: border-box;
+    }
+
+
+    /* Conteneur des cartes */
+
+    .divMenus {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: auto;
+        max-width: calc(100% - 90px);
+        min-width: 0;
+
+        box-sizing: border-box;
+    }
+
+
+    .divMenus a {
+        flex: 0 1 auto;
+        margin: 0 5px;
+    }
+
+
+    /* Cartes */
+
+    .divMenu {
+        width: 250px;
+        height: 250px;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    .MenuTitre {
+        font-size: medium;
+    }
+
+    .divMenu img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .divMenu p {
+        font-size: 13px;
+    }
+
+
+    /* Flèches */
+
+    .sectionMenus button {
+        flex: 0 0 35px;
+        width: 100px;
+        height: 100px;
+        box-sizing: border-box;
+    }
+
+    .btnPrecedent,
+    .btnSuivant {
+        margin: 0 5px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media screen and (max-width: 768px) {
+
+    main {
+        height: auto;
+        min-height: 900px;
+    }
+
+    main h2 {
+        font-size: x-large;
+        margin: 25px 15px;
+    }
+
+    main h3 {
+        font-size: large;
+        margin: 20px 15px;
+    }
+
+    .filtres {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .filtres input,
+    .filtres select {
+        width: 220px;
+    }
+
+    .sectionMenus {
+        margin-top: 40px;
+        align-items: center;
+    }
+
+    .divMenu {
+        width: 240px;
+        height: 240px;
+        padding: 10px;
+    }
+
+    .MenuTitre {
+        font-size: large;
+    }
+
+    .divMenu img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .divMenus a {
+        margin: 0;
+    }
+
+    .sectionMenus button {
+        width: 45px;
+        height: 140px;
+    }
+
+    .btnPrecedent {
+        margin: auto 8px;
+    }
+
+    .btnSuivant {
+        margin: auto 0 auto 8px;
+    }
+
+}
+
+
+/* =========================
+   PETITS MOBILES
+   ========================= */
+
+@media screen and (max-width: 480px) {
+
+    main {
+        min-height: 850px;
+    }
+
+    main h2 {
+        font-size: large;
+    }
+
+    main h3 {
+        font-size: medium;
+    }
+
+    .filtres input,
+    .filtres select {
+        width: 200px;
+    }
+
+    .divMenu {
+        width: 240px;
+        height: 240px;
+        padding: 8px;
+    }
+
+    .MenuTitre {
+        font-size: medium;
+    }
+
+    .divMenu p {
+        font-size: 13px;
+    }
+
+    .divMenu img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .sectionMenus button {
+        width: 50px;
+        height: 120px;
+    }
+
+    .btnPrecedent {
+        margin: auto 5px;
+    }
+
+    .btnSuivant {
+        margin: auto 0 auto 5px;
+    }
+
 }

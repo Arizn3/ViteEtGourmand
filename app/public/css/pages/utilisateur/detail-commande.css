@@ -51,3 +51,89 @@ main {
 .DivDetailCommande a:active {
     background-color: rgb(1, 54, 147);
 }
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    .DivDetailCommande {
+        width: 80%;
+        max-width: 700px;
+        box-sizing: border-box;
+        padding: 20px;
+    }
+
+    .DivDetailCommande p {
+        overflow-wrap: anywhere;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    main {
+        min-height: 900px;
+    }
+
+    .DivDetailCommande {
+        width: calc(100% - 30px);
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 20px 15px;
+        margin: 40px auto;
+    }
+
+    .DivDetailCommande h2 {
+        font-size: 22px;
+    }
+
+    .DivDetailCommande p {
+        margin: 15px 0;
+        overflow-wrap: anywhere;
+    }
+
+    .DivDetailCommande ul {
+        padding-left: 20px;
+        text-align: left;
+    }
+
+    .DivDetailCommande li {
+        margin-bottom: 10px;
+    }
+}
+
+
+/* =========================
+   PETIT MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    .DivDetailCommande {
+        width: calc(100% - 20px);
+        padding: 15px 10px;
+        margin: 30px auto;
+    }
+
+    .DivDetailCommande h2 {
+        font-size: 19px;
+    }
+
+    .DivDetailCommande p {
+        font-size: 14px;
+    }
+
+    .DivDetailCommande li {
+        font-size: 14px;
+    }
+
+    .DivDetailCommande a {
+        font-size: 13px;
+    }
+}
