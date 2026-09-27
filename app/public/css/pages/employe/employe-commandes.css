@@ -3,18 +3,21 @@ body {
 }
 
 main {
-    height: 900px;
+    min-height: 900px;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 /* Table des commandes actifs */
 .sectionActif {
     background-color: darkseagreen;
-    width: auto;
+    width: 100%;
+    max-width: 100%;
     max-height: 800px;
-    overflow-y: auto;
+    overflow: auto;
     border: 1px solid black;
-    padding-left: 20px;
+    padding: 0 20px 20px;
+    box-sizing: border-box;
 }
 
 .sectionActif table {
@@ -88,12 +91,14 @@ main {
 /* Table c terminer */
 .sectionTerminer {
     background-color: lightsteelblue;
-    width: 870px;
+    width: 100%;
+    max-width: 870px;
     max-height: 600px;
-    overflow-y: auto;
+    overflow: auto;
     border: 1px solid black;
-    padding-left: 20px;
+    padding: 0 20px 20px;
     margin-top: 20px;
+    box-sizing: border-box;
 }
 
 .sectionTerminer table {
@@ -175,4 +180,58 @@ main button:hover {
 
 main button:active {
     background-color: rgb(0, 0, 200);
+}
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    main {
+        min-height: 900px;
+        padding: 15px;
+    }
+
+    .sectionActif {
+        max-height: 650px;
+        padding: 0 10px 15px;
+    }
+
+    .sectionActif table {
+        margin: 15px;
+        min-width: 1500px;
+    }
+
+    .sectionTerminer {
+        width: 100%;
+        max-width: 870px;
+        max-height: 500px;
+        padding: 0 10px 15px;
+    }
+
+    .sectionTerminer table {
+        margin: 15px;
+        min-width: 700px;
+    }
+
+    /* Filtres */
+    .sectionActif form,
+    .sectionTerminer form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .sectionActif input,
+    .sectionTerminer input {
+        max-width: 180px;
+        box-sizing: border-box;
+    }
+
+    .sectionActif select,
+    .sectionTerminer select {
+        max-width: 180px;
+    }
 }

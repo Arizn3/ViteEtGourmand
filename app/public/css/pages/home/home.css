@@ -9,7 +9,11 @@ main {
     justify-content: space-evenly;
 }
 
-/* Presentation */
+
+/* =========================
+   PRESENTATION
+   ========================= */
+
 .presentation {
     display: flex;
     padding: 0 1% 1%;
@@ -33,6 +37,8 @@ main {
 }
 
 .presentation img {
+    width: 400px;
+    height: 400px;
     border-radius: 25%;
     align-self: center;
     margin: 1% auto 1% 5%;
@@ -50,7 +56,11 @@ main {
     box-shadow: 0 0 33px saddlebrown;
 }
 
-/* Savoir faire */
+
+/* =========================
+   SAVOIR-FAIRE
+   ========================= */
+
 .savoirFaire {
     display: flex;
     padding: 0% 1% 1%;
@@ -72,6 +82,8 @@ main {
 }
 
 .savoirFaire img {
+    width: 400px;
+    height: 400px;
     border-radius: 25%;
     align-self: center;
     margin: 1% 5% 1% auto;
@@ -89,7 +101,11 @@ main {
     box-shadow: 0 0 33px saddlebrown;
 }
 
-/* Avis client */
+
+/* =========================
+   AVIS CLIENT
+   ========================= */
+
 .titreAvis {
     font-size: xx-large;
     text-align: center;
@@ -156,4 +172,224 @@ main {
     color: antiquewhite;
     font-size: large;
     font-family: Kokonor;
+}
+
+
+/* =====================================================
+   TABLETTE
+   ===================================================== */
+
+@media screen and (max-width: 1024px) {
+
+    main {
+        height: auto;
+        justify-content: flex-start;
+    }
+
+    /* Présentation */
+
+    .presentation {
+        margin: 8% 5% 4% 5%;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .presentation div {
+        margin: 1%;
+    }
+
+    .presentation h2,
+    .savoirFaire h2 {
+        font-size: xx-large;
+    }
+
+    .presentation img,
+    .savoirFaire img {
+        width: 300px;
+        height: 300px;
+        margin: 1%;
+        flex-shrink: 0;
+    }
+
+
+    /* Savoir-faire */
+
+    .savoirFaire {
+        margin: 4% 5%;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .savoirFaire div {
+        margin: 1%;
+    }
+
+
+    /* Avis */
+
+    .sectionAvis {
+        justify-content: center;
+    }
+
+    .divAvis {
+        width: 350px;
+    }
+
+    .sectionAvis button {
+        margin: auto 20px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    main {
+        height: auto;
+        justify-content: flex-start;
+    }
+
+
+    /* Présentation */
+
+    .presentation {
+        flex-direction: column;
+        margin: 40px 20px;
+        padding: 0;
+        gap: 25px;
+    }
+
+    .presentation div {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .presentation h2,
+    .savoirFaire h2 {
+        font-size: x-large;
+        text-align: center;
+        margin-top: 0;
+    }
+
+    .presentation p,
+    .savoirFaire p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .presentation img,
+    .savoirFaire img {
+        width: 280px;
+        height: 280px;
+        margin: 0 auto;
+    }
+
+
+    /* Savoir-faire */
+
+    .savoirFaire {
+        flex-direction: column;
+        margin: 40px 20px;
+        padding: 0;
+        gap: 25px;
+    }
+
+    .savoirFaire div {
+        width: 100%;
+        margin: 0;
+    }
+
+
+    /* Avis */
+
+    .titreAvis {
+        font-size: x-large;
+        padding: 0 20px;
+        margin-top: 40px;
+    }
+
+    .sectionAvis {
+        width: 100%;
+        box-sizing: border-box;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 10px;
+        margin: 20px auto;
+    }
+
+    .divAvis {
+        width: 100%;
+        max-width: 300px;
+        height: 220px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .sectionAvis button {
+        flex-shrink: 0;
+        margin: auto 8px;
+        width: 30px;
+        height: 45px;
+    }
+
+    .etoile {
+        margin-bottom: 30px;
+    }
+}
+
+
+/* =====================================================
+   PETIT MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 480px) {
+
+    .presentation,
+    .savoirFaire {
+        margin: 30px 15px;
+    }
+
+    .presentation h2,
+    .savoirFaire h2,
+    .titreAvis {
+        font-size: large;
+    }
+
+    .presentation p,
+    .savoirFaire p {
+        font-size: 15px;
+    }
+
+    .presentation img,
+    .savoirFaire img {
+        width: 240px;
+        height: 240px;
+    }
+
+    .sectionAvis {
+        padding: 20px 5px;
+    }
+
+    .divAvis {
+        max-width: 250px;
+        height: 210px;
+        padding: 15px;
+    }
+
+    .sectionAvis button {
+        margin: auto 4px;
+        width: 28px;
+    }
+
+    .avis {
+        font-size: 14px;
+    }
+
+    .utilisateur {
+        font-size: 15px;
+    }
 }

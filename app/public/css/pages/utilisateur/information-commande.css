@@ -59,3 +59,121 @@ main {
     box-shadow: 0 0 30px saddlebrown;
     transition: 500ms;
 }
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    main {
+        min-height: 800px;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .divMaCommande {
+        margin-bottom: 70px;
+    }
+
+    .divMaCommande div {
+        max-width: 600px;
+        box-sizing: border-box;
+    }
+
+    .divMesCommandes {
+        flex-wrap: wrap;
+        gap: 30px;
+        margin: 0 5%;
+    }
+
+    .commandeHistorique {
+        flex: 0 1 300px;
+        box-sizing: border-box;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    main {
+        min-height: 900px;
+        padding: 0 15px;
+    }
+
+    /* Commande en cours */
+    .divMaCommande {
+        margin-bottom: 50px;
+    }
+
+    .divMaCommande h3 {
+        text-align: center;
+    }
+
+    .divMaCommande div {
+        width: 100%;
+        max-width: 400px;
+        box-sizing: border-box;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .divMaCommande p {
+        margin: 12px 0;
+    }
+
+    /* Historique */
+    .divMesCommandesH3 {
+        margin-bottom: 20px;
+    }
+
+    .divMesCommandes {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin: 0;
+    }
+
+    .commandeHistorique {
+        width: 100%;
+        max-width: 400px;
+        box-sizing: border-box;
+        padding: 15px;
+        flex: 0 1 30px;
+    }
+}
+
+
+/* =========================
+   PETIT MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    main {
+        padding: 0 10px;
+    }
+
+    .divMaCommande div,
+    .commandeHistorique {
+        max-width: 70%;
+        padding: 12px;
+    }
+
+    .divMaCommande a,
+    .commandeHistorique a {
+        font-size: 14px;
+    }
+
+    .divMesCommandesH3 {
+        font-size: 18px;
+    }
+
+    .commandeHistorique {
+        flex: 0 1 30px;
+    }
+}

@@ -3,7 +3,9 @@ body {
 }
 
 main {
-    height: 800px;
+    min-height: 800px;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .sectionMenus {
@@ -12,7 +14,10 @@ main {
 
 /* Lien / Bouton */
 .divLiens {
-    margin: 40px 0 20px 120px;
+    margin: 40px 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .divLiens a {
@@ -21,7 +26,6 @@ main {
     background-color: blue;
     color: white;
     border-radius: 20px;
-    margin: 10px;
     padding: 2px 10px;
     transition-duration: 300ms;
 }
@@ -85,4 +89,60 @@ main {
 .tableMenus tr:hover {
     background-color: aliceblue;
     color: blue;
+}
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    main {
+        min-height: 800px;
+        padding: 15px;
+    }
+
+    .sectionMenus {
+        margin: 10px 0;
+    }
+
+    .divLiens {
+        margin: 30px 0 20px;
+        gap: 8px;
+    }
+
+    .divLiens a {
+        margin: 0;
+    }
+
+    /* Tableau */
+    .tableMenus {
+        width: 100%;
+        margin: 10px 0;
+        box-sizing: border-box;
+        overflow-x: auto;
+        display: block;
+    }
+
+    .tableMenus table {
+        width: max-content;
+    }
+
+    .tableMenus th,
+    .tableMenus td {
+        padding: 6px;
+    }
+
+    .tableMenu {
+        width: 180px;
+    }
+
+    .tableTheme,
+    .tableRegime {
+        width: 130px;
+    }
+
+    .tableModification {
+        width: 100px;
+    }
 }

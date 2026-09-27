@@ -6,6 +6,8 @@ main {
     height: auto;
     display: flex;
     margin-top: 100px;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .divTitre {
@@ -33,8 +35,10 @@ main {
 /* Formulaire */
 .sectionFormulaire {
     width: 800px;
-    margin: 0 auto 0 100px;
+    max-width: 100%;
+    margin: 0 auto 0 50px;
     padding: 10px;
+    box-sizing: border-box;
 }
 
 .sectionFormulaire form {
@@ -171,4 +175,74 @@ main {
 .PhotoPlatsDisponible:hover {
     transition: 500ms;
     box-shadow: 0 0 30px blue;
+}
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    main {
+        margin-top: 50px;
+        padding: 0 15px;
+        gap: 30px;
+        align-items: flex-start;
+    }
+
+    .sectionFormulaire {
+        width: 45%;
+        margin: 0;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .divTitre {
+        margin: 20px 0;
+    }
+
+    /* Champs */
+    #plat_nomPlat {
+        width: 180px;
+        max-width: 100%;
+    }
+
+    #plat_photo {
+        max-width: 100%;
+    }
+
+    .photoTelecharger {
+        width: 160px;
+        height: 160px;
+    }
+
+    #menu_description {
+        width: 100%;
+        max-width: 300px;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    /* Plats disponibles */
+    .sectionPlats {
+        flex: 1;
+        margin: 0;
+        min-width: 0;
+    }
+
+    .divTablePlats {
+        max-height: 600px;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow: auto;
+    }
+
+    .divTablePlats td {
+        width: 250px;
+    }
+
+    .PhotoPlatsDisponible {
+        width: 160px;
+        height: 160px;
+    }
 }

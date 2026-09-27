@@ -9,12 +9,20 @@ footer {
     color: white;
 }
 
+
+/* =========================
+   BLOCS PRINCIPAUX
+   ========================= */
+
 .divMentionFooter,
 .divContactFooter {
     width: 20%;
 }
 
-/* Mention */
+
+/* =========================
+   MENTIONS
+   ========================= */
 
 .divMentionFooter {
     text-align: center;
@@ -30,7 +38,10 @@ footer {
     font-style: oblique;
 }
 
-/* Horaire */
+
+/* =========================
+   HORAIRES
+   ========================= */
 
 .divHoraireFooter p {
     margin-top: 0%;
@@ -41,7 +52,6 @@ footer {
 }
 
 .divHoraireFooter {
-    width: 10%;
     margin-left: 10%;
 }
 
@@ -49,7 +59,10 @@ footer {
     text-align: center;
 }
 
-/* Contact */
+
+/* =========================
+   CONTACT
+   ========================= */
 
 .divLogoFooter a {
     margin-left: 8%;
@@ -71,4 +84,130 @@ footer {
 .titreFooterSocial {
     margin: 5% 0 3% 5%;
     text-shadow: 1px 1px 2px brown;
+}
+
+
+/* =====================================================
+   TABLETTE
+   ===================================================== */
+
+@media screen and (max-width: 1024px) {
+
+    footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        width: 100vw;
+        max-width: 100vw;
+        box-sizing: border-box;
+
+        padding: 30px 20px;
+        gap: 20px;
+
+        overflow: hidden;
+    }
+
+    .divContactFooter,
+    .divMentionFooter,
+    .divHoraireFooter {
+        width: 0;
+        min-width: 0;
+        max-width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .divContactFooter {
+        flex: 1;
+    }
+
+    .divMentionFooter {
+        flex: 1.5;
+        text-align: center;
+    }
+
+    .divHoraireFooter {
+        flex: 1;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .divContactFooter p,
+    .divMentionFooter p {
+        margin-left: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .divHoraireFooter table {
+        display: table;
+
+        width: 100%;
+        max-width: 100%;
+
+        margin: 0;
+        padding: 0;
+
+        table-layout: fixed;
+        border-collapse: collapse;
+
+        font-size: 12px;
+    }
+
+    .divHoraireFooter th,
+    .divHoraireFooter td {
+        width: auto;
+        max-width: 50%;
+        padding: 2px;
+        white-space: nowrap;
+    }
+}
+
+
+/* =====================================================
+   PETIT MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 480px) {
+
+    footer {
+        padding: 30px 15px;
+        gap: 30px;
+    }
+
+    .divContactFooter,
+    .divMentionFooter,
+    .divHoraireFooter {
+        width: 100%;
+    }
+
+    .divContactFooter p {
+        font-size: 7px;
+        overflow-wrap: anywhere;
+    }
+
+    .divMentionFooter p {
+        font-size: 10px;
+    }
+
+    .divMentionFooter a {
+        font-size: 12px;
+    }
+
+    .divHoraireFooter table {
+        font-size: 6px;
+    }
+
+    .divContactFooter h6 {
+        font-size: 12px;
+    }
+
+    .divHoraireFooter p {
+        font-size: 12px;
+    }
+
+    .titreFooterSocial {
+        font-size: 12px;
+    }
+
 }

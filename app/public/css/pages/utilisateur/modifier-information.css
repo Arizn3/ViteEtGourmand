@@ -101,3 +101,62 @@ main {
 .divFormulaire a:active {
     background-color: rgb(1, 54, 147);
 }
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    main {
+        height: auto;
+        min-height: 700px;
+    }
+
+    .divFormulaire {
+        width: calc(100% - 30px);
+        height: auto;
+        min-height: 500px;
+        box-sizing: border-box;
+        margin: 40px auto;
+        padding: 20px 15px;
+    }
+
+    #utilisateur_email,
+    #utilisateur_adresse {
+        width: 100%;
+        max-width: 300px;
+        box-sizing: border-box;
+    }
+
+    #utilisateur_prenom,
+    #utilisateur_nom,
+    #utilisateur_telephone {
+        width: 100px;
+        box-sizing: border-box;
+    }
+}
+
+
+/* =========================
+   PETIT MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    .divFormulaire {
+        width: calc(100% - 20px);
+        padding: 15px 10px;
+    }
+
+    .divFormulaire h3 {
+        font-size: 18px;
+    }
+
+    #utilisateur_email,
+    #utilisateur_adresse {
+        width: 100%;
+        max-width: 280px;
+    }
+}

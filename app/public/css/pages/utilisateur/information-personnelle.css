@@ -32,7 +32,7 @@ main {
     border: 1px solid gray;
     box-shadow: 0 0 10px gray;
     width: 500px;
-    height: 600px;
+    height: 650px;
     border-radius: 20px;
     transition: 500ms;
 }
@@ -95,13 +95,13 @@ main {
     border: 1px solid gray;
     box-shadow: 0 0 10px gray;
     width: 500px;
-    height: 230px;
+    height: 270px;
     transition: 500ms;
     border-radius: 20px;
 }
 
 .avisUtilisateur:hover {
-        box-shadow: 0 0 30px gray;
+    box-shadow: 0 0 30px gray;
     transition: 500ms;
 }
 
@@ -134,4 +134,139 @@ main {
 .textAvis {
     margin: 0 auto 30px;
     font-family: Copperplate;
+}
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    /* Champs du mot de passe */
+    #user_change_password_form_currentPassword {
+        margin: 5px auto 0 40px;
+    }
+
+    #user_change_password_form_newPassword_first {
+        margin: 5px auto 0 24px;
+    }
+
+    #user_change_password_form_newPassword_second {
+        margin: 5px auto 0 0;
+    }
+
+    main {
+        gap: 50px;
+        height: auto;
+        min-height: 1000px;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .informationPersonnelle,
+    .avisUtilisateur {
+        box-sizing: border-box;
+    }
+
+    .informationPersonnelle {
+        width: 450px;
+        height: 670px;
+    }
+
+    .avisUtilisateur {
+        width: 450px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    main {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        height: auto;
+        min-height: 1000px;
+        margin-top: 30px;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    /* Informations personnelles */
+    .informationPersonnelle {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        min-height: 600px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Avis */
+    .avisUtilisateur {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        min-height: 230px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Champs du mot de passe */
+    #user_change_password_form_currentPassword {
+        margin: 5px auto 0 50px;
+    }
+
+    #user_change_password_form_newPassword_first {
+        margin: 5px auto 0 32px;
+    }
+
+    #user_change_password_form_newPassword_second {
+        margin: 5px auto 0 10px;
+    }
+
+    .adresseUtilisateur {
+        overflow-wrap: anywhere;
+    }
+}
+
+
+/* =========================
+   PETIT MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    main {
+        padding: 0 10px;
+        gap: 25px;
+    }
+
+    .informationPersonnelle,
+    .avisUtilisateur {
+        padding: 15px;
+    }
+
+    .informationPersonnelle {
+        min-height: 600px;
+    }
+
+    .informationPersonnelle h3,
+    .avisUtilisateur h3 {
+        font-size: 18px;
+    }
+
+    .informationPersonnelle p,
+    .avisUtilisateur p {
+        font-size: 14px;
+    }
+
+    .informationPersonnelle a,
+    .avisUtilisateur a {
+        font-size: 14px;
+    }
 }

@@ -30,9 +30,11 @@ main {
 
 /* Formulaire */
 .formulaire {
-    width: 1400px;
+    width: 100%;
+    max-width: 1400px;
     margin: 25px;
     padding: 10px;
+    box-sizing: border-box;
 }
 
 .formulaire form {
@@ -83,7 +85,7 @@ main {
 
 .plat {
     width: 230px;
-    height: 20px;
+    height: 70px;
     padding: 25px;
     border: 2px solid saddlebrown;
     border-radius: 20px;
@@ -107,13 +109,66 @@ main {
     background-color: blue;
     color: white;
     border-radius: 20px;
-    margin: 30px auto 0 40px;
+    margin: 30px 0 0;
     padding: 2px 10px;
     transition-duration: 300ms;
+    width: 300px;
 }
 
 .formulaire form button:hover {
     transition-duration: 300ms;
     background-color: beige;
     color: blue;
+}
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    main {
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .divTitre h3 {
+        margin: 25px 0;
+    }
+
+    .divTitre a {
+        margin: 10px 0;
+    }
+
+    .formulaire {
+        width: 100%;
+        max-width: 100%;
+        margin: 25px 0;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .formulaire form {
+        width: 100%;
+    }
+
+    /* Description */
+    #menu_description {
+        max-width: 350px;
+    }
+
+    /* Liste des plats */
+    .listePlats {
+        gap: 15px;
+    }
+
+    .plat {
+        width: 200px;
+        box-sizing: border-box;
+    }
+
+    /* Bouton */
+    .formulaire form button {
+        margin-left: 0;
+    }
 }

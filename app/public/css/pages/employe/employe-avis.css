@@ -32,12 +32,15 @@ main {
 .tableHistorique {
     background-color: beige;
     margin: 40px auto;
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
     border: 1px solid blue;
     border-radius: 20px;
     padding: 20px;
     box-shadow: 0 0 10px grey;
     height: auto;
+    box-sizing: border-box;
+    overflow-x: auto;
 }
 
 .tableHistorique table tr:hover {
@@ -85,4 +88,49 @@ main {
 
 .actionAvisTd {
     text-align: center;
+}
+
+/* =========================
+   TABLETTE
+========================= */
+
+@media (max-width: 1024px) {
+
+    main {
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .avisTitre {
+        margin: 20px auto;
+    }
+
+    .tableHistorique {
+        width: 100%;
+        max-width: 100%;
+        padding: 15px;
+        margin: 30px auto;
+        overflow-x: auto;
+    }
+
+    .tableHistorique table {
+        width: 100%;
+        min-width: 700px;
+    }
+
+    .utilisateurAvisTd {
+        width: 200px;
+    }
+
+    .noteAvisTd {
+        width: 100px;
+    }
+
+    .messageAvisTd {
+        width: 300px;
+    }
+
+    .actionAvisTd {
+        width: 80px;
+    }
 }

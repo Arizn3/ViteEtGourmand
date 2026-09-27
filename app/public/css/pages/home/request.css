@@ -34,3 +34,82 @@ main button:hover {
     background-color: gray;
     color: white;
 }
+
+
+/* =========================
+   TABLETTE
+   ========================= */
+
+@media screen and (max-width: 1024px) {
+
+    main {
+        margin: 120px auto;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media screen and (max-width: 768px) {
+
+    main {
+        width: calc(100% - 40px);
+        max-width: 400px;
+        height: auto;
+        min-height: 300px;
+        box-sizing: border-box;
+        margin: 70px auto;
+        padding: 20px;
+    }
+
+    main h1 {
+        font-size: xx-large;
+    }
+
+    #reset_password_request_form_email {
+        width: 100%;
+        max-width: 250px;
+        box-sizing: border-box;
+        margin: 20px auto;
+    }
+
+    main small {
+        display: block;
+        line-height: 1.5;
+    }
+
+    main button {
+        max-width: 100%;
+    }
+
+}
+
+
+/* =========================
+   PETITS MOBILES
+   ========================= */
+
+@media screen and (max-width: 480px) {
+
+    main {
+        width: calc(100% - 30px);
+        margin: 50px auto;
+        padding: 15px;
+    }
+
+    main h1 {
+        font-size: x-large;
+    }
+
+    main small {
+        font-size: 13px;
+    }
+
+    main button {
+        font-size: 13px;
+    }
+
+}

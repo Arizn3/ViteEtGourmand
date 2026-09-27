@@ -14,6 +14,8 @@ main {
     align-items: center;
     gap: 10px;
     margin-bottom: 5%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .formulaire a {
@@ -25,7 +27,7 @@ main {
     font-size: 15px;
     padding: 1px 10px 2px;
     font-family: Euphemia UCAS;
-    width: 50px;
+    width: 80px;
     margin: 1% auto;
     text-align: center;
 }
@@ -69,4 +71,36 @@ main {
 
 .listeRegime table td {
     color: cornflowerblue;
+}
+
+@media (max-width: 1024px) {
+
+    main {
+        min-height: 700px;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .formulaire {
+        margin-bottom: 30px;
+    }
+
+    .formulaire input,
+    .formulaire select,
+    .formulaire textarea {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .listeRegime {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        box-sizing: border-box;
+    }
+
+    .listeRegime table {
+        min-width: 250px;
+    }
+
 }
