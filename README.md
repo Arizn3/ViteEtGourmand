@@ -142,11 +142,12 @@ Retrouvez l’ensemble de la documentation du projet dans le dossier `documentat
 
 Version 1.0 — 17/05/2026  
 Version 1.1 — 28/08/2026  
+Version 1.2 — 27/09/2026  
 
 ## Mise à jour à venir :
 
 - [x] Amélioration générale du code
-- [ ] Amélioration globale du style
+- [x] Amélioration globale du style (responsive)
 - [ ] Ajout d'une fonctionnalité pour la création ou la suppression des allergènes
 - [ ] Ajout d'un nouveau graphique pour l'administrateur
 
